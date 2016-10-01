@@ -1,0 +1,9 @@
+/* Adapting the menu colors */
+#menu ul li, #footer {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#menu ul li:hover a {
+    background-color: #C4C4C4;
+    color: black;
+}

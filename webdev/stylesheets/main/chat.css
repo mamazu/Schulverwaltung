@@ -1,0 +1,51 @@
+#chatMessages {
+  line-height: 1.5;
+  margin-left: .5em;
+  padding: .5em 0;
+  width: 80%;
+}
+
+#chatContent, #onlineUsers {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Formating the chat content */
+div#chatContent {
+  width: 75%;
+}
+
+div#chatContent .daysPassed {
+  width: 100%;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  text-align: center;
+	margin: .5em 0;
+}
+
+/*formating the aside bar*/
+aside#onlineUsers {
+	border-left: 1px dotted;
+	padding-left: 1.25%;
+	margin-left: 1.25%;
+  width: 22.5%;
+}
+
+aside#onlineUsers ul li.inactive {
+  text-decoration: line-through;
+  color: grey;
+  color: rgba(0, 0, 0, .3);
+}
+
+/* Formating the the new message area */
+.sendMessages{
+	border-top: 1px solid;
+	margin: 1em auto;
+	padding-top: .5em;
+}
+
+.sendMessages #newMessage {
+	margin: auto;
+	display: block;
+  width: 95%;
+}

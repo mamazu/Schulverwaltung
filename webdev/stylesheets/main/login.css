@@ -1,0 +1,30 @@
+#content {
+    margin-top: 1em;
+}
+
+/*Login field and content */
+#loginField {
+    width: 50%;
+    border-left: 1px solid black;
+    padding-left: 1em;
+}
+
+#loginField form a {
+    font-size: 75%;
+    margin-right: 1em;
+}
+
+/* Linked list */
+#loginField, #linkList {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1em;
+}
+
+#linkList {
+    width: 50%;
+}
+
+#linkList h3 {
+    text-align: left;
+}

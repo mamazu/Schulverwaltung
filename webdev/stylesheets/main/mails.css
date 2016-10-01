@@ -1,0 +1,83 @@
+/* Formating button for trash can*/
+a#trashCan {
+    display: block;
+    float: right;
+}
+
+/*IDs*/
+header #mDate {
+    margin-right: 0.5em;
+    float: right;
+}
+
+/* Foramating the mail listing*/
+#mailTable * {
+    border-left: 0;
+    border-right: 0;
+    text-decoration: none;
+    border-collapse: collapse;
+}
+
+#mailTable td#emptyInbox {
+    font-size: 120%;
+}
+
+#mailTable thead tr {
+    border-top-width: thick;
+    border-bottom-width: 2px;
+}
+
+#mailTable tbody {
+    line-height: 1.75;
+}
+
+#mailTable .unread {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+#mailTable thead td:first-child {
+    width: 5em;
+}
+
+#mailTable thead td:nth-child(2) {
+    width: 50%;
+}
+
+#mailTable thead td:last-child {
+    width: 2em;
+}
+
+#mailTable .delete, #mailTable .delete a {
+    color: red;
+}
+
+#mailTable tbody td[rowspan] {
+    border-left: 1px solid;
+}
+
+#mailTable tbody td.rotate[rowspan] {
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+/* The big * for new mails */
+#mailTable tbody tr.unread td span.new {
+    line-height: 0;
+    position: absolute;
+    margin-top: .2em;
+    margin-left: -.2em;
+    font-size: 300%;
+}
+
+/* Message content */
+#messageContent {
+    text-align: justify;
+}
+
+#messageContent p {
+    padding: .5em;
+    margin: 0.5em;
+    background: rgba(255, 255, 255, 0.01);
+    line-height: 1.5;
+}

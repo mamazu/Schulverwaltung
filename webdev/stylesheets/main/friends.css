@@ -1,0 +1,14 @@
+#pending, #accepted{
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+	line-height: 1.25;
+}
+
+#pending ul, #accepted ul{
+	list-style: square;
+}
+
+.newFriends{
+	margin-top: 1em;
+}

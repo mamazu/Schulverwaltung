@@ -1,0 +1,54 @@
+#mainContent #filter, #mainContent #toDoList {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Formating the filter bar */
+#filter {
+    width: 20%;
+    box-sizing: border-box;
+}
+
+#filter form {
+    width: 90%;
+    margin-right: 2em;
+}
+
+#filter fieldset {
+    line-height: 1;
+}
+
+#filter input, #filter select {
+    width: 10em;
+    display: block;
+}
+
+/* Formating the entries */
+.unDone * {
+    color: red;
+}
+
+.done * {
+    color: green;
+}
+
+/* Formating the table */
+#toDoList {
+    width: 80%;
+}
+
+.dateCol, .prioCol {
+    min-width: 5.625em;
+}
+
+.dateCol {
+    width: 10%;
+}
+
+.typeCol {
+    width: 15%;
+}
+
+.prioCol {
+    width: 15%;
+}

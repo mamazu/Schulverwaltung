@@ -1,0 +1,45 @@
+/*Formating blocks */
+
+#mainContent > a {
+    text-decoration: none;
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding: .5em;
+}
+
+/* Formating cards */
+.card {
+    width: 100%;
+    min-height: 7em;
+    font-size: 125%;
+    padding: .5em;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.colapsed {
+    border: 2px solid black;
+    clear: both;
+    width: 100%;
+    margin: 1.5em 0;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.card p, .colapsed p {
+    text-align: justify;
+}
+
+a .card, a .colapsed {
+    color: black;
+}
+
+.colapsed > *:not(h2) {
+    display: none;
+}
+
+span {
+    font-weight: bold;
+    font-size: 125%;
+}

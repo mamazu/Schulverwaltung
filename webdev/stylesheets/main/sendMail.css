@@ -1,0 +1,19 @@
+form#mailForm {
+    width: 60%;
+    min-width: 50em;
+    line-height: 1;
+    margin: auto;
+}
+
+label, label span{
+    display: block;
+    margin-bottom: .3em;
+}
+
+input, select, textarea {
+    width: 100%;
+}
+
+select[disabled]{
+    display: none;
+}

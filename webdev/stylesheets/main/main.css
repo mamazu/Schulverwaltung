@@ -1,0 +1,33 @@
+/* General defintions */
+* {
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-size: 150%;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+/* Content */
+
+#content {
+    margin: 2.8em auto;
+    width: 90%;
+    padding: .5em;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+#mainContent {
+    padding-bottom: .5em;
+    border-bottom: 1px solid;
+}
+
+#mainContent ul, #mainContent ul li {
+    margin-left: .5em;
+}
