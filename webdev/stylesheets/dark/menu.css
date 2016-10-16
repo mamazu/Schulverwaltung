@@ -1,4 +1,8 @@
 /* Adapting the menu colors */
+nav{
+	background-color: inherit;
+}
+
 #menu ul li, #footer {
     background-color: rgba(0, 0, 0, 0.4);
 }

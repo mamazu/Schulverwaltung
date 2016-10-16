@@ -13,7 +13,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	$menuItem = new MenuEntry('overview/index.php', 'Overview');
 	$menuItem->addItem(new MenuEntry('overview/timetable.php', 'Timetable'));
 	if (in_array('admin', $perms)) {
-	   $menuItem->addItem(new MenuEntry('admin/index.php', 'Admin pannel'));
+		$menuItem->addItem(new MenuEntry('admin/index.php', 'Admin pannel'));
 	}
 	$menu->addItem($menuItem);
 
@@ -48,7 +48,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	$submenu = new MenuEntry('calendar/index.php', 'Calendar');
 	$submenu->addItem(new MenuEntry('calendar/create.php', 'Create Event'));
 	$menuItem->addItem($submenu);
-	$menuItem->addItem(new MenuEntry('overview/information.php', 'Ticker'));
+	$menuItem->addItem(new MenuEntry('overview/ticker.php', 'Ticker'));
 	$menuItem->addItem(new MenuEntry('profile/settings.php', 'Settings'));
 	$menu->addItem($menuItem);
 

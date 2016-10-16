@@ -1,53 +1,53 @@
 /* Menu Bar */
 nav {
-    position: fixed;
-    top: 0;
-    text-align: center;
-    line-height: 1;
-		height: 2.25em;
-		vertical-align: middle;
-		background-color: #919177;
-		border-bottom: 1px solid;
+	position: fixed;
+	top: 0;
+	text-align: center;
+	line-height: 1;
+	height: 2.25em;
+	vertical-align: middle;
+	background-color: #919177;
+	border-bottom: 1px solid;
 }
 
 nav#menu {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 nav#menu ul {
-    list-style: none;
+	list-style: none;
 }
 
 nav#menu > ul > li {
-    display: inline-block;
-    vertical-align: top;
+	display: inline-block;
+	vertical-align: top;
 }
 
 nav#menu > ul > li:hover > ul {
-    border-bottom: 0;
+	border-bottom: 0;
 }
 
 nav#menu ul li a {
-    display: block;
-    padding: .5em;
+	display: block;
+	padding: .5em;
 }
 
 /*Formating submenus */
 nav#menu ul li ul {
-    display: none;
-    border-radius: 0;
+	display: none;
+	border-radius: 0;
 }
 
 nav#menu ul li:hover ul {
-    display: block;
+	display: block;
 }
 
 /* Footer */
 footer {
-    padding: .5em;
+	padding: .5em;
 }
 
 footer p {
-    font-size: 75%;
+	font-size: 75%;
 }

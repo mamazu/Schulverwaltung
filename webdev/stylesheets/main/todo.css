@@ -24,12 +24,16 @@
 }
 
 /* Formating the entries */
-.unDone * {
+tr.unDone td{
     color: red;
 }
 
-.done * {
+tr.done td{
     color: green;
+}
+
+#toDoList tr, #toDoList td{
+    border-color: black;
 }
 
 /* Formating the table */

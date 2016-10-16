@@ -82,11 +82,9 @@ class ClassToDo {
 		$undone = 0;
 		$done = 0;
 		for($i = 0; $i < count($this->tasks); $i++) {
-			if($this->tasks[$i]->getDone()) {
+			if($this->tasks[$i]->getDone())
 				$done += 1;
-			} else {
-				$undone += 1;
-			}
+			else $undone += 1;
 		}
 		$total = $done + $undone;
 		$rate = round($done / $total * 100, 2);
@@ -147,7 +145,7 @@ class ClassToDo {
 		for($i = 0; $i < count($this->tasks); $i++) {
 			// Generate a row for every entry
 			$entry = $this->tasks[$i];
-			$resultString .= (string)$entry;
+			$resultString .= (string) $entry;
 		}
 		return $resultString;
 	}

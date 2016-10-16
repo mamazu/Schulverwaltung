@@ -1,16 +1,16 @@
 /* Formating a form */
 input, textarea, select {
-    color: white;
-    background-color: black;
-    border: 1px solid #CCCCCC;
+	color: white;
+	background-color: black;
+	border: 1px solid #CCCCCC;
 }
 
 input {
-    padding: 5px;
+	padding: 5px;
 }
 
 button {
-    color: black;
-    background-color: gray;
-    border-color: black;
+	color: black;
+	background-color: gray;
+	border-color: black;
 }

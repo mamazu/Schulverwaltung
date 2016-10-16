@@ -108,8 +108,8 @@ class Section {
 		} else {
 			return $result;
 		}
-		$result = $database->query("SELECT id FROM $databaseName WHERE parent = $this->id;");
-		while ($row = $result->fetch_row()) {
+		$queryResult = $database->query("SELECT id FROM $databaseName WHERE parent = $this->id;");
+		while ($row = $queryResult->fetch_row()) {
 			array_push($result, $row[0]);
 		}
 		return $result;

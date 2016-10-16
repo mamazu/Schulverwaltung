@@ -8,6 +8,8 @@
 #chatContent, #onlineUsers {
   display: inline-block;
   vertical-align: top;
+	height: 100%;
+	overflow-y: auto;
 }
 
 /* Formating the chat content */
