@@ -18,7 +18,7 @@ if(!isset($_POST['forumId'])) {
 $forumId = (int)$_POST['forumId'];
 $topicName = escapeStr($_POST['topicName']);
 $description = escapeStr($_POST['description']);
-$creatorId = $_SESSION['studentId'];
+$creatorId = $_SESSION['id'];
 
 
 //Querrying the database

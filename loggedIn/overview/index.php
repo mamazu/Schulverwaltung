@@ -3,7 +3,7 @@ require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Classes/Overview.php';
 
 $HTML = new HTMLGenerator\Page('Overview', ['overview.css'], ['toggleElement.js']);
-$overview = new \Overview($_SESSION['studentId']);
+$overview = new \Overview($_SESSION['id']);
 $HTML->outputHeader();
 ?>
 	<h1>Dashboard</h1>

@@ -5,7 +5,7 @@ global $database;
 
 //Deleting inactive user
 $timeBeforeKick = 1800; // 30m
-$database->query('DELETE FROM chat__online WHERE (NOW() - lastAction) <= ' . (time() - $timeBeforeKick) . ';');
+$database->query("DELETE FROM chat__online WHERE (NOW() - lastAction) => $timeBeforeKick;");
 
 //Querrying active user
 $result = $database->query('SELECT
@@ -27,7 +27,7 @@ while ($row = $result->fetch_assoc()) {
 	// Set user inactive
 	$class = ($row['timeSinceLastAction'] > $timeBeforeKick / 2) ? 'class="inactive"' : '';
 	//Echo it
-	echo "<li $class>$username" . date(' [h:i A]', $row['lastAction']) . '</li>';
+	echo "<li $class>$username" . date(' [h:i A]', strtotime($row['lastAction'])) .'</li>';
 }
 echo '</ul>';
 ?>

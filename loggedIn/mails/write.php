@@ -21,11 +21,11 @@ if($HTML->hasPermission()) {
 		<label>
 			<span>Recipients</span>
 			<?php
-			if(Authorization::userHasPermission($_SESSION['studentId'], 'social.mails.bulk')) {
+			if(Authorization::userHasPermission($_SESSION['id'], 'social.mails.bulk')) {
 				echo '<label><input type="checkbox" value="writeBulk" name="writeAll" onchange="allReceive(this)"/> Write a message to all users</label>';
 			}
 			echo '<select name="receiver[]" title="Name of the receiver" multiple="multiple">';
-			$result = $database->query('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ' . $_SESSION['studentId'] . ' AND id != 0;');
+			$result = $database->query('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ' . $_SESSION['id'] . ' AND id != 0;');
 			while ($row = $result->fetch_assoc()) {
 				$selected = ($row['id'] == $selectId) ? 'selected="selected"' : '';
 				echo '<option value="' . $row['id'] . '" ' . $selected . '>[' . $row['status'] . '] ' . $row['name'] . ' - ' . $row['username'] . '</option>';

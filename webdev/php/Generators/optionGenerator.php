@@ -8,7 +8,7 @@ function generateUserSelect($name = '', $excludeSelf = false) {
 	}
 	$result = $database->query('SELECT id, username FROM user__overview;');
 	while ($row = $result->fetch_row()) {
-		if($row[0] == $_SESSION['studentId'] && $excludeSelf) {
+		if($row[0] == $_SESSION['id'] && $excludeSelf) {
 			$finalResult .= '<option value="' . $row[0] . '">' . $row[1] . '</option>';
 		}
 	}

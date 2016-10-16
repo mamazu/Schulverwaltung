@@ -47,7 +47,7 @@ if(isset($_GET['date']) && isDate($_GET['date'])) {
 	    AND
 	    YEAR(startTime) =  ' . $calendar->getYear() . ')
 	    AND
-	    (NOT private OR (private AND creatorID = ' . $_SESSION['studentId'] . '));');
+	    (NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
 
 	$RandCol = ['green', 'red', 'blue', 'yellow', 'orange', 'grey'];
 

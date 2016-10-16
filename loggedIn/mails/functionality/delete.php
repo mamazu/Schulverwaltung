@@ -11,7 +11,7 @@ session_start();
 $messageID = intval($_GET['id']);
 $destination = '../read.php';
 
-if(MailManager\Overview::userHas($_SESSION['studentId'], $messageID)){
+if(MailManager\Overview::userHas($_SESSION['id'], $messageID)){
 	$database->query("UPDATE user__messages SET deleted = NOW() WHERE id = $messageID");
 	if($database->errno == 0){
 		Logger::log("The message (id: $messageID) was deleted", Logger::SOCIAL);

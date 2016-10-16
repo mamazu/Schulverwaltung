@@ -10,7 +10,7 @@ $HTML->outputHeader();
 $trash = isset($_GET['trash']);
 if($trash)
 	$oneOff = true;
-$overview = new MailManager\Overview($_SESSION['studentId'], $trash);
+$overview = new MailManager\Overview($_SESSION['id'], $trash);
 
 if($trash)
 	echo '<a href="index.php"><button>Back to inbox</button></a>';else{

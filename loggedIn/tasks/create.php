@@ -12,7 +12,7 @@ if(isset($_GET['deadline']) && isset($_GET['topic']) && isset($_GET['prio'])) {
 	$deadline = strtotime($predeadline);
 	$topic = escapeStr($_GET['topic']);
 	$prio = 0;
-	$suc = $database->query('INSERT INTO task__toDo(classID, studentID, deadline, content, typeID, prio) VALUES ' . '(0,' . $_SESSION['studentId'] . ',"' . $deadline . '","' . $topic . '", 5, ' . $prio . ');');
+	$suc = $database->query('INSERT INTO task__toDo(classID, studentID, deadline, content, typeID, prio) VALUES ' . '(0,' . $_SESSION['id'] . ',"' . $deadline . '","' . $topic . '", 5, ' . $prio . ');');
 	$todoId = mysql_insert_id();
 	if(!$suc) {
 		echo 'The todo entry could not be created.';

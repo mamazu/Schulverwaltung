@@ -30,12 +30,12 @@ if(isset($_GET['classID']) && intval($_GET['classID'])) {
 		</ul>
 		<br/>
 		<?php
-		$res = $database->query('SELECT COUNT(id) FROM task__toDo WHERE studentId = ' . $_SESSION['studentId'] . ' AND classID = ' . $cID . ' AND done = FALSE;');
+		$res = $database->query('SELECT COUNT(id) FROM task__toDo WHERE studentId = ' . $_SESSION['id'] . ' AND classID = ' . $cID . ' AND done = FALSE;');
 		$counter = $res->fetch_row();
 		//Listing the homeworks
 		echo '<h2>Homework (' . $counter[0] . ')</h2>';
 		echo '<ul>';
-		$result = $database->query('SELECT done, deadline, content FROM task__toDo WHERE studentId = ' . $_SESSION['studentId'] . ' AND classID = ' . $cID . ' ORDER BY done, deadline ASC LIMIT 20;');
+		$result = $database->query('SELECT done, deadline, content FROM task__toDo WHERE studentId = ' . $_SESSION['id'] . ' AND classID = ' . $cID . ' ORDER BY done, deadline ASC LIMIT 20;');
 		if($result->num_rows == 0) {
 			echo '<li>No homework to do.</li>';
 		} else {

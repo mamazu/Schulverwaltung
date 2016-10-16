@@ -27,7 +27,7 @@ if(!isset($_POST['postMessage'])) {
 }
 
 //Gathering data
-$posterId = $_SESSION['studentId'];
+$posterId = $_SESSION['id'];
 $messageContent = escapeStr($_POST['postMessage']);
 
 //Querrying the database

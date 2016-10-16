@@ -8,7 +8,7 @@ session_start();
 connectDB();
 global $database;
 
-$studentId = $_SESSION['studentId'];
+$studentId = $_SESSION['id'];
 $taskId = (int)$_GET['id'];
 $database->query("DELETE FROM task__toDo WHERE studentID = $studentId AND id = $taskId;");
 if($database->errno == 0) {

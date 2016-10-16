@@ -50,7 +50,7 @@ $subList = $object->getSubList();
 					} else {
 						$subItem = new Post($subList[$i]);
 						$postId = $subItem->getId();
-						$heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['nickName']) . ' says: ';
+						$heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['ui']['nickName']) . ' says: ';
 						$message = $subItem->getMessage();
 					}
 					?>
@@ -75,13 +75,13 @@ if($type == 'forum') {
 	echo '<a href="newTopic.php?forumId=' . $intId . '">Create new topic</a>';
 } else {
 	?>
-	<form action="postNew.php" method="POST">
+	<form action="postNew.php" method="POST" id="newPost">
 		<!-- Copying data from the previous page -->
 		<input type="hidden" name="topicId" value="<?php echo $intId; ?>"/>
 		<!-- Textarea for the post message -->
 		<fieldset>
 			<legend>New Post</legend>
-			<textarea name="postMessage" placeholder="What do you want to tell the world?"></textarea>
+			<textarea name="postMessage" class="newTopic" placeholder="What do you want to tell the world?"></textarea>
 			<br/>
 			<button type="submit">Post</button>
 			<button type="reset">Discard</button>

@@ -7,7 +7,7 @@ require_once '../../webdev/php/Classes/Lesson.php';
 
 #Initing objects
 $HTML = new HTMLGenerator\Page('Your class', ['table.css', 'form.css', 'lesson.css']);
-$lesson = new Lesson($_SESSION['studentId']);
+$lesson = new Lesson($_SESSION['id']);
 $HTML->outputHeader();
 
 global $database;
@@ -80,7 +80,7 @@ if($_SESSION['teacher']) {
 				}
 			}
 			echo '<td>';
-			if($_SESSION['studentId'] != $id) {
+			if($_SESSION['id'] != $id) {
 				echo "<a href=\"../mails/write.php?receiver=$id\">$img</a>";
 			} else {
 				echo 'X';

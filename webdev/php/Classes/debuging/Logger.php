@@ -17,8 +17,8 @@ class Logger extends LoggerConstants{
 	public static function log($event, $eventType){
 		global $database;
 		$topic = (int)$eventType;
-		if(isset($_SESSION['studentId'])){
-			$database->query("INSERT INTO debug__logger(event, topicId, issuer, `timestamp`) VALUES ('$event', $topic, " . $_SESSION['studentId'] . ', NOW());');
+		if(isset($_SESSION['id'])){
+			$database->query("INSERT INTO debug__logger(event, topicId, issuer, `timestamp`) VALUES ('$event', $topic, " . $_SESSION['id'] . ', NOW());');
 		}else{
 			$database->query("INSERT INTO debug__logger(event, topicId, issuer, `timestamp`) VALUES ('$event', $topic, 0, NOW());");
 		}

@@ -8,7 +8,7 @@ function isChecked($bool) {
 }
 
 $HTML = new HTMLGenerator\Page('Your Profile', ['form.css'], ['expandList.js']);
-$settings = new ClassPerson($_SESSION['studentId']);
+$settings = new ClassPerson($_SESSION['id']);
 $HTML->outputHeader();
 ?>
 <h1>Changing profile settings</h1>
@@ -17,15 +17,11 @@ $HTML->outputHeader();
 	<fieldset>
 		<!-- Showing the student the information that he can't change -->
 		<legend>Immutable information</legend>
-		Name:
-		<?php
-		$name = $settings->getName();
-		echo $name[0] . ' ' . $name[1] . ' (' . $name[2] . ')';
-		?>
+		Name:		<?= $settings->getFullName(); ?>
 		<br/>
 		Status:
 		<?php
-		echo $statusArray[$settings->getStatus()];
+		echo ucfirst(ClassPerson::STATUSARRAY[$settings->getStatus()]);
 		if($settings->getStatus() == 's') {
 			echo ' in Grade ' . $settings->getGrade();
 		}
@@ -34,28 +30,30 @@ $HTML->outputHeader();
 	<!-- Allowing the student to change his password -->
 	<fieldset>
 		<legend>Change password:</legend>
-		Old password: <input type="password" name="oldPsw" placeholder="old one"/>
+		<label>
+			Old password: <input type="password" name="oldPsw" placeholder="old one"/>
+		</label>
 		<br/>
-		New password: <input type="password" name="newPswOne" placeholder="new one"/>
+		<label>
+			New password: <input type="password" name="newPswOne" placeholder="new one"/></label>
 		<br/>
-		Re-type password: <input type="password" name="newPswTwo" placeholder="new one again"/>
+		<label>
+			Re-type password: <input type="password" name="newPswTwo" placeholder="new one again"/>
+		</label>
 	</fieldset>
 	<!-- Altering the look and feel of the page -->
 	<fieldset>
 		<legend>UI Settings</legend>
 		<label>
-			<input type="checkbox" name="nickName" <?php echo isChecked($_SESSION['ui']['nickName']) ? 'checked=""' : ''; ?> />
-			Use nickname instead of the real names?
+			<input type="checkbox" name="nickName" <?= isChecked($_SESSION['ui']['nickName']); ?> /> Use nickname instead of the real names?
 		</label>
 		<br/>
 		<label>
-			<input type="checkbox" name="markNames" <?php echo isChecked($_SESSION['ui']['markNames']) ? 'checked=""' : ''; ?> />
-			Should the marks be displayed as words?
+			<input type="checkbox" name="markNames" <?= isChecked($_SESSION['ui']['markNames']); ?> /> Should the marks be displayed as words?
 		</label>
 		<br/>
 		<label>
-			<input type="checkbox" name="dark" <?php echo isChecked($_SESSION['ui']['darkTheme']) ? 'checked=""' : ''; ?> />
-			Enable the dark mode of the web-site
+			<input type="checkbox" name="dark" <?= isChecked($_SESSION['ui']['darkTheme']); ?> /> Enable the dark mode of the web-site
 		</label>
 	</fieldset>
 	<fieldset>

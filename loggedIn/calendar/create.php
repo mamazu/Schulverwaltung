@@ -8,7 +8,7 @@ $HTML->outputHeader();
 
 	<h1>Create a new event</h1>
 	<form action="createEvent.php" method="POST" onsubmit="return checkEvent()">
-		<input type="hidden" value="<?php echo $_SESSION['studentId']; ?>" name="studentId"/>
+		<input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="studentId"/>
 		<fieldset>
 			<legend>General information</legend>
 			<input type="text" name="eventName" placeholder="Name of the event"/>

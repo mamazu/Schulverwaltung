@@ -3,7 +3,7 @@
 function getPermission() {
 	global $database;
 	$perms = [];
-	$result = $database->query('SELECT * FROM user__permission WHERE id = ' . $_SESSION['studentId'] . ';');
+	$result = $database->query('SELECT * FROM user__permission WHERE id = ' . $_SESSION['id'] . ';');
 	if($result->num_rows == 1) {
 		$row = $result->fetch_assoc();
 		unset($row['id']);

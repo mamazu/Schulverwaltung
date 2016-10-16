@@ -1,32 +1,31 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
-require_once '../../../webdev/php/Classes/ClassPerson.php';
-require_once '../../../webdev/php/Forum/Section.php';
 
-$HTML = new HTMLGenerator\Page('Forum', ['form.css', 'forum.css'], NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Forum', ['overview.css', 'forum.css'], NULL, NULL, 1);
 $HTML->outputHeader();
 
 global $database;
-?>
-<h1>Select the forum</h1>
-<form action="readForum.php" method="GET">
-	<label>Select a course for the forum:
-		<select name="forumId">
-			<?php
-			$result = $database->query('
-				SELECT classID, course__overview.subject
+$result = $database->query('
+				SELECT
+					course__student.classID AS "id",
+					course__overview.subject AS "subject"
 				FROM course__student
 				JOIN course__overview
 				ON course__overview.id = course__student.classID
-				WHERE studentID = ' . $_SESSION['studentId'] . ';');
-			while ($row = $result->fetch_row()) {
-				echo '<option value="' . $row[0] . '">' . $row[1] . '</option>';
-			}
-			?>
-		</select></label>
-	<br/>
-	<button type="submit">Select</button>
-</form>
-<?php
+				WHERE studentID = ' . $_SESSION['id'] . ';');
+$newPosts = 1;
+echo '<h1>Foums you participate in</h1>';
+
+while ($row = $result->fetch_assoc()) {
+	?><a href="readForum.php?id=<?= $row['id'] ?>">
+		<div class="card"><h2><?= $row['subject'] ?></h2>
+			<?php if($newPosts > 0): ?>
+			<p> You have <?= $newPosts ?> new topic<?= ($newPosts > 1) ? 's':''?> in this forum. </p>
+			<?php else: ?>
+			<p> Nothing new here. </p>
+			<?php endif ?>
+		</div>
+	</a><?
+}
 $HTML->outputFooter();
 ?>

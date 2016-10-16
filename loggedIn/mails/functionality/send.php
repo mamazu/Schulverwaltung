@@ -9,7 +9,7 @@ global $database;
 session_start();
 // Getting the data from the previous form
 $subject = escapeStr($_POST['subject']);
-$sender = $_SESSION['studentId'];
+$sender = $_SESSION['id'];
 $textarea = escapeStr($_POST['message']);
 
 //Setting up errors

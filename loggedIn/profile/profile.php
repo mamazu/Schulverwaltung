@@ -11,7 +11,7 @@ global $database;
 if(isset($_GET['id']) && (intval($_GET['id']) != 0)) {
 	$person = new ClassPerson(intval($_GET['id']));
 } else {
-	$person = new ClassPerson($_SESSION['studentId']);
+	$person = new ClassPerson($_SESSION['id']);
 }
 
 $name = $person->getName();
@@ -55,7 +55,7 @@ if($person->isValid()) {
 			<ul>
 				<?php
 				if($status == 't') {
-					$result = $database->query('SELECT id, grade, subject, active FROM course__overview WHERE teacherID = ' . $_SESSION['studentId'] . ' ORDER BY active DESC;');
+					$result = $database->query('SELECT id, grade, subject, active FROM course__overview WHERE teacherID = ' . $_SESSION['id'] . ' ORDER BY active DESC;');
 					$active = true;
 					while ($row = $result->fetch_assoc()) {
 						if($row['active'] != $active) {
@@ -66,7 +66,7 @@ if($person->isValid()) {
 					}
 					echo($active ? '' : 'The red marked courses are inactive.');
 				} else {
-					$result = $database->query('SELECT classID FROM course__student WHERE studentId=' . $_SESSION['studentId'] . ';');
+					$result = $database->query('SELECT classID FROM course__student WHERE studentId=' . $_SESSION['id'] . ';');
 					while ($row = $result->fetch_row()) {
 						$newClass = new StudentClass($row[0]);
 						echo $newClass . '<br />';

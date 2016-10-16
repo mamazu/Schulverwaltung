@@ -16,7 +16,7 @@ if($newFriends[0] == 0) {
 	}
 }
 
-$result = $database->query('INSERT INTO user__friends(fOne, fTwo) VALUES (' . $_SESSION['studentId'] . ", $newFriends);");
+$result = $database->query('INSERT INTO user__friends(fOne, fTwo) VALUES (' . $_SESSION['id'] . ", $newFriends);");
 if($result) {
 	Message::castMessage('Successfully send friend requests', true, $home);
 	Logger::log('New friend request for user: ' . $newFriends, Logger::SOCIAL);

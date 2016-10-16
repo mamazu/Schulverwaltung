@@ -4,7 +4,7 @@ global $database;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if($id == 0) {
-	$id = $_SESSION['studentId'];
+	$id = $_SESSION['id'];
 }
 
 $HTML = new HTMLGenerator\Page('Change personal information', ['form.css'], ['checkMail.js'], NULL, 2);
@@ -55,7 +55,7 @@ $HTML->outputHeader();
 		<fieldset>
 			<legend>Delete</legend>
 			<?php
-			if($id != $_SESSION['studentId']) {
+			if($id != $_SESSION['id']) {
 				echo '<a href="delete.php?id=' . $id . '">Delete user</a>';
 			} else {
 				echo 'You can not delete your own profile.';

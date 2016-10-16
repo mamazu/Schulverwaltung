@@ -13,7 +13,6 @@ $HTML->outputHeader(); ?>
 		</thead>
 		<tbody>
 		<?php
-		var_dump($timetable);
 		foreach($timetable as $period){
 			echo '<tr>';
 			for($i = 0; $i < 6; $i++){

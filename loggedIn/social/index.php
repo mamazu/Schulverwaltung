@@ -5,7 +5,7 @@ require_once '../../webdev/php/Classes/ClassPerson.php';
 
 # Creating objects
 $HTML = new HTMLGenerator\Page('See all your friends', ['form.css', 'friends.css']);
-$friends = new Friends($_SESSION['studentId']);
+$friends = new Friends($_SESSION['id']);
 $HTML->outputHeader();
 
 global $database;
@@ -43,7 +43,7 @@ global $database;
 		}
 		echo '</ul>';
 	}
-	?>you
+	?>
 </div>
 
 <!-- Sending new friend requests -->
@@ -58,10 +58,10 @@ global $database;
 		    status
 		FROM user__overview
 		LEFT JOIN user__friends friend
-		    ON user__overview.id = friend.fOne AND friend.fTwo = ' . $_SESSION['studentId'] . '
-		    OR user__overview.id = friend.fTwo AND friend.fOne = ' . $_SESSION['studentId'] . '
+		    ON user__overview.id = friend.fOne AND friend.fTwo = ' . $_SESSION['id'] . '
+		    OR user__overview.id = friend.fTwo AND friend.fOne = ' . $_SESSION['id'] . '
 		WHERE
-		    user__overview.id != ' . $_SESSION['studentId'] . '
+		    user__overview.id != ' . $_SESSION['id'] . '
 		AND
 		    friend.fOne IS NULL
 		ORDER BY status;');

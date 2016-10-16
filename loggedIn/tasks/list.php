@@ -7,9 +7,9 @@ require_once '../../webdev/php/Generators/optionGenerator.php';
 $HTML = new HTMLGenerator\Page('To-Do', ['table.css', 'form.css', 'todo.css'], ['selectionToggle.js']);
 $HTML->outputHeader();
 
-$currentStudent = new ClassToDo($_SESSION['studentId']);
+$currentStudent = new ClassToDo($_SESSION['id']);
 
-$toggleId = (int)$_GET['toggleId'];
+$toggleId = isset($_GET['toggleId']) ? intval($_GET['toggleId']) : 0;
 if($toggleId != 0) {
 	$suc = $currentStudent->toggle($toggleId);
 	header('Location: list.php');
@@ -38,7 +38,7 @@ if($toggleId != 0) {
 			<?php echo generateTableHead(['Date', 'Topic', 'Type', 'Priority']); ?>
 			<tbody>
 			<!-- Generating the body of the table -->
-			<?php echo (string)$currentStudent ?>
+			<?php echo (string) $currentStudent ?>
 			</tbody>
 			<tfoot>
 			<tr>

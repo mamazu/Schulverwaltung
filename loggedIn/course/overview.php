@@ -15,7 +15,7 @@ $sqlClasses = '
 	LEFT OUTER JOIN task__toDo
 	ON task__toDo.classID = course__overview.id
 	WHERE
-	    course__student.studentID = ' . $_SESSION['studentId'] . '
+	    course__student.studentID = ' . $_SESSION['id'] . '
 	GROUP BY subject
 	ORDER BY active DESC, abbr ASC;';
 global $database;

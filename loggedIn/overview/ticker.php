@@ -5,7 +5,7 @@ require_once '../../webdev/php/Classes/ClassClass.php';
 $HTML = new HTMLGenerator\Page('Information', ['information.css']);
 $HTML->outputHeader();
 global $database;
-
+var_dump($_SESSION);
 ?>
 <h1>Current News</h1>
 <p>

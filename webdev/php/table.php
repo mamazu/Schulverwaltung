@@ -12,7 +12,7 @@ function getTimetable(){
 	LEFT JOIN course__overview
 	ON course__student.classID = course__overview.id
 	WHERE course__student.studentID IS NULL
-	OR course__student.studentID = ' . $_SESSION['studentId'] . '
+	OR course__student.studentID = ' . $_SESSION['id'] . '
 	ORDER BY lesson, day;';
 	$times = getTimes();
 	$result = $database->query($queryTable);

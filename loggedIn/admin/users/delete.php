@@ -11,7 +11,7 @@ if(isset($_GET['id'])) {
 	$id = intval($_GET['id']);
 	if($id == 0) {
 		Message::castMessage('Invalid id', false, $destination);
-	} elseif($id == $_SESSION['studentId']) {
+	} elseif($id == $_SESSION['id']) {
 		Message::castMessage('You can not delete your own profile.', false, $destination);
 	}
 	$result = $database->query('DELETE FROM user__overview WHERE id=' . $id . ';');

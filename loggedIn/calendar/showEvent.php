@@ -37,7 +37,7 @@ $result = $database->query("SELECT DISTINCT
 	    ON (event__participants.`value` = user__overview.id AND event__participants.`type` = 'p')
 	WHERE
 	    (\"" . $sqlDate . "\" BETWEEN DATE(startTime) AND DATE(endTime))
-	    AND (NOT private OR (private AND creatorID = " . $_SESSION['studentId'] . "));");
+	    AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
 if(mysql_num_rows($result) != 0) {
 	while ($row = mysql_fetch_row($result)) {
 		$event = new EventClass($row[0]);
