@@ -15,19 +15,21 @@ class Page extends Header {
 	public function __construct($pageName, $curCSS = NULL, $curJS = NULL, $other = NULL, $subdir = 0) {
 		parent::__construct($pageName, $curCSS, $curJS, $other, $subdir);
 		//Including database connection
-		$dir = __DIR__;
-		require_once $dir . '/../../Classes/auth/PageAuth.php';
-		require_once $dir . '/../../essentials/essentials.php';
-		require_once $dir . '/../../Classes/debuging/Logger.php';
-		require_once $dir . '/../../Classes/Messages.php';
+		$dir = __DIR__.'/';
+		require_once $dir . '../../essentials/essentials.php';
+		require_once $dir . '../../Classes/auth/PageAuth.php';
+		require_once $dir . '../../Classes/debuging/Logger.php';
+		require_once $dir . '../../Classes/Messages.php';
+		require_once $dir . '../../essentials/session.php';
 		$this->subdir = $subdir;
 		if($this->subdir != -1) {
-			require_once $dir . '/../../checkLoggedIn.php';
+			require_once $dir . '../../checkLoggedIn.php';
 		}
 		connectDB();
-		$this->auth = new \Authorization($_SESSION['studentId']);
+		if(isset($_SESSION['id']))
+			$this->auth = new \Authorization($_SESSION['id']);
 		$this->relativeURL = $this->getRelativeURL();
-		$this->menuFile = __DIR__ . '/../../menu.php';
+		$this->menuFile = $dir . '../../menu.php';
 	}
 
 	/**
@@ -54,7 +56,7 @@ class Page extends Header {
 	 *        Outputs the header of the HTML file
 	 */
 	public function outputHeader() {
-		if($_SESSION['ui']['darkTheme']) {
+		if(isset($_SESSION['ui']['darkTheme']) && $_SESSION['ui']['darkTheme']) {
 			$this->toogleMode(HeaderMode::DARKMODE);
 		}
 		echo '<!DOCTYPE html><html>';

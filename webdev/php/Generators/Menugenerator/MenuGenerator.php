@@ -1,6 +1,6 @@
 <?php
 
-require_once 'MenuItem.php';
+require_once 'MenuEntry.php';
 require_once __DIR__ . '/../../perms.php';
 
 //Calculates the additionalDepth
@@ -18,6 +18,8 @@ $additionalDepth = substr_count($subst, '/');
  * @return string
  */
 function getRootURL($url) {
+	if($url == '#' || $url == '')
+		return '#';
 	global $additionalDepth;
 	for($i = 0; $i < $additionalDepth; $i++) {
 		$url = '../' . $url;

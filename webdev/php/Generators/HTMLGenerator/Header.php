@@ -109,10 +109,34 @@ class Header {
 		$result = '<head><title>' . $this->title . '</title><!-- Meta information -->';
 		//Outputting meta information about the site.
 		foreach($this->metaInformation as $information => $value) {
-			$result .= "<meta $information=\"$value\" />";
+			$result .= "<meta $information=\"$value\" />\n";
 		}
-		$result .= '<!-- Stylesheets -->';
+		echo '
+			<!-- ****** faviconit.com Favicons ****** -->
+			<link rel="shortcut icon" href="/Schulverwaltung/res/Favicon/favicon.ico">
+			<link rel="icon" sizes="16x16 32x32 64x64" href="/Schulverwaltung/res/Favicon/favicon.ico">
+			<link rel="icon" type="image/png" sizes="196x196" href="/Schulverwaltung/res/Favicon/favicon-192.png">
+			<link rel="icon" type="image/png" sizes="160x160" href="/Schulverwaltung/res/Favicon/favicon-160.png">
+			<link rel="icon" type="image/png" sizes="96x96" href="/Schulverwaltung/res/Favicon/favicon-96.png">
+			<link rel="icon" type="image/png" sizes="64x64" href="/Schulverwaltung/res/Favicon/favicon-64.png">
+			<link rel="icon" type="image/png" sizes="32x32" href="/Schulverwaltung/res/Favicon/favicon-32.png">
+			<link rel="icon" type="image/png" sizes="16x16" href="/Schulverwaltung/res/Favicon/favicon-16.png">
+			<link rel="apple-touch-icon" href="/Schulverwaltung/res/Favicon/favicon-57.png">
+			<link rel="apple-touch-icon" sizes="114x114" href="/Schulverwaltung/res/Favicon/favicon-114.png">
+			<link rel="apple-touch-icon" sizes="72x72" href="/Schulverwaltung/res/Favicon/favicon-72.png">
+			<link rel="apple-touch-icon" sizes="144x144" href="/Schulverwaltung/res/Favicon/favicon-144.png">
+			<link rel="apple-touch-icon" sizes="60x60" href="/Schulverwaltung/res/Favicon/favicon-60.png">
+			<link rel="apple-touch-icon" sizes="120x120" href="/Schulverwaltung/res/Favicon/favicon-120.png">
+			<link rel="apple-touch-icon" sizes="76x76" href="/Schulverwaltung/res/Favicon/favicon-76.png">
+			<link rel="apple-touch-icon" sizes="152x152" href="/Schulverwaltung/res/Favicon/favicon-152.png">
+			<link rel="apple-touch-icon" sizes="180x180" href="/Schulverwaltung/res/Favicon/favicon-180.png">
+			<meta name="msapplication-TileColor" content="#FFFFFF">
+			<meta name="msapplication-TileImage" content="/Schulverwaltung/res/Favicon/favicon-144.png">
+			<meta name="msapplication-config" content="/Schulverwaltung/res/Favicon/browserconfig.xml">
+			<!-- ****** faviconit.com Favicons ****** -->
+		';
 		//Outputting the css files
+		$result .= '<!-- Stylesheets -->';
 		$currentDir = $this->getDir();
 		foreach($this->cssFiles as $file) {
 			$result .= '<link rel="stylesheet" href="' . $currentDir . 'stylesheets/main/' . $file . '" />' . "\n";

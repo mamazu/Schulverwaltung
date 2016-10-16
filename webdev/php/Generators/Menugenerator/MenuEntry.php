@@ -2,7 +2,8 @@
 
 class MenuEntry {
 
-	private $link, $caption, $width;
+	private $link, $caption;
+	private $width = 100;
 	private $subItems = [];
 
 	/**
@@ -12,14 +13,8 @@ class MenuEntry {
 	 * @param string $caption
 	 */
 	public function __construct($link = NULL, $caption = NULL) {
-		if($link && $caption) {
-			$this->link = $link;
-			$this->caption = $caption;
-		} else {
-			$this->link = '';
-			$this->caption = '';
-		}
-		$this->width = 100;
+		$this->link = is_null($link) ? '' : $link;
+		$this->caption = is_null($caption) ? '' : $caption;
 	}
 
 	/**
@@ -83,19 +78,17 @@ class MenuEntry {
 	 * @return string
 	 */
 	public function __toString() {
+		$submenus = '';
 		if(count($this->subItems) != 0) {
 			//Getting the submenus
-			$submenus = '<ul>';
-			for($i = 0; $i < count($this->subItems); $i++) {
-				$submenus .= (string)$this->subItems[$i];
-			}
+			$submenus .= '<ul>';
+			foreach($this->subItems as $submenu)
+				$submenus .= (string) $submenu;
 			$submenus .= '</ul>';
-		} else {
-			$submenus = '';
 		}
 		//Return the result
-		return "<li style=\"width:" . $this->width . "%\">
-		<a href=\"" . getRootURL($this->link) . '">' . $this->caption . '</a>' . $submenus . '</li>';
+		$aHref = '<a href="' . getRootURL($this->link) . '">' . $this->caption . '</a>';
+		return '<li style="width:' . $this->width . '%">'. $aHref . $submenus . '</li>';
 	}
 
 }
