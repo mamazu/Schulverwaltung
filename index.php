@@ -3,7 +3,7 @@ require 'webdev/php/Generators/HTMLGenerator/Page.php';
 
 $page = new \HTMLGenerator\Page('Login to use the service', ['main.css', 'login.css', 'form.css', 'messages.css'], ['messageMovement.js'], null, -1);
 $page->outputHeader();
-if(isset($_SESSION['studentId'])) {
+if(isset($_SESSION['id'])) {
 	header('Location: loggedIn/overview/index.php');
 }
 ?>
@@ -17,10 +17,9 @@ if(isset($_SESSION['studentId'])) {
 		<li><a href="help/help.php">Help / Wiki</a></li>
 		<li><a href="api/index.php">Go to the API</a></li>
 	</ul>
-</div>
-	<div id="loginField">
+</div><div id="loginField">
 	<form action="loginFWD.php" method="POST">
-		<label>Username: <input type="text" maxlength="100" name="username" placeholder="Username"/></label>
+		<label>Username: <input type="text" maxlength="100" name="username" placeholder="Username" autofocus="true"/></label>
 		<br/>
 		<label>Password: <input type="password" name="psw" placeholder="Password"/></label>
 		<br/>
