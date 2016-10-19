@@ -1,6 +1,6 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
-require_once '../../../webdev/php/Forum/Section.php';
+require_once '../../../webdev/php/Modules/Forum/Section.php';
 require_once '../../../webdev/php/Classes/Messages.php';
 
 //Setting up the HTML and the forum object

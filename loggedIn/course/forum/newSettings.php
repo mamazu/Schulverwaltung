@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../../webdev/php/Classes/Messages.php';
-require_once '../../../webdev/php/Forum/Section.php';
+require_once '../../../webdev/php/Modules/Forum/Section.php';
 require_once '../../../webdev/php/essentials/databaseEssentials.php';
 
 $type = $_POST['type'];

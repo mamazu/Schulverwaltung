@@ -1,8 +1,8 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Classes/ClassPerson.php';
-require_once '../../../webdev/php/Forum/Section.php';
-require_once '../../../webdev/php/Forum/Post.php';
+require_once '../../../webdev/php/Modules/Forum/Section.php';
+require_once '../../../webdev/php/Modules/Forum/Post.php';
 
 $HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], NULL, NULL, 1);
 $HTML->outputHeader();
