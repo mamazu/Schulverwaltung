@@ -2,55 +2,37 @@
 
 namespace MarkManager;
 
-class Test{
-	private $id, $topic, $testDate, $courseID, $testId;
+class Test extends \DatabaseObject{
+	protected $topic, $testDate, $courseID;
 	private $tasks = [];
 
-	public function __construct($id=NULL, $topic=NULL, $testDate=NULL, $courseID=NULL) {
-		$this->id = is_null($id) ? NULL : intval($id);
-		if(!is_null($id) && is_null($topic)){
-			$this->loadDatabase();
+	public function __construct($id=NULL, $topic=NULL, $testDate=NULL, $courseID=NULL, $save=false) {
+		parent::__construct($id, 'test__overview');
+		if(!is_null($this->getID()) && is_null($topic)){
+			$this->load();
 			$this->loadTasks();
 		}else{
-			$this->topic = $topic;
+			$this->topic = (string) $topic;
 			$this->testDate = is_null($testDate) ? time() : $testDate;
 			$this->courseID = intval($courseID);
-			$this->saveDatabase();
+			if($save)
+			    $this->commit();
 		}
 	}
 
-	// --------------------Loading functionallity--------------------
-	private function loadDatabase(){
-		global $database;
-		$result = $database->query("SELECT * FROM test__overview WHERE id = $this->id;");
-		if(!$result || $result->num_rows == 0)
-			return;
-		$row = $result->fetch_assoc();
-		$this->topic = $row['topic'];
-		$this->testDate = strtotime($row['testDate']);
-		$this->courseID = intval($row['classID']);
+	public function load(){
+	    parent::load();
+		$this->testDate = strtotime($this->testDate);
+		$this->courseID = intval($this->courseID);
 	}
 
 	private function loadTasks(){
 		global $database;
-		$result = $database->query("SELECT * FROM test__tasks WHERE testId = $this->id;");
+		$result = $database->query("SELECT * FROM test__tasks WHERE testId = $this->id");
 		while($row = $result->fetch_assoc()){
 			$task = new Task($row['id'], $row['question'], $row['type'], $row['maxScore']);
 			array_push($this->tasks, $task);
 		}
-	}
-
-	// --------------------Saving functionallity--------------------
-	private function saveDatabase(){
-		global $database;
-		$escapedTopic = \escapeStr($this->topic);
-		$testDate = date('Y-m-d H:i:s', $this->testDate);
-		if(is_null($this->id))
-			$query = "INSERT INTO test__overview VALUES (NULL, '$escapedTopic', '$testDate', $this->courseID);";
-		else
-			$query = "UPDATE test__overview SET topic = '$escapedTopic', testDate = '$testDate', classID = $this->courseID WHERE id = $this->id;";
-		$database->query($query);
-		$this->id = is_null($this->id) ? intval($database->insert_id) : $this->id;
 	}
 
 	public function commitTaskList(){
@@ -62,28 +44,55 @@ class Test{
 		}
 		$result = $database->multi_query($query);
 		$database->close();
+		return $result;
 	}
 
-	//Adding a task to the list
+    /**
+     * Adds a task object to a test
+     * @param Task $task
+     * @return int
+     */
 	public function addTask(Task $task){
-		$task->testId = $this->id;
 		array_push($this->tasks, $task);
+		return $task->getID();
 	}
 
-	//Adding a task to the list
-	public function addTasks(Array $tasks){
-		for ($i=0; $i < count($tasks); $i++)
-			$this->addTask($this->tasks, $tasks[0]);
-	}
+	public function getTopic(){ return $this->topic; }
 
 	//Getter
-	public function getID(){ return $this->id; }
-	public function getTopic(){ return $this->topic; }
+
 	public function getTestDate(){ return $this->testDate; }
+
 	public function getCourseID(){ return $this->courseID; }
+
 	public function getTasks(){ return $this->tasks; }
+
+    /**
+     * Prints out all the tasks that are loaded
+     * @param string $separator Separator between the tasks
+     * @param bool $formatted If the code should be formatted in html
+     */
+	public function printTasks($separator="\n------------------\n", $formatted=false){
+		$result = '';
+		foreach ($this->tasks as $task) {
+			$result .= (string) $task . $separator;
+		}
+		echo ($formatted) ? nl2br($result) : $result;
+	}
+
+	public function __toString(){
+		$questionCount = $this->getTaskCount();
+		$score = $this->getMaxScore();
+		$id = $this->getID();
+		return 'Class: ' . get_class($this)."\nId: $id\nTopic: $this->topic\nCourse Id: $this->courseID\nQuestion count: $questionCount\nMax score: $score";
+	}
+
 	public function getTaskCount(){ return count($this->tasks); }
 
+    /**
+     * Gets the maximum score of the test
+     * @return int Maximum score
+     */
 	public function getMaxScore(){
 		$sum = 0;
 		foreach($this->tasks as $task)
@@ -91,23 +100,17 @@ class Test{
 		return $sum;
 	}
 
-	public function printTasks($seperator="\n------------------\n", $formated=false){
-		$result = '';
-		foreach ($this->tasks as $task) {
-			$result .= (string) $task . $seperator;
-		}
-		if($formated)
-			echo str_replace("\n", '<br />', $result);
-		else
-			echo $result;
-	}
-
-	public function __toString(){
-		$questionCount = $this->getTaskCount();
-		$score = $this->getMaxScore();
-		return 'Class: ' . get_class($this)."\nId: $this->id\nTopic: $this->topic\nCourse Id: $this->courseID\nQuestion count: $questionCount\nMax score: $score";
-	}
-
+    /**
+     * Gets the state of the object (must contain all the elements that should be stored in a database)
+     * @return array Associative array of the "property" => value
+     */
+    protected function getState(){
+        return [
+            'topic' => \escapeStr($this->topic),
+            'testDate' => date('Y-m-d H:i:s', $this->testDate),
+            'classID' => $this->courseID
+        ];
+    }
 }
 
 ?>

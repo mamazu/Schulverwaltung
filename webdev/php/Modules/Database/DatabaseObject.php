@@ -1,10 +1,11 @@
 <?php
 
-require_once __DIR__.'/databaseEssentials.php';
+require_once __DIR__.'/../../essentials/databaseEssentials.php';
 connectDB();
 
 abstract class DatabaseObject{
-	private $id, $tableName, $loaded;
+	protected $id;
+	private $tableName, $loaded;
 
 	/**
 	 * Constructor of the Database object
@@ -17,21 +18,11 @@ abstract class DatabaseObject{
 		$this->loaded = false;
 	}
 
-	/**
-	 * Setter for the id
-	 * @param int $id Id of the object
-	 */
-	public function setID($id){ $this->id = max(0, intval($id)); }
-	/**
-	 * Getter for the id
-	 * @return int Id of the object
-	 */
-	public function getID(){return $this->id; }
-
-	/**
-	 * Sets the name of the databaseTable (and checks it if it exists)
-	 * @param string $tableName Name of the table
-	 */
+    /**
+     * Sets the name of the databaseTable (and checks it if it exists)
+     * @param string $tableName Name of the table
+     * @return bool Returns true if the table name was set false otherwise
+     */
 	private function setTableName($tableName){
 		global $database;
 		$result = $database->query('SHOW TABLES;');
@@ -42,46 +33,51 @@ abstract class DatabaseObject{
 			}
 		}
 		return false;
-		echo 'Table does not exist';
+	}
+
+	/**
+	 * Getter for the id
+	 * @return int Id of the object
+	 */
+	public function getID(){return $this->id; }
+
+	/**
+	 * Setter for the id
+	 * @param int $id Id of the object
+	 */
+	public function setID($id){ $this->id = is_null($id) ? NULL : max(0, intval($id)); }
+
+	/**
+	 * Commits the object to the database
+	 * @return boolean True if it was successful, false otherwise
+	 */
+	public function commit(){
+		global $database;
+		$state = $this->getState();
+		$colValues = $this->prepare($state);
+		if($this->loaded)
+			$stmt = $this->generateUpdate($colValues);
+		else
+			$stmt = $this->generateInsert($colValues);
+		if($stmt == ''){
+			echo 'Invalid table name.<br />';
+			return false;
+		}
+		$database->query($stmt);
+		if(!$this->loaded) $this->id = $database->insert_id;
+		return !boolval($database->error);
 	}
 
 	/**
 	 * Gets the state of the object (must contain all the elements that should be stored in a database)
-	 * @return Array Associative array of the "property" => value
+	 * @return array Associative array of the "property" => value
 	 */
-	abstract public function getState();
-
-	/**
-	 * Generates an insert into query based on the data as column => value
-	 * @param  Array $data Associative array
-	 * @return string      String of the sql statement
-	 */
-	private function generateInsert($data){
-		if(is_null($this->tableName)) return '';
-		$stmt = "INSERT INTO $this->tableName ";
-		$stmt .= '('. implode(',', array_keys($data)) . ') VALUES ';
-		$stmt .= '('. implode(',', array_values($data)) . ');';
-		return $stmt;
-	}
-
-	/**
-	 * Generates an update query based on the data as column => value
-	 * @param  Array $data Associative array
-	 * @return string      String of the sql statement
-	 */
-	private function generateUpdate($data){
-		if(is_null($this->tableName)) return '';
-		$stmt = "UPDATE $this->tableName SET ";
-		foreach($data as $column => $value){
-			$stmt .= "$column = $value, ";
-		}
-		return substr($stmt, 0, -2)." WHERE id=$this->id;";
-	}
+	abstract protected function getState();
 
 	/**
 	 * Prepares the state for database insertion (removes columns and escapes values)
-	 * @param  Array $state Associative array
-	 * @return Array        Clean associative array
+	 * @param  array $state Associative array
+	 * @return array        Clean associative array
 	 */
 	private function prepare($state){
 		$cleanState = [];
@@ -99,28 +95,37 @@ abstract class DatabaseObject{
 		return $cleanState;
 	}
 
-	//-------------- SAVING FUNCTIONALITY --------------
 	/**
-	 * Commits the object to the database
-	 * @return boolean True if it was sucessfull, false otherwise
+	 * Generates an update query based on the data as column => value
+	 * @param  array $data Associative array
+	 * @return string      String of the sql statement
 	 */
-	public function commit(){
-		global $database;
-		$state = $this->getState();
-		$colValues = $this->prepare($state);
-		if($this->loaded)
-			$stmt = $this->generateUpdate($colValues);
-		else
-			$stmt = $this->generateInsert($colValues);
-		if($stmt == ''){
-			echo 'Invalid table name.<br />';
-			return false;
+	private function generateUpdate($data){
+		if(is_null($this->tableName)) return '';
+		$stmt = "UPDATE $this->tableName SET ";
+		foreach($data as $column => $value){
+			$stmt .= "$column = $value, ";
 		}
-		$database->query($stmt);
-		return !boolval($database->error);
+		return substr($stmt, 0, -2)." WHERE id=$this->id;";
+	}
+
+	//-------------- SAVING FUNCTIONALITY --------------
+
+	/**
+	 * Generates an insert into query based on the data as column => value
+	 * @param  array $data Associative array
+	 * @return string      String of the sql statement
+	 */
+	private function generateInsert($data){
+		if(is_null($this->tableName)) return '';
+		$stmt = "INSERT INTO $this->tableName ";
+		$stmt .= '('. implode(',', array_keys($data)) . ') VALUES ';
+		$stmt .= '('. implode(',', array_values($data)) . ');';
+		return $stmt;
 	}
 
 	//-------------- LOADING FUNCTIONALITY --------------
+
 	/**
 	 * Loads the object from the database
 	 * @return void
