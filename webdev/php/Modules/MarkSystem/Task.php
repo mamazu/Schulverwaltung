@@ -2,24 +2,24 @@
 namespace MarkManager;
 
 class Task extends \DatabaseObject {
-	private $question, $answer, $type, $maxScore;
+	protected $question, $answer, $type, $maxScore;
 
 	public function __construct($id=NULL, $question='', $answer='', $questionType='FreeText', $maxScore=0, $save=false){
-	    parent::__construct($id, 'test__tasks');
+		parent::__construct($id, 'test__tasks');
 		if($id && !$question)
 			$this->load();
-        else{
+		else{
 			$this->question = $question;
 			$this->answer = $answer;
 			$this->setType($questionType);
-			$this->setScore($maxScore);
+			$this->setMaxScore($maxScore);
 			if($save)
-			    $this->commit();
+				$this->commit();
 		}
 	}
 
 	public function load(){
-	    parent::load();
+		parent::load();
 		$this->maxScore = intval($this->maxScore);
 	}
 
@@ -36,21 +36,19 @@ class Task extends \DatabaseObject {
 		return true;
 	}
 
-	//Getter
+	//Getter and Setter
 
-	public function setScore($score){ $this->maxScore = max(0, $score); }
-
-	public function getQuestion(){ return $this->question; }
-
-	public function setQuestion($question){ $this->question = $question; }
-
-	public function getAnswer(){ return $this->answer; }
-
-	//Setter
-
-	public function getType(){ return $this->type; }
+	public function setMaxScore($score){ $this->maxScore = max(0, $score); }
 
 	public function getMaxScore(){ return $this->maxScore; }
+
+	public function getQuestion(){ return $this->question; }
+	public function setQuestion($question){ $this->question = $question; }
+	public function getAnswer(){ return $this->answer; }
+	public function setAnswer($answer){ $this->answer = (string) $answer; }
+	public function getType(){ return $this->type; }
+
+	//DatabaseObject
 
 	public function __toString(){
 		return 'Class: ' . get_class($this)."\nId: $this->id\nQuestion: $this->question\nAnswer: $this->answer\nType: $this->type\nMax Score: $this->maxScore";
@@ -58,11 +56,11 @@ class Task extends \DatabaseObject {
 
 	protected function getState(){
 		return [
-            'question' => $this->question,
-            'answer' => $this->answer,
-            'type' => $this->type,
-            'maxScore' => $this->maxScore
-        ];
+			'question' => $this->question,
+			'answer' => $this->answer,
+			'type' => $this->type,
+			'maxScore' => $this->maxScore
+		];
 	}
 }
 
