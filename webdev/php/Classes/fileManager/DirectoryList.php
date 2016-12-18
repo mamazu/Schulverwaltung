@@ -4,7 +4,7 @@ class DirectoryList{
 	private static $baseDir = 'Schulverwalung/files/documents';
 	private $id;
 	private $type = '';
-	
+
 	/**
 	* Constructor for the DirectoryList
 	* @param int $id Id of the type you want to have
@@ -19,7 +19,7 @@ class DirectoryList{
 		$this->type = strtolower(substr($type, 0, 1));
 		$this->exists = $this->isExisting();
 	}
-	
+
 	/**
 	* Returns wheater the directory exists
 	* @return boolean
@@ -28,18 +28,18 @@ class DirectoryList{
 		$dirName = $this->type . $this->id;
 		return file_exists(DirectoryList::$baseDir . '/' . $dirName);
 	}
-	
+
 	/**
 	 * STATIC FUNCTION: setBaseDir()
 	 * Sets the basedir of all down and uploads
 	 * @param string $newBaseDir
-	 *    [OPTIONAL] if not specified it will be the default directory (downloads)
+	 *	[OPTIONAL] if not specified it will be the default directory (downloads)
 	 * @return int
-	 *    1: Directory was found and was empty
-	 *    2: Directory was found and is not empty
+	 *	1: Directory was found and was empty
+	 *	2: Directory was found and is not empty
 	 *
-	 *    0: Directory was not found and was created
-	 *    -1: Directory was not found and could not be created
+	 *	0: Directory was not found and was created
+	 *	-1: Directory was not found and could not be created
 	 **/
 	public static function setBaseDir($newBaseDir = 'Schulverwalung/files/documents') {
 		$base = DirectoryList::path_safe($newBaseDir);
@@ -85,7 +85,7 @@ class DirectoryList{
 				return 'Undefined';
 		}
 	}
-	
+
 	/**
 	* Shows all the files in the directory.
 	 * @param boolean $verbose

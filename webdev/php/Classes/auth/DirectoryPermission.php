@@ -69,9 +69,9 @@ class DirectoryPermission {
 		$this->perms['reading'] = is_null($reading) ? $this->perms['reading'] : boolval($reading);
 		$this->perms['writing'] = is_null($writing) ? $this->perms['writing'] : boolval($writing);
 		$result = $database->query('UPDATE permission__directory SET
-			    visible = ' . $this->perms['visible'] . ',
-			    reading = ' . $this->perms['reading'] . ',
-			    writing = ' . $this->perms['writing'] . ' WHERE userId = ' . $this->id . ';');
+				visible = ' . $this->perms['visible'] . ',
+				reading = ' . $this->perms['reading'] . ',
+				writing = ' . $this->perms['writing'] . ' WHERE userId = ' . $this->id . ';');
 		return boolval($result);
 	}
 

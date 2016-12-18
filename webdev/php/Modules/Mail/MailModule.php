@@ -28,7 +28,7 @@ class Overview{
 	 * Queries the information from the database.
 	 *
 	 * @return bool
-	 *        Returns true if
+	 *		Returns true if
 	 */
 	private function load(){
 		global $database;
@@ -44,12 +44,12 @@ class Overview{
 	 * userHas($user, $mail)
 	 *
 	 * @static
-	 *        Returns wheather the user has received this message (permission to read)
+	 *		Returns wheather the user has received this message (permission to read)
 	 *
 	 * @param int $user
-	 *        Id of the user
+	 *		Id of the user
 	 * @param int $mail
-	 *        Id of the mail
+	 *		Id of the mail
 	 *
 	 * @return boolean
 	 */
@@ -70,7 +70,7 @@ class Overview{
 
 	/**
 	 * getTotal()
-	 *        Returns the total number of mails that you have in your inbox
+	 *		Returns the total number of mails that you have in your inbox
 	 *
 	 * @return int
 	 */
@@ -97,7 +97,7 @@ class Overview{
 
 	/**
 	 * getIds()
-	 *        Returns the ids of all messages
+	 *		Returns the ids of all messages
 	 *
 	 * @return array
 	 */

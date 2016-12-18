@@ -14,11 +14,11 @@ class Homework {
 		$this->id = $id;
 		#Getting the content
 		$query = 'SELECT
-		    task__toDo.content AS "task",
-		    hwMaterial.book AS "book",
-		    hwMaterial.sheets AS "sheet",
-		    hwMaterial.others AS "others",
-		    hwMaterial.`link` AS "link"
+			task__toDo.content AS "task",
+			hwMaterial.book AS "book",
+			hwMaterial.sheets AS "sheet",
+			hwMaterial.others AS "others",
+			hwMaterial.`link` AS "link"
 		FROM task__toDo
 		LEFT JOIN homework__material hwMaterial
 		ON hwMaterial.hwID=task__toDo.id
@@ -40,7 +40,7 @@ class Homework {
 
 	/**
 	 * getTopic()
-	 *        Returns the topic of the homework
+	 *		Returns the topic of the homework
 	 * @return string
 	 */
 	function getTopic() {
@@ -51,7 +51,7 @@ class Homework {
 
 	/**
 	 * getMaterial()
-	 *        Returns the HTML version of all materials
+	 *		Returns the HTML version of all materials
 	 * @return string
 	 */
 	function getMaterial() {

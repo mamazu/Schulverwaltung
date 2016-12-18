@@ -1,58 +1,58 @@
 #mainContent #filter, #mainContent #toDoList {
-    display: inline-block;
-    vertical-align: top;
+	display: inline-block;
+	vertical-align: top;
 }
 
 /* Formating the filter bar */
 #filter {
-    width: 20%;
-    box-sizing: border-box;
+	width: 20%;
+	box-sizing: border-box;
 }
 
 #filter form {
-    width: 90%;
-    margin-right: 2em;
+	width: 90%;
+	margin-right: 2em;
 }
 
 #filter fieldset {
-    line-height: 1;
+	line-height: 1;
 }
 
 #filter input, #filter select {
-    width: 10em;
-    display: block;
+	width: 10em;
+	display: block;
 }
 
 /* Formating the entries */
 tr.unDone td{
-    color: red;
+	color: red;
 }
 
 tr.done td{
-    color: green;
+	color: green;
 }
 
 #toDoList tr, #toDoList td{
-    border-color: black;
+	border-color: black;
 }
 
 /* Formating the table */
 #toDoList {
-    width: 80%;
+	width: 80%;
 }
 
 .dateCol, .prioCol {
-    min-width: 5.625em;
+	min-width: 5.625em;
 }
 
 .dateCol {
-    width: 10%;
+	width: 10%;
 }
 
 .typeCol {
-    width: 15%;
+	width: 15%;
 }
 
 .prioCol {
-    width: 15%;
+	width: 15%;
 }

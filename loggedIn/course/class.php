@@ -51,7 +51,7 @@ if(isset($_GET['classID']) && intval($_GET['classID'])) {
 		<?php
 	} else {
 		echo '<h1>ERROR while loading page.</h1>
-	    The requested class does not exist';
+		The requested class does not exist';
 	}
 } else {
 	echo '<h1>ERROR while loading page.</h1>

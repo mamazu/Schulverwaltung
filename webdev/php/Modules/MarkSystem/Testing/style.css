@@ -1,0 +1,21 @@
+body {
+	background-color: black;
+	color: white;
+	font-family: sans-serif;
+}
+h1, p{
+	padding: 0;
+	margin: 0;
+}
+ul{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+table.markTable *{
+	border: 1px solid white;
+}
+
+tr.overscore{
+	background-color: red;
+}

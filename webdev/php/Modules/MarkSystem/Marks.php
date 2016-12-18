@@ -2,7 +2,7 @@
 namespace MarkManager;
 
 class Marks{
-	private $MARKS = array();
+	private static $MARKS = array();
 
 	/**
 	* Reloads the marks from the database
@@ -21,7 +21,8 @@ class Marks{
 		global $database;
 		$result = $database->query('SELECT name, upperBound FROM test__marks ORDER BY upperBound ASC;');
 		while($row = $result->fetch_array())
-			Marks::$MAKRS[$row[1]] = $row[0];
+			Marks::$MARKS[$row[1]] = $row[0];
+		return boolval($result);
 	}
 
 	/**
@@ -31,6 +32,9 @@ class Marks{
 	*	the name of the mark
 	**/
 	public static function getMark($value){
+		Marks::loadMarks();
+		if(count(Marks::$MARKS) == 0)
+			return -1;
 		$mark = array_values(Marks::$MARKS)[0];
 		foreach (Marks::$MARKS as $markValue => $name) {
 			if($markValue <= $value) $mark = $name;

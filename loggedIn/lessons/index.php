@@ -56,15 +56,15 @@ if($_SESSION['teacher']) {
 		echo generateTableHead($cols);
 		//Querying all the students
 		$result = $database->query('SELECT
-		    status,
-		    user__overview.id AS "id",
-		    CONCAT(`name`, " ", surname) AS "name"
+			status,
+			user__overview.id AS "id",
+			CONCAT(`name`, " ", surname) AS "name"
 		FROM course__student
 		JOIN user__overview
 		ON user__overview.id = course__student.studentID
 		WHERE classID = ' . $lesson->getClassId() . '
 		ORDER BY
-		    status DESC, surname ASC;');
+			status DESC, surname ASC;');
 		//Outputting them in a table
 		$img = '<img src="' . getRootURL('../webdev/images/mail.png') . '" title="Mailsymbol" style="height:1em"/>';
 		while ($row = mysql_fetch_assoc($result)) {
@@ -76,7 +76,7 @@ if($_SESSION['teacher']) {
 					echo '<td></td><td></td>';
 				} else {
 					echo '<td><input type="checkbox" checked="checked" name="attend[]" value="' . $id . '" /></td>
-		    <td><input type="checkbox" checked="checked" name="homework[]" value="' . $id . '" /></td>';
+			<td><input type="checkbox" checked="checked" name="homework[]" value="' . $id . '" /></td>';
 				}
 			}
 			echo '<td>';

@@ -8,7 +8,7 @@ global $database;
 /**
  * Connects to the database and therefore stores the information in this place.
  * @return boolean
- *      If the connection failed, it returns false
+ *	  If the connection failed, it returns false
  */
 function connectDB() {
 	global $database;
@@ -20,9 +20,9 @@ function connectDB() {
 /**
  * Escapes a string and makes it ready for database-insertion
  * @param String $input
- *      The String that should be escaped
+ *	  The String that should be escaped
  * @return String
- *      The escaped String
+ *	  The escaped String
  */
 function escapeStr($input) {
 	global $database;

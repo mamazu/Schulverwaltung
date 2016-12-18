@@ -23,16 +23,16 @@ if(isset($_GET['show'])) {
 	<h1>List of all students and teachers</h1>
 	<hr/>
 	<form class="threeCols center" method="GET">
-    <span>Order by:
+	<span>Order by:
 	<select name="order">
-	    <?php
+		<?php
 		foreach($possibleSorters as $key => $value) {
 			$selected = ($value == $sortOrder) ? 'selected' : '';
 			echo '<option value="' . $key . '" ' . $selected . '>' . $key . '</option>';
 		}
 		?>
 	</select>
-    </span>
+	</span>
 		<!--<br />-->
 		<label><input type="checkbox" name="show" <?php echo ($showSystem) ? 'checked' : '' ?> class="oneColumn"/> Show administrator account</label>
 		<span><button type="submit">Reoder</button></span>
@@ -43,7 +43,7 @@ if(isset($_GET['show'])) {
 // Querrying database
 $whereClause = ($showSystem) ? '' : 'WHERE id != 0';
 $result = $database->query('
-	    SELECT
+		SELECT
 		id AS "ID",
 		CONCAT(name, " ", surname) AS "Name",
 		mail AS "E-Mail",
@@ -54,12 +54,12 @@ $result = $database->query('
 		username AS "Username",
 		CONCAT("<a href=\"change.php?id=", id, " \">Edit</a>") AS "Edit",
 		CONCAT("<a href=\"delete.php?id=", id, " \">Delete</a>") AS "Delete"
-	    FROM user__overview' . "\n" . $whereClause . "\n" . 'ORDER BY ' . $sortOrder . ';');
+		FROM user__overview' . "\n" . $whereClause . "\n" . 'ORDER BY ' . $sortOrder . ';');
 
 // Counting users
 $num = $result->num_rows();
 echo '<p>There are ' . $num . ' users registered.</p>
-    <table>';
+	<table>';
 // Outputting the table
 if($num > 0) {
 	$row = $result->fetch_assoc();

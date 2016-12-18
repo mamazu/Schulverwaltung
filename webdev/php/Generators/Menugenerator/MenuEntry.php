@@ -8,7 +8,7 @@ class MenuEntry {
 
 	/**
 	 * __construct($link, $caption)
-	 *        Creates an instance of the object
+	 *		Creates an instance of the object
 	 * @param string $link
 	 * @param string $caption
 	 */
@@ -19,10 +19,10 @@ class MenuEntry {
 
 	/**
 	 * addItem($newItem)
-	 *        Add an item to the list of menu items
+	 *		Add an item to the list of menu items
 	 * @param MenuEntry $newItem
 	 * @return boolean
-	 *        Returns true if it works otherwise false
+	 *		Returns true if it works otherwise false
 	 */
 	public function addItem($newItem = NULL) {
 		if($newItem instanceof MenuEntry) {
@@ -45,7 +45,7 @@ class MenuEntry {
 	// <editor-fold defaultstate="collapsed" desc="Getter">
 	/**
 	 * getLink()
-	 *        Returns the link where the menu items leads
+	 *		Returns the link where the menu items leads
 	 * @return string
 	 */
 	public function getLink() {
@@ -54,7 +54,7 @@ class MenuEntry {
 
 	/**
 	 * getCaption()
-	 *        Returns the caption of the link
+	 *		Returns the caption of the link
 	 * @return string
 	 */
 	public function getCaption() {
@@ -63,9 +63,9 @@ class MenuEntry {
 
 	/**
 	 * getSubItems()
-	 *        Returns all the submenu items
+	 *		Returns all the submenu items
 	 * @return array
-	 *        Array of MenuEntry
+	 *		Array of MenuEntry
 	 */
 	public function getSubItems() {
 		return $this->subItems;

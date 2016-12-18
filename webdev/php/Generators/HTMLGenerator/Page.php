@@ -21,6 +21,7 @@ class Page extends Header {
 		require_once $dir . '../../Classes/debuging/Logger.php';
 		require_once $dir . '../../Classes/Messages.php';
 		require_once $dir . '../../essentials/session.php';
+
 		$this->subdir = $subdir;
 		if($this->subdir != -1) {
 			require_once $dir . '../../checkLoggedIn.php';
@@ -53,7 +54,7 @@ class Page extends Header {
 
 	/**
 	 * outputHeader()
-	 *        Outputs the header of the HTML file
+	 *		Outputs the header of the HTML file
 	 */
 	public function outputHeader() {
 		if(isset($_SESSION['ui']['darkTheme']) && $_SESSION['ui']['darkTheme']) {

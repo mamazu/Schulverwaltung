@@ -36,7 +36,7 @@ class Calendar {
 
 	/**
 	 * getMonth()
-	 *    Gets the month of the calendar
+	 *	Gets the month of the calendar
 	 * @return int
 	 */
 	public function getMonth() {
@@ -45,7 +45,7 @@ class Calendar {
 
 	/**
 	 * getYear()
-	 *        Gets the year of the calendar
+	 *		Gets the year of the calendar
 	 * @return int
 	 */
 	public function getYear() {
@@ -54,7 +54,7 @@ class Calendar {
 
 	/**
 	 * getMonthName()
-	 *    Gets the date of the first day in a month
+	 *	Gets the date of the first day in a month
 	 * @return int
 	 */
 	public function getMonthName() {
@@ -148,9 +148,9 @@ class Calendar {
 	/**
 	 * isMarked($day)
 	 * @param int $day
-	 *        The day that should be checked.
+	 *		The day that should be checked.
 	 * @return boolean
-	 *        Wheather the day is marked or not.
+	 *		Wheather the day is marked or not.
 	 */
 	public function isMarked($day) {
 		if($day > 0 && $day < count($this->marked) + 1) {

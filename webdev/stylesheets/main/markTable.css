@@ -1,0 +1,7 @@
+table.markTable *{
+	border: 1px solid white;
+}
+
+tr.overscore{
+	background-color: red;
+}

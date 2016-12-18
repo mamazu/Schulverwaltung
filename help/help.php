@@ -49,10 +49,10 @@ while ($row = $result->fetch_assoc()) {
 		<?php
 		for($i = 0; $i < count($answers); $i++) {
 			echo '<div class="answer" id="question' . $i . '">
-	    <a name="' . $i . '"></a>
-	    <h4>Q: ' . $questions[$i] . '</h4>
-	    <p> ' . nl2br($answers[$i]) . ' </p>
-	    </div>';
+		<a name="' . $i . '"></a>
+		<h4>Q: ' . $questions[$i] . '</h4>
+		<p> ' . nl2br($answers[$i]) . ' </p>
+		</div>';
 		}
 		?>
 	</div>

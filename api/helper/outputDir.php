@@ -9,35 +9,35 @@
  * @return array|mixed|string
  */
 function createFilter($pseudoRegEx = '*') {
-    if (is_array($pseudoRegEx)) {
+	if (is_array($pseudoRegEx)) {
 	for ($i = 0; $i < count($pseudoRegEx); $i++) {
-	    $pseudoRegEx[$i] = createFilter($pseudoRegEx[$i]);
+		$pseudoRegEx[$i] = createFilter($pseudoRegEx[$i]);
 	}
 	return $pseudoRegEx;
-    } else {
+	} else {
 	$dotReplace = str_replace('.', '\.', $pseudoRegEx);
 	$starReplace = str_replace('*', '.*', $dotReplace);
 	$questionMark = str_replace('?', '.', $starReplace);
 	return $questionMark;
-    }
+	}
 }
 
 /**
  * Returns if the directory or file is excluded
  * @param $name string
- *        Name of the file
+ *		Name of the file
  * @param $excluded boolean
- *        Exclusion array
+ *		Exclusion array
  *
  * @return bool
  */
 function isExcluded($name, $excluded) {
-    for ($i = 0; $i < count($excluded); $i++) {
+	for ($i = 0; $i < count($excluded); $i++) {
 	if (preg_match('/^' . $excluded[$i] . '$/', $name)) {
-	    return true;
+		return true;
 	}
-    }
-    return false;
+	}
+	return false;
 }
 
 /**
@@ -56,37 +56,37 @@ function isExcluded($name, $excluded) {
  * 	Returns false if the directory handle could wasn't created otherwise true
  * */
 function ouputDir($directory, $exclude = ['.', '..'], $flagDir = true, $excludeDir = false) {
-    $handle = opendir($directory);
-    $filter = is_null($exclude) ? [] : createFilter($exclude);
-    if (!$handle) {
+	$handle = opendir($directory);
+	$filter = is_null($exclude) ? [] : createFilter($exclude);
+	if (!$handle) {
 	closedir();
 	return false;
-    }
-    while (($entry = readdir($handle)) !== false) {
+	}
+	while (($entry = readdir($handle)) !== false) {
 	$fullPath = $directory . '/' . $entry;
 	if (isExcluded($entry, $filter) || (is_dir($fullPath) && $excludeDir)) {
-	    continue;
+		continue;
 	}
 	echo '<li>' . outputFilename($fullPath, $flagDir) . '</li>';
-    }
-    closedir();
-    return true;
+	}
+	closedir();
+	return true;
 }
 
 /**
  * Outputs the filename and flags the directory if specified
  * @param $name string
- *        The name of the directory or file
+ *		The name of the directory or file
  * @param $flagDir boolean
- *        If the dir is prefixed with [DIR]
+ *		If the dir is prefixed with [DIR]
  *
  * @return string
  */
 function outputFilename($name, $flagDir) {
-    //Prefixes if is_dir is true
-    $result = (is_dir($name) && $flagDir) ? '[DIR] ' : '';
-    $fileName = basename($name);
-    return $result . $fileName;
+	//Prefixes if is_dir is true
+	$result = (is_dir($name) && $flagDir) ? '[DIR] ' : '';
+	$fileName = basename($name);
+	return $result . $fileName;
 }
 
 ?>

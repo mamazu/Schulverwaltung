@@ -4,8 +4,8 @@ function getTimetable(){
 	global $database;
 	$queryTable = '
 	SELECT
-	    course__overview.subject AS "subject",
-	    day, lesson, room
+		course__overview.subject AS "subject",
+		day, lesson, room
 	FROM course__student
 	RIGHT JOIN timetable__overview
 	ON timetable__overview.classID = course__student.classID
@@ -35,7 +35,7 @@ function getTimetable(){
 
 /**
  * dataToString($arrayData)
- *    Extracts the information out of the sql result
+ *	Extracts the information out of the sql result
  *
  * @param array $arrayData
  *
@@ -47,7 +47,7 @@ function dataToString($arrayData){
 
 /**
  * getTimes()
- *    Returns an array of the standard times in the timetable
+ *	Returns an array of the standard times in the timetable
  *
  * @return array
  */

@@ -12,7 +12,7 @@ $additionalDepth = substr_count($subst, '/');
 
 /**
  * getRootURL($url)
- *    Returns the root url of the input path
+ *	Returns the root url of the input path
  * @global int $additionalDepth
  * @param string $url
  * @return string
@@ -33,10 +33,10 @@ class MenuGenerator {
 
 	/**
 	 * addItem($newItem)
-	 *        Adds an item from the menu
+	 *		Adds an item from the menu
 	 * @param MenuEntry $newItem
 	 * @return boolean
-	 *        Returns if the action was successfull
+	 *		Returns if the action was successfull
 	 */
 	public function addItem($newItem = NULL) {
 		if($newItem == NULL || !($newItem instanceof MenuEntry)) {
@@ -48,11 +48,11 @@ class MenuGenerator {
 
 	/**
 	 * setItem($newItem)
-	 *        Sets all the MenuItems of the menu
+	 *		Sets all the MenuItems of the menu
 	 * @param array $newItem
-	 *        Prepared menu
+	 *		Prepared menu
 	 * @return boolean
-	 *        Returns true on success otherwise false
+	 *		Returns true on success otherwise false
 	 */
 	public function setItem($newItem) {
 		for($i = 0; $i < count($newItem); $i++) {
@@ -66,10 +66,10 @@ class MenuGenerator {
 
 	/**
 	 * removeItem($newItem)
-	 *        Removes an item from the menu
+	 *		Removes an item from the menu
 	 * @param MenuEntry $newItem
 	 * @return boolean
-	 *        Returns if the action was successfull
+	 *		Returns if the action was successfull
 	 */
 	public function removeItem($newItem = NULL) {
 		if($newItem == NULL || !($newItem instanceof MenuEntry)) {

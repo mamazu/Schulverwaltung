@@ -1,12 +1,12 @@
 /* Formating the table */
 td {
-    border-color: silver;
+	border-color: silver;
 }
 
 .red * {
-    color: red;
+	color: red;
 }
 
 .green * {
-    color: green;
+	color: green;
 }

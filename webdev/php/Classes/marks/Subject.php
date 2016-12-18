@@ -18,7 +18,7 @@ class Subject {
 	/**
 	 * Subject constructor.
 	 * @param $id
-	 *        Id of the subject
+	 *		Id of the subject
 	 */
 	public function __construct($id) {
 		$this->id = intval($id);

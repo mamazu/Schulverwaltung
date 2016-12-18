@@ -9,14 +9,14 @@ global $database;
 
 echo '<h1>List of all permissions</h1>';
 $result = $result = $database->query('
-	    SELECT
+		SELECT
 		user__permission.*,
 		CONCAT(name, " ", surname, "<br />(", username, ")") AS "Name",
 		CONCAT("<a href=\"change.php?id=", user__overview.id, "\">Edit</a>") AS "Edit"
-	    FROM user__overview
-	    JOIN user__permission
-	    ON user__permission.id = user__overview.id
-	    ORDER BY status;');
+		FROM user__overview
+		JOIN user__permission
+		ON user__permission.id = user__overview.id
+		ORDER BY status;');
 if($result->num_rows != 0) {
 	$row = $result->fetch_assoc();
 	echo '<table><tr>' . generateTableHead(array_keys($row)) . '</tr>';

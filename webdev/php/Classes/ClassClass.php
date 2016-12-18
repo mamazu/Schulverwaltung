@@ -32,7 +32,7 @@ class StudentClass {
 
 	/**
 	 * @static getClassName($classId)
-	 *        Getting the name without creating an object
+	 *		Getting the name without creating an object
 	 * @param int $classId
 	 * @return string
 	 */
@@ -47,7 +47,7 @@ class StudentClass {
 
 	/**
 	 * getType()
-	 *        Returns the type of the course
+	 *		Returns the type of the course
 	 * @return string
 	 */
 	public function getType() {
@@ -56,10 +56,10 @@ class StudentClass {
 
 	/**
 	 * setType()
-	 *        Sets the type of the course
+	 *		Sets the type of the course
 	 * @param String $newType
 	 * @return boolean
-	 *        Returns true on sucess, false otherwise
+	 *		Returns true on sucess, false otherwise
 	 */
 	public function setType($newType) {
 		global $database;
@@ -76,7 +76,7 @@ class StudentClass {
 
 	/**
 	 * getTeacher()
-	 *        Returns the name of the teacher.
+	 *		Returns the name of the teacher.
 	 * @return string
 	 */
 	public function getTeacher() {
@@ -91,7 +91,7 @@ class StudentClass {
 
 	/**
 	 * getMemberCount()
-	 *        Get the amount of students attending that class
+	 *		Get the amount of students attending that class
 	 * @return int
 	 */
 	public function getMemberCount() {
@@ -106,7 +106,7 @@ class StudentClass {
 
 	/**
 	 * __toString()
-	 *        Returns the abbreviation of the subject
+	 *		Returns the abbreviation of the subject
 	 * @return string
 	 */
 	public function __toString() {
@@ -115,7 +115,7 @@ class StudentClass {
 
 	/**
 	 * isValid()
-	 *        Returns wheather the class was corect
+	 *		Returns wheather the class was corect
 	 * @return boolean
 	 */
 	public function isValid() {

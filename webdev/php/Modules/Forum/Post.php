@@ -74,9 +74,9 @@ class Post {
 	/**
 	 * Changes the visbility of the current post.
 	 * @param string $newVisibility
-	 *        Acepted states are: hide, delete, show
+	 *		Acepted states are: hide, delete, show
 	 * @return boolean
-	 *        Returns if the visibility update is successfull
+	 *		Returns if the visibility update is successfull
 	 */
 	private function changeState($newVisibility) {
 		global $database;

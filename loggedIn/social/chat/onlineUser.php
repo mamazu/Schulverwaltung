@@ -10,8 +10,8 @@ $database->query("DELETE FROM chat__online WHERE (NOW() - lastAction) => $timeBe
 //Querrying active user
 $result = $database->query('SELECT
 				lastAction,
-		    (NOW() - lastAction) AS timeSinceLastAction,
-		    username
+			(NOW() - lastAction) AS timeSinceLastAction,
+			username
 		FROM chat__online
 		LEFT JOIN user__overview user
 		ON chat__online.userId = user.id

@@ -5,17 +5,17 @@ $HTML->outputHeader();
 
 $sqlClasses = '
 	SELECT
-	    course__student.classID AS "id",
-	    abbr, subject, `type`,
-	    done AS "HW done",
-	    active
+		course__student.classID AS "id",
+		abbr, subject, `type`,
+		done AS "HW done",
+		active
 	FROM course__overview
 	JOIN course__student
 	ON course__overview.id = course__student.classID
 	LEFT OUTER JOIN task__toDo
 	ON task__toDo.classID = course__overview.id
 	WHERE
-	    course__student.studentID = ' . $_SESSION['id'] . '
+		course__student.studentID = ' . $_SESSION['id'] . '
 	GROUP BY subject
 	ORDER BY active DESC, abbr ASC;';
 global $database;

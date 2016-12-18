@@ -8,9 +8,9 @@ class Friends {
 
 	/**
 	 * __construct($studentId)
-	 *      Creates the object
+	 *	  Creates the object
 	 * @param int $studentId
-	 *      The id of the student of whom you want the friendlist
+	 *	  The id of the student of whom you want the friendlist
 	 */
 	public function __construct($studentId) {
 		global $database;
@@ -34,12 +34,12 @@ class Friends {
 
 	/**
 	 * isFriend($friendId)
-	 *      Returns if the user is a friend or not.
+	 *	  Returns if the user is a friend or not.
 	 * @param int $friendId
 	 * @return int
-	 *      State 0: Is not your friend
-	 *      State 1: Is your friend
-	 *      State 2: Pending friend request
+	 *	  State 0: Is not your friend
+	 *	  State 1: Is your friend
+	 *	  State 2: Pending friend request
 	 */
 	public function isFriend($friendId) {
 		if(is_int(array_search($friendId, $this->accpted))) {
@@ -53,7 +53,7 @@ class Friends {
 
 	/**
 	 * isPending($friendId)
-	 *      Returns if the friend is pending or not.
+	 *	  Returns if the friend is pending or not.
 	 * @param int $friendId
 	 * @return boolean
 	 */

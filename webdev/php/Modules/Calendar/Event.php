@@ -17,9 +17,9 @@ class Event {
 	 * Event constructor.
 	 * @param int $id
 	 * @param string $start
-	 *        e.g. '2015-1-25' for 25th January 2015
+	 *		e.g. '2015-1-25' for 25th January 2015
 	 * @param string $end
-	 *        e.g. '2015-1-25' for 25th January 2015
+	 *		e.g. '2015-1-25' for 25th January 2015
 	 * @param string $topic
 	 * @param string $description
 	 * @param bool $private
@@ -40,7 +40,7 @@ class Event {
 	/**
 	 * Loads the event information from the database
 	 * @return bool
-	 *        True if sucessful, false otherwise
+	 *		True if sucessful, false otherwise
 	 */
 	private function load() {
 		global $database;
@@ -131,7 +131,7 @@ class Event {
 	/**
 	 * Commits any changes to the event object to the database
 	 * @return bool
-	 *        True if sucessful, false otherwise
+	 *		True if sucessful, false otherwise
 	 */
 	public function commit() {
 		global $database;

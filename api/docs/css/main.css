@@ -1,15 +1,15 @@
 *{
-    padding: 0px;
-    margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 
 body{
-    background-color: #6D6A0C;
+	background-color: #6D6A0C;
 }
 
 /* ID declaration */
 div{
-    width: 80%;
-    margin: auto;
-    background-color: red;
+	width: 80%;
+	margin: auto;
+	background-color: red;
 }

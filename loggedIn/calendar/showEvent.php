@@ -27,17 +27,17 @@ $stamp = 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp);
 <?php
 $sqlDate = date('Y-m-d', $datestamp);
 $result = $database->query("SELECT DISTINCT
-	    event__upcoming.id
+		event__upcoming.id
 	FROM event__upcoming
 	LEFT JOIN event__participants
-	    ON event__upcoming.participants = event__participants.id
+		ON event__upcoming.participants = event__participants.id
 	LEFT JOIN course__student
-	    ON (event__participants.`value` = course__student.classID AND event__participants.`type` = 'c')
+		ON (event__participants.`value` = course__student.classID AND event__participants.`type` = 'c')
 	LEFT JOIN user__overview
-	    ON (event__participants.`value` = user__overview.id AND event__participants.`type` = 'p')
+		ON (event__participants.`value` = user__overview.id AND event__participants.`type` = 'p')
 	WHERE
-	    (\"" . $sqlDate . "\" BETWEEN DATE(startTime) AND DATE(endTime))
-	    AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
+		(\"" . $sqlDate . "\" BETWEEN DATE(startTime) AND DATE(endTime))
+		AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
 if(mysql_num_rows($result) != 0) {
 	while ($row = mysql_fetch_row($result)) {
 		$event = new EventClass($row[0]);

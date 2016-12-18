@@ -1,40 +1,40 @@
 form {
-    line-height: 2;
+	line-height: 2;
 }
 
 form table {
-    line-height: 1.5;
-    width: 100%;
+	line-height: 1.5;
+	width: 100%;
 }
 
 fieldset {
-    border-width: 1px;
-    margin: .5em auto;
-    padding: 1em;
+	border-width: 1px;
+	margin: .5em auto;
+	padding: 1em;
 }
 
 legend {
-    font-weight: bold;
-    text-decoration: underline;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 /* Formating the input methods */
 input {
-    padding: .2em;
+	padding: .2em;
 }
 
 input[type="checkbox"]{
-    width:auto;
+	width:auto;
 }
 
 textarea {
-    padding: .25em;
+	padding: .25em;
 }
 
 button {
-    border: 2px solid;
-    border-radius: 1em;
-    min-width: 5em;
-    margin-top: .2em;
-    padding: .1em .3em;
+	border: 2px solid;
+	border-radius: 1em;
+	min-width: 5em;
+	margin-top: .2em;
+	padding: .1em .3em;
 }

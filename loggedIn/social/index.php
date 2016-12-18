@@ -53,17 +53,17 @@ global $database;
 		<option value="0" selected="">Please select a person.</option>
 		<?php
 		$result = $database->query('SELECT
-		    user__overview.id AS "id",
-		    CONCAT(name," ",surname) AS "name",
-		    status
+			user__overview.id AS "id",
+			CONCAT(name," ",surname) AS "name",
+			status
 		FROM user__overview
 		LEFT JOIN user__friends friend
-		    ON user__overview.id = friend.fOne AND friend.fTwo = ' . $_SESSION['id'] . '
-		    OR user__overview.id = friend.fTwo AND friend.fOne = ' . $_SESSION['id'] . '
+			ON user__overview.id = friend.fOne AND friend.fTwo = ' . $_SESSION['id'] . '
+			OR user__overview.id = friend.fTwo AND friend.fOne = ' . $_SESSION['id'] . '
 		WHERE
-		    user__overview.id != ' . $_SESSION['id'] . '
+			user__overview.id != ' . $_SESSION['id'] . '
 		AND
-		    friend.fOne IS NULL
+			friend.fOne IS NULL
 		ORDER BY status;');
 		$type = '';
 		if($result->num_rows > 0) {

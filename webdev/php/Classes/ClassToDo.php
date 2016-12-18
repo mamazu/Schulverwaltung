@@ -31,18 +31,18 @@ class ClassToDo {
 	/**
 	 * ClassToDo constructor.
 	 * @param int $studentId
-	 *        Id of the student
+	 *		Id of the student
 	 */
 	function __construct($studentId) {
 		global $database;
 		$this->student = (int)$studentId;
 		$result = $database->query('SELECT
-		    task__toDo.id AS "id",
-		    deadline, done,
-		    task__toDo.content AS "content",
-		    task__type.content AS "task",
-		    classID AS "classId",
-		    prio AS "priority"
+			task__toDo.id AS "id",
+			deadline, done,
+			task__toDo.content AS "content",
+			task__type.content AS "task",
+			classID AS "classId",
+			prio AS "priority"
 		FROM task__toDo
 		JOIN task__type ON task__type.id = task__toDo.typeID
 		WHERE studentID = ' . $this->student . ';');
@@ -55,9 +55,9 @@ class ClassToDo {
 	/**
 	 * Toogles the state of a To-do item
 	 * @param $id
-	 *        Id of the item
+	 *		Id of the item
 	 * @return bool
-	 *        True if the toggle was succesfull, false otherwise
+	 *		True if the toggle was succesfull, false otherwise
 	 */
 	public function toggle($id) {
 		global $database;

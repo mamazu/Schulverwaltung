@@ -23,8 +23,8 @@ class Authorization {
 		$this->id = intval($id);
 		$result = $database->query("
 		SELECT
-		    permission__names.permNode AS 'node',
-		    permission__users.permId AS 'id'
+			permission__names.permNode AS 'node',
+			permission__users.permId AS 'id'
 		FROM permission__users
 		JOIN permission__names
 		ON ABS(permission__users.permId) = permission__names.id
@@ -44,7 +44,7 @@ class Authorization {
 	/**
 	 * Returns if the user has a certain permission.
 	 *
-	 * @param int    $id   Id of the user
+	 * @param int	$id   Id of the user
 	 * @param string $node Name of the permission node
 	 *
 	 * @return bool
@@ -85,7 +85,7 @@ class Authorization {
 	/**
 	 * Sets a new permission node for the user
 	 *
-	 * @param string  $node    Name of the node
+	 * @param string  $node	Name of the node
 	 * @param boolean $enabled Should it be granted or not
 	 *
 	 * @return bool True if it was inserted, false if the permission already exists

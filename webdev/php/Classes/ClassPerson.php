@@ -33,12 +33,12 @@ class ClassPerson {
 
 	/**
 	 * @static
-	 *        Returns the name of a person without initing an object
+	 *		Returns the name of a person without initing an object
 	 * @param int $id
-	 *        The id of the person of whom you want the name
+	 *		The id of the person of whom you want the name
 	 * @param bool $nickname
 	 * @return string
-	 *        The Name as a string
+	 *		The Name as a string
 	 */
 	public static function staticGetName($id, $nickname = true) {
 		global $database;
@@ -109,7 +109,7 @@ class ClassPerson {
 	/**
 	 * Returns the grade the student is in
 	 * @return int
-	 *      If it's a teacher it will return -1
+	 *	  If it's a teacher it will return -1
 	 */
 	public function getGrade() {
 		return $this->grade == NULL ? -1 : $this->grade;

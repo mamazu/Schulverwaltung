@@ -12,22 +12,22 @@ class Lesson {
 		global $database;
 		$this->id = (int)$studenId;
 		$result = $database->query('SELECT DISTINCT
-		    course__overview.id AS "id",
-		    course__overview.abbr AS "abbr",
-		    course__overview.teacherID AS "teacherId",
-		    timetable__standardTimes.`start` AS "start",
-		    timetable__standardTimes.`end` AS "end",
-		    timetable__overview.room AS "room"
+			course__overview.id AS "id",
+			course__overview.abbr AS "abbr",
+			course__overview.teacherID AS "teacherId",
+			timetable__standardTimes.`start` AS "start",
+			timetable__standardTimes.`end` AS "end",
+			timetable__overview.room AS "room"
 		FROM timetable__overview
 		JOIN course__overview ON course__overview.id = timetable__overview.classID
 		JOIN course__student ON course__overview.id = course__student.classID
 		JOIN timetable__standardTimes  ON timetable__standardTimes.id = timetable__overview.lesson
 		WHERE
-		    `day` = ' . date('N') . '
+			`day` = ' . date('N') . '
 		AND
-		    timetable__standardTimes.`start` >= "' . date('H:i:s') . '"
+			timetable__standardTimes.`start` >= "' . date('H:i:s') . '"
 		AND
-		    (course__overview.teacherID = ' . $this->id . ' OR course__student.studentID = ' . $this->id . ')
+			(course__overview.teacherID = ' . $this->id . ' OR course__student.studentID = ' . $this->id . ')
 		LIMIT 1;');
 		if($result->num_rows == 0) {
 			$this->valid = false;
@@ -44,7 +44,7 @@ class Lesson {
 
 	/**
 	 * initId()
-	 *      Inits the id if it doesn't exist in table
+	 *	  Inits the id if it doesn't exist in table
 	 */
 	private function initId() {
 		global $database;
@@ -65,7 +65,7 @@ class Lesson {
 
 	/**
 	 * getId()
-	 *      Returns the id of the lesson
+	 *	  Returns the id of the lesson
 	 * @return int
 	 */
 	public function getId() {

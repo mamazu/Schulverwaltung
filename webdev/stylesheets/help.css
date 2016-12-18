@@ -1,77 +1,77 @@
 /* General defintions */
 * {
-    font-family: Helvetica, Arial, Verdana, sans-serif;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: white;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: white;
 }
 
 h1, h2, h3 {
-    font-size: 150%;
-    text-align: center;
-    display: block;
-    width: 100%;
+	font-size: 150%;
+	text-align: center;
+	display: block;
+	width: 100%;
 }
 
 a {
-    color: yellow;
+	color: yellow;
 }
 
 body {
-    background-color: #3C3C3C;
+	background-color: #3C3C3C;
 }
 
 /* Content */
 
 #content {
-    margin: 2.8em auto;
-    width: 90%;
-    padding: .5em;
-    background-color: rgba(0, 0, 0, 0.4);
+	margin: 2.8em auto;
+	width: 90%;
+	padding: .5em;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 #mainContent {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 #mainContent ul, #mainContent ul li {
-    margin-left: .5em;
+	margin-left: .5em;
 }
 
 /*Override*/
 h1 {
-    text-align: center;
+	text-align: center;
 }
 
 /* Formating the question list */
 #questionList {
-    border: 1px solid black;
-    margin: .5em 0;
+	border: 1px solid black;
+	margin: .5em 0;
 }
 
 #questionList ul, .topicList {
-    margin-left: 1.5em;
-    list-style: square;
-    line-height: 1.5;
+	margin-left: 1.5em;
+	list-style: square;
+	line-height: 1.5;
 }
 
 /* Formating the answer */
 #answerList {
-    width: 97%;
-    margin: auto;
+	width: 97%;
+	margin: auto;
 }
 
 #answerList .answer {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 #answerList .answer p {
-    margin-left: 1.2em;
+	margin-left: 1.2em;
 }
 
 footer a:last-child {
-    display: block;
-    float: right;
+	display: block;
+	float: right;
 }

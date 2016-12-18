@@ -24,30 +24,30 @@ if(isset($_GET['date']) && isDate($_GET['date'])) {
 	$date = strtotime($_GET['date']);
 } else {
 	$result = $database->query('SELECT
-	    startTime, endTime, event__upcoming.topic AS "name",
-	    event__upcoming.creatorID AS "Creator",
-	    event__upcoming.participants AS "PartID",
-	    user__overview.username AS "Student",
-	    course__student.studentID AS "ClassStudent"
+		startTime, endTime, event__upcoming.topic AS "name",
+		event__upcoming.creatorID AS "Creator",
+		event__upcoming.participants AS "PartID",
+		user__overview.username AS "Student",
+		course__student.studentID AS "ClassStudent"
 	FROM event__upcoming
 	LEFT JOIN event__participants
 	ON event__upcoming.participants = event__participants.id
 	LEFT JOIN course__student
 	ON
-	    (event__participants.`value` = course__student.classID
-	    AND
-	    event__participants.`type` = \'c\')
+		(event__participants.`value` = course__student.classID
+		AND
+		event__participants.`type` = \'c\')
 	LEFT JOIN user__overview
 	ON
-	    (event__participants.`value` = user__overview.id
-	    AND
-	    event__participants.`type` = \'p\')
+		(event__participants.`value` = user__overview.id
+		AND
+		event__participants.`type` = \'p\')
 	WHERE
-	    (MONTH(startTime) =' . $calendar->getMonth() . '
-	    AND
-	    YEAR(startTime) =  ' . $calendar->getYear() . ')
-	    AND
-	    (NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
+		(MONTH(startTime) =' . $calendar->getMonth() . '
+		AND
+		YEAR(startTime) =  ' . $calendar->getYear() . ')
+		AND
+		(NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
 
 	$RandCol = ['green', 'red', 'blue', 'yellow', 'orange', 'grey'];
 

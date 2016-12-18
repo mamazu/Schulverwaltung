@@ -28,7 +28,7 @@ $HTML->outputHeader();
 						continue;
 					}
 					echo '<label for="' . $uKey . '">' . $uKey . ': </label>
-	    <input name="' . $key . '" value="' . $value . '" type="text" placeholder="' . $uKey . '" id="' . $uKey . '" onchange="changed(this);"/><br />';
+		<input name="' . $key . '" value="' . $value . '" type="text" placeholder="' . $uKey . '" id="' . $uKey . '" onchange="changed(this);"/><br />';
 				}
 			}
 			?>

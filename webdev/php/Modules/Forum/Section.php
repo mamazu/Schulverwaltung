@@ -145,9 +145,9 @@ class Section {
 	/**
 	 * Adds a new post to that topic. Returns true if successfull otherwise false
 	 * @param string $message
-	 *        The message that the user wants to post
+	 *		The message that the user wants to post
 	 * @param int $postId
-	 *        The id of the poster
+	 *		The id of the poster
 	 * @return boolean
 	 */
 	public function newPost($message, $postId) {

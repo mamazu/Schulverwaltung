@@ -1,24 +1,26 @@
 <?php
 
 namespace MarkManager;
+require_once __DIR__ . '/../Database/DatabaseObject.php';
 
-class Test extends \DatabaseObject{
+class Test extends \tools\Database\DatabaseObject{
 	protected $topic, $testDate, $courseID;
 	private $tasks = [];
 
 	/**
 	 * [__construct description]
-	 * @param int     $id       Id of the object
-	 * @param string  $topic    Topic of the test.
-	 * @param int     $testDate Timestamp of the test date
-	 * @param int     $courseID id of the course that is taking the test
-	 * @param boolean $save     [OPTIONAL] Should the test be stored into the database when object is created
+	 * @param int	 $id	   Id of the object
+	 * @param string  $topic	Topic of the test.
+	 * @param int	 $testDate Timestamp of  the test date
+	 * @param int	 $courseID id of the course that is taking the test
+	 * @param boolean $save	 [OPTIONAL] Should the test be stored into the database when object is created
 	 */
-	public function __construct($id=NULL, $topic=NULL, $testDate=NULL, $courseID=NULL, $save=false) {
+	public function __construct($id, $topic=NULL, $testDate=NULL, $courseID=NULL, $save=false) {
 		parent::__construct($id, 'test__overview');
 		if(!is_null($this->getID()) && is_null($topic)){
-			$this->load();
-			$this->loadTasks();
+			parent::load();
+			$this->testDate = strtotime($this->testDate);
+			$this->courseID = intval($this->courseID);
 		}else{
 			$this->topic = (string) $topic;
 			$this->testDate = is_null($testDate) ? time() : $testDate;
@@ -28,31 +30,23 @@ class Test extends \DatabaseObject{
 		}
 	}
 
-    /**
-     * Loads the object from the database
-     */
-	public function load(){
-		parent::load();
-		$this->testDate = strtotime($this->testDate);
-		$this->courseID = intval($this->courseID);
-	}
-
-    /**
-     * Loads the tasks from the database and creates an object with it
-     */
-	private function loadTasks(){
+	/**
+	 * Loads the tasks from the database and creates an object with it
+	 */
+	public function loadTasks(){
+		require_once 'Task.php';
 		global $database;
 		$result = $database->query("SELECT * FROM test__tasks WHERE testId = $this->id");
 		while($row = $result->fetch_assoc()){
-			$task = new Task($row['id'], $row['question'], $row['type'], $row['maxScore']);
+			$task = new Task($row['id'], $row['question'], $row['answer'], $row['type'], $row['maxScore']);
 			array_push($this->tasks, $task);
 		}
 	}
 
-    /**
-     * Saves the task list to the database.
-     * @return bool True on success and false on failure.
-     */
+	/**
+	 * Saves the task list to the database.
+	 * @return bool True on success and false on failure.
+	 */
 	public function commitTaskList(){
 		global $database;
 		$query = '';

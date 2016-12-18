@@ -1,18 +1,18 @@
 * {
-    color: white;
+	color: white;
 }
 
 a {
-    color: #F2ED75;
+	color: #F2ED75;
 }
 
 body {
-    background-color: #3C3C3C;
+	background-color: #3C3C3C;
 }
 
 /* Adapting hr line */
 hr {
-    background-color: black;
-    width: 90%;
-    margin: auto;
+	background-color: black;
+	width: 90%;
+	margin: auto;
 }

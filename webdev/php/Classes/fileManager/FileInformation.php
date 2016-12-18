@@ -8,7 +8,7 @@ class FileInformation {
 	/**
 	 * Constructor for the fileInfo object
 	 * @param string $fileName
-	 *    Name of the file that you want to have info about
+	 *	Name of the file that you want to have info about
 	 **/
 	public function __construct($fileName) {
 		$this->exists = file_exists($fileName);
@@ -20,7 +20,7 @@ class FileInformation {
 	/**
 	 * Grabs the fileInformation form the database
 	 * @return boolean
-	 *    Returns true if the database contains information about that file
+	 *	Returns true if the database contains information about that file
 	 **/
 	private function getFileInformation() {
 		global $database;

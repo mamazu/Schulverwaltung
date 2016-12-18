@@ -1,10 +1,10 @@
 <?php
 namespace MarkManager;
 
-class Task extends \DatabaseObject {
+class Task extends \tools\Database\DatabaseObject {
 	protected $question, $answer, $type, $maxScore;
 
-	public function __construct($id=NULL, $question='', $answer='', $questionType='FreeText', $maxScore=0, $save=false){
+	public function __construct($id, $question='', $answer='', $questionType='FreeText', $maxScore=0, $save=false){
 		parent::__construct($id, 'test__tasks');
 		if($id && !$question)
 			$this->load();

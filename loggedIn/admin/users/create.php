@@ -18,7 +18,7 @@ if(!isset($_POST['name'])) {
 				$uKey = ucfirst($key);
 				if($key != 'id') {
 					echo '<label for="' . $uKey . '">' . $uKey . ': </label>
-		    <input name="' . $key . '" value="" type="text" placeholder="' . $uKey . '" id="' . $uKey . '" onchange="changed(this);"/><br />';
+			<input name="' . $key . '" value="" type="text" placeholder="' . $uKey . '" id="' . $uKey . '" onchange="changed(this);"/><br />';
 				}
 			}
 			?>

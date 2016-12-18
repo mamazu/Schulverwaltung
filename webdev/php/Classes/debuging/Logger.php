@@ -26,12 +26,12 @@ class Logger extends LoggerConstants{
 
 	/**
 	 * filterPeriod()
-	 *        Filters the events within a specific periode
+	 *		Filters the events within a specific periode
 	 *
 	 * @param int $start
-	 *        Beginning of the period (if not defined: yesterday)
+	 *		Beginning of the period (if not defined: yesterday)
 	 * @param int $end
-	 *        End of the period (if not definded: now)
+	 *		End of the period (if not definded: now)
 	 *
 	 * @return array
 	 */
@@ -52,7 +52,7 @@ class Logger extends LoggerConstants{
 
 	/**
 	 * getEvent()
-	 *        Returns the event selected if not in array bounds it returns NULL
+	 *		Returns the event selected if not in array bounds it returns NULL
 	 *
 	 * @param int $eventNumber
 	 *
@@ -70,7 +70,7 @@ class Logger extends LoggerConstants{
 
 	/**
 	 * getEventCount()
-	 *        Returns the number of events that have happend
+	 *		Returns the number of events that have happend
 	 *
 	 * @return int
 	 */

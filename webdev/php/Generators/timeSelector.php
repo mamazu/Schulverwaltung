@@ -10,23 +10,23 @@
  * 	Returns a working HTML select tag
  */
 function timeSelector($name = NULL, $mode = 24) {
-    //Hours
-    $nameAttribH = ($name == NULL) ? '' : ' name="' . $name . 'H"';
-    $finalString = "<select$nameAttribH>";
-    for ($i = 0; $i < 24; $i++) {
+	//Hours
+	$nameAttribH = ($name == NULL) ? '' : ' name="' . $name . 'H"';
+	$finalString = "<select$nameAttribH>";
+	for ($i = 0; $i < 24; $i++) {
 	$finalString.='<option value="' . $i . '">' . toTimeFormat($i, $mode) . '</option>';
-    }
-    $finalString.= '</select> : ';
+	}
+	$finalString.= '</select> : ';
 
-    //Minutes
-    $nameAttribM = ($name == NULL) ? '' : ' name="' . $name . 'M"';
-    $finalString .= "<select$nameAttribM>";
-    for ($i = 0; $i < 60; $i++) {
+	//Minutes
+	$nameAttribM = ($name == NULL) ? '' : ' name="' . $name . 'M"';
+	$finalString .= "<select$nameAttribM>";
+	for ($i = 0; $i < 60; $i++) {
 	$formated = unsignedZeroFill($i);
 	$finalString.='<option value="' . $i . '">' . $formated . '</option>';
-    }
-    $finalString.= '</select>';
-    return $finalString;
+	}
+	$finalString.= '</select>';
+	return $finalString;
 }
 
 /**
@@ -38,20 +38,20 @@ function timeSelector($name = NULL, $mode = 24) {
  * @return int
  */
 function toTimeFormat($hours, $timeFormat = 24) {
-    $normalized = $hours % 24;
-    if ($timeFormat != 12) {
+	$normalized = $hours % 24;
+	if ($timeFormat != 12) {
 	return unsignedZeroFill($normalized);
-    }
-    switch ($normalized) {
+	}
+	switch ($normalized) {
 	case 0:
-	    return '12 am';
+		return '12 am';
 	case 12:
-	    return '12 pm';
+		return '12 pm';
 	default:
-	    $formated = unsignedZeroFill($normalized % 12);
-	    if ((int) ($normalized / 12) == 0) {
+		$formated = unsignedZeroFill($normalized % 12);
+		if ((int) ($normalized / 12) == 0) {
 		return $formated . ' am';
-	    }
-	    return $formated . ' pm';
-    }
+		}
+		return $formated . ' pm';
+	}
 }

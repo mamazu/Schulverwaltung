@@ -16,7 +16,7 @@ class Overview {
 	/**
 	 * Overview constructor.
 	 * @param int $id
-	 *        Id of the student.
+	 *		Id of the student.
 	 */
 	public function __construct($id) {
 		$this->id = intval($id);
@@ -39,7 +39,7 @@ class Overview {
 	/**
 	 * Returns all the grades.
 	 * @return array
-	 *    Array of grades
+	 *	Array of grades
 	 */
 	public function getGrade() {
 		return $this->grades;
@@ -48,7 +48,7 @@ class Overview {
 	/**
 	 * Counts the number of grades that were retrieved
 	 * @return int
-	 *    Number of grades
+	 *	Number of grades
 	 */
 	public function getGradeCount() {
 		return count($this->grades);

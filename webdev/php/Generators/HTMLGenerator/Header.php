@@ -64,7 +64,7 @@ class Header {
 
 	/**
 	 * toogleMode($mode)
-	 *        Toogles the display mode
+	 *		Toogles the display mode
 	 * @param HeaderMode $mode
 	 * @return HeaderMode
 	 */
@@ -101,9 +101,9 @@ class Header {
 
 	/**
 	 * __toString()
-	 *        Converts the object into a String
+	 *		Converts the object into a String
 	 * @return string
-	 *        Returns a fully valid header information
+	 *		Returns a fully valid header information
 	 */
 	public function __toString() {
 		$result = '<head><title>' . $this->title . '</title><!-- Meta information -->';

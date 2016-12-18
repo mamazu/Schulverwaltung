@@ -3,7 +3,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 ?>
 
 <div id="menu">
-    <ul>
+	<ul>
 	<?php
 	$perms = getPermission();
 	//Setting the Menu
@@ -20,7 +20,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	//Lessons
 	$menuItem = new MenuEntry('lessons/index.php', 'Lesson');
 	if (in_array('teacher', $perms)) {
-	    $menuItem->addItem(new MenuEntry('lessons/homework.php', 'Homework'));
+		$menuItem->addItem(new MenuEntry('lessons/homework.php', 'Homework'));
 	}
 	$menu->addItem($menuItem);
 
@@ -30,9 +30,9 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	$menu->addItem($menuItem);
 
 	//Marks
-	$menuItem = new MenuEntry('marks/showMarks.php', 'Marks');
+	$menuItem = new MenuEntry('marks/index.php', 'Marks');
 	if (in_array('teacher', $perms)) {
-	    $menuItem->addItem(new MenuEntry('marks/setMarks.php', 'Add marks'));
+		$menuItem->addItem(new MenuEntry('marks/setMarks.php', 'Add marks'));
 	}
 	$menu->addItem($menuItem);
 
@@ -64,5 +64,5 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 
 	echo (string) $menu;
 	?>
-    </ul>
+	</ul>
 </div>
