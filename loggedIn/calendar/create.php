@@ -4,6 +4,8 @@ require_once '../../webdev/php/Generators/timeSelector.php';
 
 $HTML = new HTMLGenerator\Page('Calendar', ['form.css'], ['checkEvent.js']);
 $HTML->outputHeader();
+
+$startDate = isset($_GET['date'])? intval($_GET['date']): time();
 ?>
 
 	<h1>Create a new event</h1>
@@ -22,10 +24,10 @@ $HTML->outputHeader();
 		</fieldset>
 		<fieldset>
 			<legend>Times</legend>
-			<label>Start: <input type="text" name="start" value="<?php echo date('d.m.Y'); ?>"/></label>
+			<label>Start: <input type="text" name="start" value="<?php echo date('d.m.Y', $startDate); ?>"/></label>
 			<label>Time: <?php echo timeSelector('start'); ?></label>
 			<br/>
-			<label>End: <input type="text" name="end" value="<?php echo date('d.m.Y', time() + 24 * 3600); ?>"/></label>
+			<label>End: <input type="text" name="end" value="<?php echo date('d.m.Y', $startDate + 24 * 3600); ?>"/></label>
 			<label>Time: <?php echo timeSelector('end'); ?></label>
 		</fieldset>
 		<fieldset>

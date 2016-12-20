@@ -9,46 +9,41 @@ global $database;
 
 //Check for get variable
 if(!isset($_GET['date'])) {
-	header('Location: index.php');
+	Header('Location: index.php');
 }
 
 //Convert to timestamp
 $datestamp = strtotime($_GET['date']);
-if($datestamp === false || $datestamp == -1) {
+if($datestamp === false || $datestamp < 0) {
 	Message::castMessage('Invalid dateformat', false, 'index.php');
 }
-
-//peparing datestamp
-$stamp = 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp);
 ?>
 
-	<h1>Eventlist for the <?php echo date('d.m.Y', $datestamp); ?></h1>
-	<a href="index.php?<?php echo $stamp ?>">Get back</a><br/>
+	<h1>Eventlist for the <?= date('d.m.Y', $datestamp); ?></h1>
+	<a href="index.php?<?= 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp) ?>">Get back</a><br/>
 <?php
-$sqlDate = date('Y-m-d', $datestamp);
 $result = $database->query("SELECT DISTINCT
 		event__upcoming.id
 	FROM event__upcoming
-	LEFT JOIN event__participants
-		ON event__upcoming.participants = event__participants.id
-	LEFT JOIN course__student
-		ON (event__participants.`value` = course__student.classID AND event__participants.`type` = 'c')
-	LEFT JOIN user__overview
-		ON (event__participants.`value` = user__overview.id AND event__participants.`type` = 'p')
+	LEFT JOIN event__participants ON event__upcoming.participants = event__participants.id
+	LEFT JOIN course__student ON event__participants.`value` = course__student.classID AND event__participants.`type` = 'c'
+	LEFT JOIN user__overview ON event__participants.`value` = user__overview.id AND event__participants.`type` = 'p'
 	WHERE
-		(\"" . $sqlDate . "\" BETWEEN DATE(startTime) AND DATE(endTime))
+		(\"" . date('Y-m-d', $datestamp) . "\" BETWEEN DATE(startTime) AND DATE(endTime))
 		AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
-if(mysql_num_rows($result) != 0) {
-	while ($row = mysql_fetch_row($result)) {
+if($result->num_rows != 0) {
+	while ($row = $result->fetch_row()) {
 		$event = new EventClass($row[0]);
-		echo '<h2>' . $event->getName() . '</h2><div class="twoCols">';
-		echo 'From: ' . $event->getStart() . '<br />';
-		echo 'To: ' . $event->getEnd() . '</div>';
-		echo $event->getDescription();
+		echo '<h2>' . $event->getName() . '</h2>';
+		echo '<span class="it">From:</span> ' . $event->getStart() . '<br />';
+		echo '<span class="it">To:</span> ' . $event->getEnd() . '<br />';
+		echo '<span class="it">Description:</span> ' . $event->getDescription();
 	}
 } else {
 	echo 'Today there is nothing happening.';
 }
+
+echo '<br/><a href="create.php?date='.$datestamp.'">Create new</a>';
 
 $HTML->outputFooter();
 ?>

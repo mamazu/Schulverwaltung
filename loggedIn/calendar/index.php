@@ -2,6 +2,11 @@
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Generators/CalenderGenerator.php';
 $HTML = new HTMLGenerator\Page('Calendar', ['table.css', 'calendar.css', 'form.css']);
+if(isset($_GET['date']) && isDate($_GET['date'])) {
+	Header('Location: showEvent.php?date='.$_GET['date']);
+	exit;
+}
+
 $HTML->outputHeader();
 
 global $database;
@@ -20,48 +25,44 @@ function evalGet($var) {
 
 $calendar = evalGet($_GET);
 
-if(isset($_GET['date']) && isDate($_GET['date'])) {
-	$date = strtotime($_GET['date']);
-} else {
-	$result = $database->query('SELECT
-		startTime, endTime, event__upcoming.topic AS "name",
-		event__upcoming.creatorID AS "Creator",
-		event__upcoming.participants AS "PartID",
-		user__overview.username AS "Student",
-		course__student.studentID AS "ClassStudent"
-	FROM event__upcoming
-	LEFT JOIN event__participants
-	ON event__upcoming.participants = event__participants.id
-	LEFT JOIN course__student
-	ON
-		(event__participants.`value` = course__student.classID
-		AND
-		event__participants.`type` = \'c\')
-	LEFT JOIN user__overview
-	ON
-		(event__participants.`value` = user__overview.id
-		AND
-		event__participants.`type` = \'p\')
-	WHERE
-		(MONTH(startTime) =' . $calendar->getMonth() . '
-		AND
-		YEAR(startTime) =  ' . $calendar->getYear() . ')
-		AND
-		(NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
+$result = $database->query('SELECT
+	startTime, endTime, event__upcoming.topic AS "name",
+	event__upcoming.creatorID AS "Creator",
+	event__upcoming.participants AS "PartID",
+	user__overview.username AS "Student",
+	course__student.studentID AS "ClassStudent"
+FROM event__upcoming
+LEFT JOIN event__participants
+ON event__upcoming.participants = event__participants.id
+LEFT JOIN course__student
+ON
+	(event__participants.`value` = course__student.classID
+	AND
+	event__participants.`type` = \'c\')
+LEFT JOIN user__overview
+ON
+	(event__participants.`value` = user__overview.id
+	AND
+	event__participants.`type` = \'p\')
+WHERE
+	(MONTH(startTime) =' . $calendar->getMonth() . '
+	AND
+	YEAR(startTime) =  ' . $calendar->getYear() . ')
+	AND
+	(NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
 
-	$RandCol = ['green', 'red', 'blue', 'yellow', 'orange', 'grey'];
+$RandCol = ['green', 'red', 'blue', 'yellow', 'orange', 'grey'];
 
-	if($result->num_rows != 0) {
-		$eventID = 0;
-		while ($row = $result->fetch_row()) {
-			global $RandCol;
-			$start = strtotime($row[0]);
-			$end = strtotime($row[1]);
-			for($i = $start; $i <= $end; $i += Calendar::$oneDayInSec) {
-				$calendar->markDate(date('j', $i), $RandCol[$eventID % count($RandCol)]);
-			}
-			$eventID++;
+if($result->num_rows != 0) {
+	$eventID = 0;
+	while ($row = $result->fetch_row()) {
+		global $RandCol;
+		$start = strtotime($row[0]);
+		$end = strtotime($row[1]);
+		for($i = $start; $i <= $end; $i += Calendar::$oneDayInSec) {
+			$calendar->markDate(date('j', $i), $RandCol[$eventID % count($RandCol)]);
 		}
+		$eventID++;
 	}
 }
 ?>

@@ -31,3 +31,8 @@ h1, h2, h3 {
 #mainContent ul, #mainContent ul li {
 	margin-left: .5em;
 }
+
+/* Font faces*/
+.it{
+	font-style: italic;
+}
