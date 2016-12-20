@@ -7,8 +7,8 @@ $HTML->outputHeader();
 global $database;
 
 function evalGet($var) {
-	$year = (int)$var['y'];
-	$month = (int)$var['m'];
+	$year = isset($var['y']) ? intval($var['y']) : 0;
+	$month = isset($var['m']) ? intval($var['m']) : 0;
 	if($year != 0 && $month != 0) {
 		return new Calendar($var['m'], $var['y']);
 	}
@@ -101,4 +101,3 @@ echo $calendar->output();
 
 $HTML->outputFooter();
 ?>
-

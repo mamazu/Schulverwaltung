@@ -111,7 +111,7 @@ class Header {
 		foreach($this->metaInformation as $information => $value) {
 			$result .= "<meta $information=\"$value\" />\n";
 		}
-		echo '
+		$result.= '
 			<!-- ****** faviconit.com Favicons ****** -->
 			<link rel="shortcut icon" href="/Schulverwaltung/res/Favicon/favicon.ico">
 			<link rel="icon" sizes="16x16 32x32 64x64" href="/Schulverwaltung/res/Favicon/favicon.ico">

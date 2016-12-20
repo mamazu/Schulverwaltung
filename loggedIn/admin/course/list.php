@@ -2,7 +2,7 @@
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Generators/tableGenerator.php';
 
-$HTML = new HTMLGenerator\Page('List courses', ['todo.css', 'form.css', 'table.css'], ['checkMail.js'], NULL, 2);
+$HTML = new HTMLGenerator\Page('List courses', ['todo.css', 'form.css', 'table.css'], ['checkMail.js'], NULL, 1);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 global $database;

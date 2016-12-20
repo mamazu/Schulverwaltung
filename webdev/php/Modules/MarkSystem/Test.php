@@ -36,7 +36,7 @@ class Test extends \tools\Database\DatabaseObject{
 	public function loadTasks(){
 		require_once 'Task.php';
 		global $database;
-		$result = $database->query("SELECT * FROM test__tasks WHERE testId = $this->id");
+		$result = $database->query("SELECT * FROM test__tasks WHERE testId = $this->id;");
 		while($row = $result->fetch_assoc()){
 			$task = new Task($row['id'], $row['question'], $row['answer'], $row['type'], $row['maxScore']);
 			array_push($this->tasks, $task);
@@ -107,6 +107,8 @@ class Test extends \tools\Database\DatabaseObject{
 	 * @return int Maximum score
 	 */
 	public function getMaxScore(){
+		if(count($this->tasks) == 0)
+			$this->loadTasks();
 		$sum = 0;
 		foreach($this->tasks as $task)
 			$sum += $task->getMaxScore();

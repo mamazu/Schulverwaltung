@@ -3,11 +3,10 @@ require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 global $database;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-if($id == 0) {
-	$id = $_SESSION['id'];
-}
 
-$HTML = new HTMLGenerator\Page('Change personal information', ['form.css'], ['checkMail.js'], NULL, 2);
+$HTML = new HTMLGenerator\Page('Change personal information', ['form.css'], ['checkMail.js'], NULL, 1);
+$id = ($id == 0) ? $_SESSION['id'] : $id;
+
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 ?>

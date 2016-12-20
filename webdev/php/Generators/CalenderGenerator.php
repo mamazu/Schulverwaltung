@@ -2,7 +2,7 @@
 
 class Calendar {
 
-	public static $oneDayInSec = 86000;
+	public static $oneDayInSec = 86400;
 	private $month, $year;
 	private $marked = [];
 	private $firstOfMonth;
@@ -76,41 +76,39 @@ class Calendar {
 	}
 
 	/**
-	 * Outputs the calandar itself.
-	 * @global int $oneDayInSec
-	 * @return string
-	 */
-	public function output() {
-		global $oneDayInSec;
-		//Putting together the table
-		$output = '<table summary="Calender Table">';
-		$output .= generateTableHead(['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
-		//Defining the start day of the calendar
-		$offset = $this->getWeekday(1) * $oneDayInSec;
-		$startday = $this->firstOfMonth - $offset;
-		//Peparing for loop!
-		$moreRows = true;
-		for($rowNum = 0; $moreRows; $rowNum++) {
-			$output .= $this->outputRow($startday, $rowNum, $moreRows);
-		}
-		$output .= '</table>';
-		return $output;
-	}
-
-	/**
 	 * Get the weekday of the parameter
 	 * @param int $day
 	 * @return int
 	 */
 	private function getWeekday($day) {
-		$TheDay = $day . '.' . $this->month . '.' . $this->year;
 		//w = Id of the weekday
-		$weekDayBeginingSun = date('w', strtotime($TheDay));
+		$weekDayBeginingSun = date('w', $day);
 		if($weekDayBeginingSun == 0) {
 			return 6;
 		}
 		return $weekDayBeginingSun - 1;
 	}
+
+	/**
+		 * Outputs the calandar itself.
+		 * @global int $oneDayInSec
+		 * @return string
+		 */
+		public function output() {
+			//Putting together the table
+			$output = '<table summary="Calender Table">';
+			$output .= generateTableHead(['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
+			//Defining the start day of the calendar
+			$offset = $this->getWeekday($this->firstOfMonth) * Calendar::$oneDayInSec;
+			$startday = $this->firstOfMonth - $offset;
+			//Peparing for loop!
+			$moreRows = true;
+			for($rowNum = 0; $moreRows; $rowNum++) {
+				$output .= $this->outputRow($startday, $rowNum, $moreRows);
+			}
+			$output .= '</table>';
+			return $output;
+		}
 
 	/**
 	 * Outputs a row of dates
@@ -123,7 +121,8 @@ class Calendar {
 	private function outputRow($startday, $rowNum, &$moreRows) {
 		$finalString = '<tr>';
 		for($i = 0; $i < 7; $i++) {
-			$curDate = ($startday + $i + $rowNum * 7) * Calendar::$oneDayInSec;
+			$curDate = $startday + ($i + $rowNum * 7) * Calendar::$oneDayInSec;
+			// echo date('d.m.Y', ($startday+$i+$rowNum)).'<br />';
 			$link = ['', ''];
 			$style = '';
 			//If date not from current month: mark as outdated

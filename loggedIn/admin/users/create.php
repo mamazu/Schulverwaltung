@@ -2,7 +2,7 @@
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 global $database;
 
-$HTML = new HTMLGenerator\Page('Admin pannel', ['form.css'], NULL, NULL, 2);
+$HTML = new HTMLGenerator\Page('Admin pannel', ['form.css'], NULL, NULL, 1);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 

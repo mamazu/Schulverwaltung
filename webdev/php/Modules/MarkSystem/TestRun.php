@@ -1,8 +1,8 @@
 <?php
 namespace MarkManager;
 
+include_once __DIR__.'/../Database/DatabaseObject.php';
 use tools\Database\DatabaseObject;
-
 
 class TestRun extends DatabaseObject{
 	protected $testId, $studentId, $dateTaken, $mark;
@@ -12,7 +12,7 @@ class TestRun extends DatabaseObject{
 	public function __construct($runId=NULL, $testId, $studentId, $dateTaken=NULL, $points=NULL, $mark=NULL, $save=false){
 		require_once 'Test.php';
 		parent::__construct($runId, 'test__run');
-		if($runId){
+		if(is_int($runId) && $runId){
 			$this->setID($runId);
 			$this->load();
 			$this->loadPoints();
@@ -29,6 +29,8 @@ class TestRun extends DatabaseObject{
 				$this->commit();
 		}
 		$this->test = new Test($this->testId);
+		$this->test->loadTasks();
+		echo $this->test;
 		$this->tasks = $this->test->getTasks();
 	}
 
@@ -36,6 +38,11 @@ class TestRun extends DatabaseObject{
 		parent::load();
 		$this->dateTaken = strtotime($this->dateTaken);
 		$this->mark = doubleval($this->mark);
+		if($this->testId != 0) return;
+		global $database;
+		$result = $database->query("SELECT testId FROM test__run WHERE id = $this->id;");
+		if($result->num_rows > 0)
+			$this->testId = intval($result->fetch_row()[0]);
 	}
 
 	// ---------------- POINTS ----------------
@@ -74,6 +81,9 @@ class TestRun extends DatabaseObject{
 	}
 
 	public function getMark(){
+		$maxScore = $this->test->getMaxScore();
+		if($maxScore == 0)
+			return 0;
 		return $this->getScore() / $this->test->getMaxScore();
 	}
 
