@@ -3,8 +3,6 @@ require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Classes/EventClass.php';
 
 $HTML = new HTMLGenerator\Page('List of events', ['form.css']);
-$HTML->outputHeader();
-
 global $database;
 
 //Check for get variable
@@ -17,10 +15,10 @@ $datestamp = strtotime($_GET['date']);
 if($datestamp === false || $datestamp < 0) {
 	Message::castMessage('Invalid dateformat', false, 'index.php');
 }
+$HTML->outputHeader();
 ?>
-
-	<h1>Eventlist for the <?= date('d.m.Y', $datestamp); ?></h1>
-	<a href="index.php?<?= 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp) ?>">Get back</a><br/>
+<h1>Eventlist for the <?= date('d.m.Y', $datestamp); ?></h1>
+<a href="index.php?<?= 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp) ?>">Get back</a><br/>
 <?php
 $result = $database->query("SELECT DISTINCT
 		event__upcoming.id
@@ -29,7 +27,7 @@ $result = $database->query("SELECT DISTINCT
 	LEFT JOIN course__student ON event__participants.`value` = course__student.classID AND event__participants.`type` = 'c'
 	LEFT JOIN user__overview ON event__participants.`value` = user__overview.id AND event__participants.`type` = 'p'
 	WHERE
-		(\"" . date('Y-m-d', $datestamp) . "\" BETWEEN DATE(startTime) AND DATE(endTime))
+		(" . date('"Y-m-d"', $datestamp) . " BETWEEN DATE(startTime) AND DATE(endTime))
 		AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
 if($result->num_rows != 0) {
 	while ($row = $result->fetch_row()) {

@@ -122,17 +122,15 @@ class Calendar {
 		$finalString = '<tr>';
 		for($i = 0; $i < 7; $i++) {
 			$curDate = $startday + ($i + $rowNum * 7) * Calendar::$oneDayInSec;
-			// echo date('d.m.Y', ($startday+$i+$rowNum)).'<br />';
 			$link = ['', ''];
 			$style = '';
 			//If date not from current month: mark as outdated
 			if(date('n', $curDate) != $this->month) {
 				$style = 'class="outDated"';
 			} else {
-				if($this->isMarked(date('j', $curDate))) {
+				$link = ['<a href="?date=' . date('d.m.Y', $curDate) . '">', '</a>'];
+				if($this->isMarked(date('j', $curDate)))
 					$style = 'class="marked" style="background-color:' . $this->marked[date('j', $curDate)] . '"';
-					$link = ['<a href="?date=' . date('d.m.Y', $curDate) . '">', '</a>'];
-				}
 			}
 			$finalString .= "<td $style>" . $link[0] . date('d', $curDate) . $link[1] . '</td>';
 			//Checks wheather the current day is the last one in this month

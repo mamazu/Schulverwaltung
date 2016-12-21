@@ -2,7 +2,7 @@
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Generators/timeSelector.php';
 
-$HTML = new HTMLGenerator\Page('Calendar', ['form.css'], ['checkEvent.js']);
+$HTML = new HTMLGenerator\Page('Calendar', ['form.css'], ['calendar/checkEvent.js', 'calendar/participants.js']);
 $HTML->outputHeader();
 
 $startDate = isset($_GET['date'])? intval($_GET['date']): time();
@@ -10,7 +10,6 @@ $startDate = isset($_GET['date'])? intval($_GET['date']): time();
 
 	<h1>Create a new event</h1>
 	<form action="createEvent.php" method="POST" onsubmit="return checkEvent()">
-		<input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="studentId"/>
 		<fieldset>
 			<legend>General information</legend>
 			<input type="text" name="eventName" placeholder="Name of the event"/>
@@ -18,10 +17,11 @@ $startDate = isset($_GET['date'])? intval($_GET['date']): time();
 			<label><textarea name="description">Describe the event</textarea></label>
 			<br/>
 			<label>
-				<input type="checkbox" name="private" value="private" checked="checked"/>
+				<input type="checkbox" name="private" value="private" checked="checked" />
 				Is this event private?
 			</label>
 		</fieldset>
+		<fieldset id="participantsField" style="display:none"></fieldset>
 		<fieldset>
 			<legend>Times</legend>
 			<label>Start: <input type="text" name="start" value="<?php echo date('d.m.Y', $startDate); ?>"/></label>

@@ -35,21 +35,10 @@ FROM event__upcoming
 LEFT JOIN event__participants
 ON event__upcoming.participants = event__participants.id
 LEFT JOIN course__student
-ON
-	(event__participants.`value` = course__student.classID
-	AND
-	event__participants.`type` = \'c\')
-LEFT JOIN user__overview
-ON
-	(event__participants.`value` = user__overview.id
-	AND
-	event__participants.`type` = \'p\')
-WHERE
-	(MONTH(startTime) =' . $calendar->getMonth() . '
-	AND
-	YEAR(startTime) =  ' . $calendar->getYear() . ')
-	AND
-	(NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
+ON (event__participants.`value` = course__student.classID AND event__participants.`type` = \'c\')
+LEFT JOIN user__overview ON (event__participants.`value` = user__overview.id AND event__participants.`type` = \'p\')
+WHERE (MONTH(startTime) =' . $calendar->getMonth() . ' AND YEAR(startTime) =  ' . $calendar->getYear() . ')
+	AND (NOT private OR (private AND creatorID = ' . $_SESSION['id'] . '));');
 
 $RandCol = ['green', 'red', 'blue', 'yellow', 'orange', 'grey'];
 
