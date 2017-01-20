@@ -12,7 +12,6 @@ $HTML->outputHeader();
 
 global $database;
 
-var_dump($_SESSION);
 if(!$lesson->lessonToday()) {
 	?>
 	<h1>No lesson</h1>
@@ -68,7 +67,7 @@ if(isset($_SESSION['teacher'])) {
 			status DESC, surname ASC;');
 		//Outputting them in a table
 		$img = '<img src="' . getRootURL('../webdev/images/mail.png') . '" title="Mailsymbol" style="height:1em"/>';
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch_assoc()) {
 			$id = $row['id'];
 			echo '<tr>';
 			echo '<td><a href="' . getRootURL('profile/profile.php') . '?id=' . $id . '">' . $row['name'] . '</a></td>';
