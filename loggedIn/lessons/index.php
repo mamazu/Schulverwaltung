@@ -29,7 +29,7 @@ if($lesson->takesPlace()) {
 ?>
 	<p class="twoCols">
 		Name: <?php echo $lesson->getClassName(); ?>
-		by <?php echo ClassPerson::staticGetName($lesson->getTeacherId(), $_SESSION['nickName']); ?>
+		by <?php echo ClassPerson::staticGetName($lesson->getTeacherId(), $_SESSION['ui']['nickName']); ?>
 		<br/>
 		Takes place at: <?php echo $lesson->getLocation(); ?><br/>
 		Starts: <?php echo $lesson->getStartingTime(); ?> o'clock <br/>

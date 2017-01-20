@@ -10,7 +10,7 @@ session_start();
 	<?php
 		$result = $database->query('SELECT id, CONCAT(name, " ", surname) AS "realName", username FROM user__overview WHERE id > 0');
 		while($row = $result->fetch_assoc()){
-			$username = ($_SESSION['nickName']) ? $row['username'] : $row['realName'];
+			$username = ($_SESSION['ui']['nickName']) ? $row['username'] : $row['realName'];
 			echo '<option value="p' . $row['id'] . '">'.$username.'</option>';
 		}
 	?>
