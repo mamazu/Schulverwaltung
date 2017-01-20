@@ -12,6 +12,7 @@ $HTML->outputHeader();
 
 global $database;
 
+var_dump($_SESSION);
 if(!$lesson->lessonToday()) {
 	?>
 	<h1>No lesson</h1>
@@ -38,7 +39,7 @@ if($lesson->takesPlace()) {
 	<h2>Student list</h2>
 	<a href="../mails/write.php">Write a mail to everyone in the class</a>
 <?php
-if($_SESSION['teacher']) {
+if(isset($_SESSION['teacher'])) {
 	?>
 	<form method="POST" class="center" action="setAttendence.php">
 	<!-- Hidden fields -->
@@ -49,7 +50,7 @@ if($_SESSION['teacher']) {
 		<?php
 		//Making the table head
 		$cols = ['Name'];
-		if($_SESSION['teacher']) {
+		if(isset($_SESSION['teacher'])) {
 			$cols = array_merge($cols, ['Attending', 'Homework']);
 		}
 		array_push($cols, 'Mail');
@@ -71,7 +72,7 @@ if($_SESSION['teacher']) {
 			$id = $row['id'];
 			echo '<tr>';
 			echo '<td><a href="' . getRootURL('profile/profile.php') . '?id=' . $id . '">' . $row['name'] . '</a></td>';
-			if($_SESSION['teacher']) {
+			if(isset($_SESSION['teacher'])) {
 				if($row['status'] == 't') {
 					echo '<td></td><td></td>';
 				} else {
@@ -89,7 +90,7 @@ if($_SESSION['teacher']) {
 		}
 		?>
 	</table>
-<?php if($_SESSION['teacher']) { ?>
+<?php if(isset($_SESSION['teacher'])) { ?>
 	<br/>
 	<button type="submit">Submit changes</button>
 	</form>
