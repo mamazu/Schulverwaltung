@@ -103,7 +103,7 @@ class Calendar {
 			$startday = $this->firstOfMonth - $offset;
 			//Peparing for loop!
 			$moreRows = true;
-			for($rowNum = 0; $moreRows; $rowNum++) {
+			for($rowNum = 0; $moreRows && $rowNum < 100; $rowNum++) {
 				$output .= $this->outputRow($startday, $rowNum, $moreRows);
 			}
 			$output .= '</table>';
@@ -134,7 +134,7 @@ class Calendar {
 			}
 			$finalString .= "<td $style>" . $link[0] . date('d', $curDate) . $link[1] . '</td>';
 			//Checks wheather the current day is the last one in this month
-			if(date('tm', $curDate) == date('d', $curDate) . $this->month) {
+			if(date('tn', $curDate) == date('d', $curDate) . $this->month) {
 				$moreRows = false;
 			}
 		}

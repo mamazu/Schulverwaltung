@@ -1,7 +1,9 @@
 <?php
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Generators/CalenderGenerator.php';
+
 $HTML = new HTMLGenerator\Page('Calendar', ['table.css', 'calendar.css', 'form.css']);
+
 if(isset($_GET['date']) && isDate($_GET['date'])) {
 	Header('Location: showEvent.php?date='.$_GET['date']);
 	exit;
@@ -14,12 +16,8 @@ global $database;
 function evalGet($var) {
 	$year = isset($var['y']) ? intval($var['y']) : 0;
 	$month = isset($var['m']) ? intval($var['m']) : 0;
-	if($year != 0 && $month != 0) {
-		return new Calendar($var['m'], $var['y']);
-	}
-	if($month != 0) {
-		return new Calendar($var['m']);
-	}
+	if($year != 0 && $month != 0) return new Calendar($var['m'], $var['y']);
+	if($month != 0) return new Calendar($var['m']);
 	return new Calendar();
 }
 

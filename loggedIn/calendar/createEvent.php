@@ -59,9 +59,8 @@ if(count($participants) != 0){
 	$query = '';
 	foreach($participants['p'] as $value)
 		$query .= "INSERT INTO event__participants(`type`, `value`)VALUE('p', $value);\n";
-	foreach($participants['c'] as $value){
-		$query .= "INSERT INTO event__participants(`type`, `value`)VALUE('c', $value);\n";
-	}
+	foreach($participants['c'] as $value)
+		$query .= "INSERT INTO event__participants(`type`, `value`)VALUE('c', $value);\n";	
 	$database->multi_query($query);
 }
 
