@@ -4,6 +4,11 @@ p#forumDescription {
 	background-color: rgba(0, 0, 0, 0.12);
 }
 
+a.rightAlign{
+	text-align: right;
+	display: block;
+}
+
 /* Topics and Posts */
 #topicArea > a {
 	margin-left: 1em;
@@ -11,11 +16,14 @@ p#forumDescription {
 
 #topicArea ul {
 	list-style: none;
+	box-sizing: border-box;
+	margin-left: 0;
 }
 
 #topicArea ul li {
 	padding: .5em;
 	display: block;
+	margin-left: 0;
 	border: 1px solid;
 	border-bottom: 0;
 }

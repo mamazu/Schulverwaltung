@@ -23,22 +23,23 @@ $HTML->outputHeader();
 
 echo "<h1>Change the $settingsName's setting</h1>";
 ?>
+	<a href="readForum.php?<?= $settingsName ?>Id=<?= $object->getId(); ?>" class="rightAlign">Back</a>
 	<form action="newSettings.php" method="POST">
-		<input type="hidden" name="type" value="<?php echo $settingName; ?>"/>
-		<input type="hidden" name="idVal" value="<?php echo $object->getId(); ?>"/>
+		<input type="hidden" name="type" value="<?= $settingsName; ?>"/>
+		<input type="hidden" name="idVal" value="<?= $object->getId(); ?>"/>
 		<fieldset>
 			<legend>Alterable</legend>
-			Name: <input type="text" name="newName" value="<?php echo $object->getName(); ?>" placeholder="New name"/>
+			Name: <input type="text" name="newName" value="<?= $object->getName(); ?>" placeholder="New name"/>
 			<br/>
-			Description: <textarea name="newDescription" placeholder="New name"/> <?php echo $object->getDescription(); ?> </textarea>
+			Description: <textarea name="newDescription" placeholder="New name"/> <?= $object->getDescription(); ?> </textarea>
 		</fieldset>
 		<fieldset>
 			<legend>Immutable</legend>
-			ID: <?php echo $object->getId(); ?>
+			ID: <?= $object->getId(); ?>
 			<br/>
 			Creator: <?php
 			$creator = (int)$object->getCreator();
-			echo ClassPerson::staticGetName($creator, $_SESSION['nickName']);
+			echo ClassPerson::staticGetName($creator, $_SESSION['ui']['nickName']);
 			?>
 		</fieldset>
 		<button type="submit">Save settings</button>

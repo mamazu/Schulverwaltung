@@ -17,15 +17,13 @@ $newPosts = 1;
 echo '<h1>Foums you participate in</h1>';
 
 while ($row = $result->fetch_assoc()) {
-	?><a href="readForum.php?id=<?= $row['id'] ?>">
-		<div class="card"><h2><?= $row['subject'] ?></h2>
-			<?php if($newPosts > 0): ?>
-			<p> You have <?= $newPosts ?> new topic<?= ($newPosts > 1) ? 's':''?> in this forum. </p>
-			<?php else: ?>
-			<p> Nothing new here. </p>
-			<?php endif ?>
-		</div>
-	</a><?
+	echo '<a href="readForum.php?forumId=' . $row['id'] . '">';
+	echo '<div class="card"><h2>'. $row['subject'] .'</h2>'; 
+	if($newPosts > 0)
+		echo "<p> You have $newPosts new topic". (($newPosts > 1) ? 's':'') . " in this forum. </p>";
+	else
+		echo '<p> Nothing new here. </p>';
+	echo '</div></a>';
 }
 $HTML->outputFooter();
 ?>

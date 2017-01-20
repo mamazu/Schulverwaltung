@@ -31,7 +31,8 @@ $posterId = $_SESSION['id'];
 $messageContent = escapeStr($_POST['postMessage']);
 
 //Querrying the database
-$querry = $database->query("INSERT INTO forum__post VALUES(NULL, $topicId, '$messageContent', NOW(), $posterId);");
+$querry = $database->query("INSERT INTO forum__post(parent, post, poster) VALUES($topicId, '$messageContent', $posterId);");
+echo $database->error;
 
 //Evaluate querry
 if($querry) {
