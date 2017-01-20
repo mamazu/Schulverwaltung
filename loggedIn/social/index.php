@@ -21,7 +21,7 @@ global $database;
 	} else {
 		echo '<ul>';
 		foreach($pending as $key => $value) {
-			echo '<li>' . ClassPerson::staticGetName($key, $_SESSION['nickName']);
+			echo '<li>' . ClassPerson::staticGetName($key, $_SESSION['ui']['nickname']);
 			if(!$value) {
 				echo ' - <a href="#">Accept</a> - <a href="#">Deny</a>';
 			}

@@ -9,7 +9,7 @@ class ClassPerson {
 	private $status = 's';
 	private $grade = NULL;
 
-	const STATUSARRAY = ['s' => 'student', 't' => 'teacher', 'h' => 'headmaster'];
+	public $STATUSARRAY = ['s' => 'student', 't' => 'teacher', 'h' => 'headmaster'];
 
 	function __construct($id) {
 		if(intval($id)) {
