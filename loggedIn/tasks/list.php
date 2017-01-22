@@ -5,8 +5,6 @@ require_once '../../webdev/php/Generators/tableGenerator.php';
 require_once '../../webdev/php/Generators/optionGenerator.php';
 
 $HTML = new HTMLGenerator\Page('To-Do', ['table.css', 'form.css', 'todo.css'], ['selectionToggle.js']);
-$HTML->outputHeader();
-
 $currentStudent = new ClassToDo($_SESSION['id']);
 
 $toggleId = isset($_GET['toggleId']) ? intval($_GET['toggleId']) : 0;
@@ -15,19 +13,20 @@ if($toggleId != 0) {
 	header('Location: list.php');
 	exit();
 }
+$HTML->outputHeader();
 ?>
 	<h1>Tasks</h1>
 	<div id="filter">
 		<form onsubmit="return false;">
 			<fieldset>
 				<legend>Filter</legend>
-				<?= 'Done: ' . generateOption(['Done', 'To-Do'], 'toDoFilter', True); ?>
+				<?= 'Done: ' . generateOption(['Done', 'To-Do'], 'toDoFilter', true); ?>
 				<br/>
-				<?= 'Type: ' . generateOption(uniquify($currentStudent->getTypes()), 'typeFilter', True); ?>
+				<?= 'Type: ' . generateOption(uniquify($currentStudent->getTypes()), 'typeFilter', true); ?>
 				<br/>
-				<?= 'Priority: ' . generateOption($priority, 'priortiyFilter', True); ?>
+				<?= 'Priority: ' . generateOption($priority, 'priortiyFilter', true); ?>
 				<br/>
-				<?= 'Subject: ' . generateOption(uniquify($currentStudent->getSubjects()), 'subjectFilter', True); ?>
+				<?= 'Subject: ' . generateOption(uniquify($currentStudent->getSubjects()), 'subjectFilter', true); ?>
 				<br/>
 				<button onclick="filterTable()">Filter</button>
 				<button type="reset" onclick="resetFilter()">Reset</button>

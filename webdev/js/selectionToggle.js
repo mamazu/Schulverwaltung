@@ -26,25 +26,24 @@ function filterTable() {
 	for (var i = 0; i < allTRs.length; i++)
 	if (allTRs[i].getAttribute('class') != null) {
 		allTRs[i].removeAttribute('style');
-		if (toDoFilter != 'None' && allTRs[i].getAttribute(
-			'class') != toDoFilter.toLowerCase())
-		allTRs[i].style.display = 'none';
-		if (typeFilter != 'None') {
-		var child = allTRs[i].children[2].innerHTML;
-		var endPos = child.indexOf(' (');
-		var substr = child.substring(0, endPos);
-		if (substr != typeFilter)
+		if (toDoFilter != 'None' && allTRs[i].getAttribute('class') != toDoFilter.toLowerCase())
 			allTRs[i].style.display = 'none';
+		if (typeFilter != 'None') {
+			var child = allTRs[i].children[2].innerHTML;
+			var endPos = child.indexOf(' (');
+			var substr = child.substring(0, endPos);
+			if (substr != typeFilter)
+				allTRs[i].style.display = 'none';
 		}
 		if (priortiyFilter != 'None' && allTRs[i].children[3].innerHTML != priortiyFilter)
-		allTRs[i].style.display = 'none';
-		if (subjectFilter != 'None') {
-		var child = allTRs[i].children[2].innerHTML;
-		var endPos = child.indexOf(' (');
-		var substr = child.substring(endPos + 2, child.length - 1);
-		alert(substr);
-		if (substr != subjectFilter)
 			allTRs[i].style.display = 'none';
+		if (subjectFilter != 'None') {
+			var child = allTRs[i].children[2].innerHTML;
+			var endPos = child.indexOf(' (');
+			var substr = child.substring(endPos + 2, child.length - 1);
+			alert(substr);
+			if (substr != subjectFilter)
+				allTRs[i].style.display = 'none';
 		}
 	}
 }
@@ -53,7 +52,7 @@ function filterTable() {
 function resetFilter() {
 	var allTRs = document.getElementsByTagName('tr');
 	for (var i = 0; i < allTRs.length; i++) {
-	allTRs[i].removeAttribute('style');
+		allTRs[i].removeAttribute('style');
 	}
 }
 
