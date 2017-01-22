@@ -24,11 +24,8 @@ class Message {
 	 * @param String $destination Where will the message lead you [optional]
 	 */
 	public static function castMessage($message = '', $suc = false, $destination = '#') {
-		if (isIn('?', $destination)) {
-			$concat = '&';
-		} else {
-			$concat = '?';
-		}
+		# Sets the concatination operator
+		$concat = isIn('?', $destination) ? '&' : '?';
 		if ($destination != '#') {
 			$finalString = $destination . $concat;
 		} else {

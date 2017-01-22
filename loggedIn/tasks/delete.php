@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../webdev/php/essentials/databaseEssentials.php';
-require_once '../../webdev/php/Classes/Messages.php';
-require_once '../../webdev/php/Classes/debuging/Logger.php';
+require_once __DIR__. '/../../webdev/php/essentials/databaseEssentials.php';
+require_once __DIR__. '/../../webdev/php/Classes/Messages.php';
+require_once __DIR__. '/../../webdev/php/Classes/debuging/Logger.php';
 
 session_start();
 connectDB();

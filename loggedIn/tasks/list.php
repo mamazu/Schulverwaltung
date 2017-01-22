@@ -13,6 +13,7 @@ $toggleId = isset($_GET['toggleId']) ? intval($_GET['toggleId']) : 0;
 if($toggleId != 0) {
 	$suc = $currentStudent->toggle($toggleId);
 	header('Location: list.php');
+	exit();
 }
 ?>
 	<h1>Tasks</h1>
@@ -38,7 +39,7 @@ if($toggleId != 0) {
 			<?php echo generateTableHead(['Date', 'Topic', 'Type', 'Priority']); ?>
 			<tbody>
 			<!-- Generating the body of the table -->
-			<?php echo (string) $currentStudent ?>
+			<?php echo (string) $currentStudent; ?>
 			</tbody>
 			<tfoot>
 			<tr>
