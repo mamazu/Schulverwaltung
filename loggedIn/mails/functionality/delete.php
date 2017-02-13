@@ -12,8 +12,9 @@ $messageID = intval($_GET['id']);
 $destination = '../read.php';
 
 if(MailManager\Overview::userHas($_SESSION['id'], $messageID)){
-	$database->query("UPDATE user__messages SET deleted = NOW() WHERE id = $messageID");
-	if($database->errno == 0){
+	$stmt = $database->prepare("UPDATE user__messages SET deleted = NOW() WHERE id = ?");
+	$stmt->bind_param('i', $messageID);
+	if($stmt->execute()){
 		Logger::log("The message (id: $messageID) was deleted", Logger::SOCIAL);
 		Message::castMessage('Message was sucessfully deleted', true, $destination);
 		exit();

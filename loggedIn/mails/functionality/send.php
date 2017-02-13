@@ -16,8 +16,9 @@ $textarea = escapeStr($_POST['message']);
 $mesages = ['err' => '', 'suc' => ''];
 
 if(isset($_POST['writeAll']) && Authorization::userHasPermission($sender, 'social.mails.bulk')){
-	$database->query("INSERT INTO user__messages(sender, reciver, subject, content) SELECT $sender, id, '$subject', '$textarea' FROM user__overview WHERE id != 0;");
-	if($database->errno == 0){
+	$stmt = $database->prepare("INSERT INTO user__messages(sender, reciver, subject, content) SELECT ?, id, ?, ? FROM user__overview WHERE id != 0;");
+	$stmt->bind_param('iss', $sender, $subject, $textarea);
+	if($stmt->execute()){
 		Logger::log("A new message (id: $database->insert_id) was send to the selected users.", Logger::SOCIAL);
 		$mesages['suc'] = 'Your messsage was sucessfully send.';
 	}else
@@ -26,11 +27,14 @@ if(isset($_POST['writeAll']) && Authorization::userHasPermission($sender, 'socia
 	$mesages['err'] = 'No receiver specified';
 }else{
 	$allRecievers = array_filter(array_map(function($x){return intval($x);}, $_POST));
+	$stmt = $database->prepare("INSERT INTO user__messages(sender, reciver, subject, content) VALUES($sender, $reciever, '$subject', '$textarea');");
+	$sucess = true;
 	foreach($allRecievers as $reciever){
-		$database->query("INSERT INTO user__messages(sender, reciver, subject, content) VALUES($sender, $reciever, '$subject', '$textarea');");
+		$stmt->bind_param();
+		$sucess &= $stmt->execute();
 		Logger::log("A new message (id: $database->insert_id) was send to the id $reciever.", Logger::SOCIAL);
 	}
-	if($database->errno == 0)
+	if($sucess)
 		$message['suc'] = 'Your messsage was sucessfully send.';
 	else
 		$mesages['err'] = 'Your message could not be send.';

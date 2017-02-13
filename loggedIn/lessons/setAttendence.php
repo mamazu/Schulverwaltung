@@ -25,34 +25,33 @@ $homeworkId = array_filter(array_map('intval', $homeworkPOST), 'validId');
 $boolArray = [];
 for($i = 0; $i < count($attendedId); $i++) {
 	$value = 'true, ';
-	$value .= in_array($attendedId[$i], $homeworkId) ? 'true' : 'false';
+	$value .= in_array($attendedId[$i], $homeworkId) ? '1' : '0';
 	$boolArray[$attendedId[$i]] = $value;
 	$homeworkId = array_diff($homeworkId, [$attendedId[$i]]);
 }
 
 $homeworkButNotHere = array_merge($homeworkId);
 for($i = 0; $i < count($homeworkButNotHere); $i++) {
-	$boolArray[$homeworkButNotHere[$i]] = 'false, true';
+	$boolArray[$homeworkButNotHere[$i]] = '01';
 }
 
 #preparing SQL statement
-$sql = 'INSERT INTO lesson__attended(lessonId, studentId, attended, homeworkDone) VALUES';
+$stmt = $database->prepare('INSERT INTO lesson__attended(lessonId, studentId, attended, homeworkDone) VALUES (?, ?, ?, ?)');
+$suc = true;
 foreach($boolArray as $studentId => $value) {
-	$sql .= "($lessonId, $studentId, $value),";
+	$stmt->bind_param('iiii', $lessonId, $studentId, $value[0], $value[1]);
+	$suc &= $stmt->execute();
 }
-$sql = rtrim($sql, ',') . ';';
-echo $sql . '<br />';
-$database->query($sql);
-if($database->errno == 0) {
+if($suc) {
 	Message::castMessage('Sucessfully altered data', true, $destination);
 } else {
 	Message::castMessage('Something went wrong during querry time.', false, $destination);
 }
 
 #Outputting the data
-echo "LessonID: $lessonId <br />";
-echo 'Attend: ';
-var_dump($attendedId);
-echo '<br />HW: ';
-var_dump($homeworkId);
+#echo "LessonID: $lessonId <br />";
+#echo 'Attend: ';
+#var_dump($attendedId);
+#echo '<br />HW: ';
+#var_dump($homeworkId);
 ?>

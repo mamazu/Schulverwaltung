@@ -7,23 +7,26 @@ require_once '../../../webdev/php/essentials/databaseEssentials.php';
 connectDB();
 session_start();
 global $database;
+$destination = 'chat.php';
 
-$message = escapeStr($_POST['message']);
-$sender = intval($_SESSION['id']);
-
-if(strlen($message) == 0) {
-	Message::castMessage('Message can\'t be empty', false, 'chat.php');
+if(!isset($_POST['message'])){
+	Message::castMessage('No message provided', false, $destination);
 	exit();
 }
 
-$suc = $database->query("INSERT INTO chat__messages(message, sender) VALUES ('$message', $sender);");
-$suc1 = $database->query("INSERT INTO chat__online (lastAction, userId) VALUES (NOW(), $sender) ON DUPLICATE KEY UPDATE lastAction = NOW();");
-echo $database->error;
-Logger::log('User send a chat message.', Logger::SOCIAL);
-if($suc && $suc1)
-	header('Location: chat.php');
-else {
-	echo 'Could not send mesage';
+if(strlen($message) == 0) {
+	Message::castMessage('Message can\'t be empty', false, $destination);
+	exit();
 }
+
+$suc = $database->prepare("INSERT INTO chat__messages(message, sender) VALUES (?, ?);");
+$suc = $suc->bind_param('si', $_POST['message'], $_SESSION['id']);
+$suc1 = $database->prepare("INSERT INTO chat__online (lastAction, userId) VALUES (NOW(), ?) ON DUPLICATE KEY UPDATE lastAction = NOW();");
+$suc1 = $suc1->bind_param('i', $_SESSION['id']);
+
+if($suc->execute() && $suc1->execute())
+	Message::castMessage('Message send', true, $destination);
+else
+	Message::castMessage('Message could not be send', false, $destination);
 
 ?>

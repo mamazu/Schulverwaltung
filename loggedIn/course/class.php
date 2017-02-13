@@ -24,14 +24,16 @@ if(isset($_GET['classID']) && intval($_GET['classID'])) {
 			global $table;
 			$resultLesson = $database->query('SELECT `day`, lesson, room FROM timetable__overview WHERE classID=' . $cID . ' ORDER BY `day`, lesson');
 			while ($row = $resultLesson->fetch_assoc()) {
-				echo '<li>' . $row['lesson'] . '. lesson: ' . date('l', ($row['day'] - 4) * 24 * 3600) . ' in ' . $row['room'] . '</li>';
+				printf('<li>%s lesson: %s in %s </li>', $row['lesson'], date('l', ($row['day'] - 4) * 24 * 3600), $row['room']);
 			}
 			?>
 		</ul>
 		<br/>
 		<?php
-		$res = $database->query('SELECT COUNT(id) FROM task__toDo WHERE studentId = ' . $_SESSION['id'] . ' AND classID = ' . $cID . ' AND done = FALSE;');
-		$counter = $res->fetch_row();
+		$stmt = $database->prepare('SELECT COUNT(id) FROM task__toDo WHERE studentId = ? AND classID = ? AND done = FALSE;');
+		$stmt->bind_param('ii', $_SESSION['id'], $cID);
+		$stmt->execute();
+		$counter = $stmt->get_result()->fetch_row();
 		//Listing the homeworks
 		echo '<h2>Homework (' . $counter[0] . ')</h2>';
 		echo '<ul>';
@@ -42,7 +44,7 @@ if(isset($_GET['classID']) && intval($_GET['classID'])) {
 			while ($row = $result->fetch_assoc()) {
 				$done = ($row['done']) ? 'done' : 'toDo';
 				$date = date('D, d.m.', strtotime($row['deadline']));
-				echo "<li class=\"$done\">[$date] " . $row['content'] . '</li>';
+				printf('<li class="%s">[%s] %s</li>', $done, $date, $row['content']);
 			}
 		}
 		?>

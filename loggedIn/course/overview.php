@@ -3,7 +3,8 @@ require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 $HTML = new HTMLGenerator\Page('Class Overview', ['table.css']);
 $HTML->outputHeader();
 
-$sqlClasses = '
+global $database;
+$stmt = $database->prepare('
 	SELECT
 		course__student.classID AS "id",
 		abbr, subject, `type`,
@@ -15,11 +16,11 @@ $sqlClasses = '
 	LEFT OUTER JOIN task__toDo
 	ON task__toDo.classID = course__overview.id
 	WHERE
-		course__student.studentID = ' . $_SESSION['id'] . '
+		course__student.studentID = ?
 	GROUP BY subject
-	ORDER BY active DESC, abbr ASC;';
-global $database;
-
+	ORDER BY active DESC, abbr ASC;');
+$stmt->bind_param('i', $_SESSION['id']);
+$stmt->execute()
 ?>
 	<h1>Class Overview</h1>
 	<table summary="Overview over all your classes">
@@ -34,7 +35,7 @@ global $database;
 		</thead>
 		<tbody>
 		<?php
-		$result = $database->query($sqlClasses);
+		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
 			?>
 			<tr class="<?php echo ($row['active']) ? 'red' : 'green'; ?>">

@@ -16,10 +16,13 @@ var_dump($_SESSION);
 	if(isset($_GET['all'])) {
 		$result = $database->query('SELECT classID, notification FROM event__ticker');
 	} else {
-		if(isset($_SESSION['teacher'])) {
+		if(isset($_SESSION['teacher']))
 			$result = $database->query('SELECT classID, notification FROM event__ticker LIMIT 50');
-		} else {
-			$result = $database->query('SELECT classID, notification FROM event__ticker WHERE grade = ' . $_SESSION['grade'] . ' LIMIT 50;');
+		else{
+			$stmt = $database->prepare('SELECT classID, notification FROM event__ticker WHERE grade = ? LIMIT 50;');
+			$stmt->bind_param('i', $_SESSION['grade']);
+			$stmt->execute();
+			$result = $stmt->get_result();
 		}
 	}
 	while ($row = $result->fetch_assoc()) {

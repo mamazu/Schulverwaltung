@@ -30,7 +30,9 @@ if(strlen($link) == 0) {
 		unset($link);
 	}
 }
-$database->query("INSERT INTO homework__overview(topic, description) VALUES ('$topic', '$description');");
+$stmt = $database->prepare("INSERT INTO homework__overview(topic, description) VALUES (?, ?);");
+$stmt->bind_param('ss', $topic, $description);
+$stmt->execute();
 $id = $database->insert_id;
 if(!(count($books) == 0 && count($worksheets) == 0 && !isset($link))) {
 	$sql = 'INSERT INTO homework__material(hwID, book, sheets, `link`) VALUES ' . "\n";

@@ -14,8 +14,8 @@ $HTML->outputHeader();
 				<?php
 				$nextLesson = $overview->getNextLesson();
 				if($nextLesson != NULL) {
-					echo "You're next lesson is: " . $nextLesson[0] . '(' . $nextLesson[1] . ')<br />
-				It takes place in: "' . $nextLesson[3] . '" at ' . date('H:i', strtotime($nextLesson[2]));
+					echo "You're next lesson is: " . $nextLesson[0] . '(' . $nextLesson[1] . ')<br />';
+					echo 'It takes place in: "' . $nextLesson[3] . '" at ' . date('H:i', strtotime($nextLesson[2]));
 				} else {
 					echo 'No more lessons today.';
 				}
@@ -28,12 +28,15 @@ $HTML->outputHeader();
 		<p>
 			<?php
 			global $database;
-			$result = $database->query("SELECT * FROM task__toDo WHERE done = FALSE LIMIT 3;");
-			if($result->num_rows != 0) {
-				$row = $result->fetch_assoc();
-				echo '- ' . $row['conent'];
-			} else {
+			$stmt = $database->prepare("SELECT content, deadline FROM task__toDo WHERE done = FALSE AND studentID = ? ORDER BY deadline ASC LIMIT 3;");
+			$stmt->bind_param('i', $_SESSION['id']);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			if($result->num_rows == 0) {
 				echo 'You have worked off your todo list.';
+			} else {
+				while($row = $result->fetch_assoc())
+					printf('- %s [%s] <br />', $row['content'], $row['deadline']);
 			}
 			?>
 		</p>

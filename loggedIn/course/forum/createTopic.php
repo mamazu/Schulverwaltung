@@ -12,18 +12,18 @@ global $database;
 //If there is no forum that the topic could be associated => reroute.
 if(!isset($_POST['forumId'])) {
 	Message::castMessage('Please select forum', false, 'index.php');
+	exit();
 }
 
-//Aquiring the data
-$forumId = (int)$_POST['forumId'];
-$topicName = escapeStr($_POST['topicName']);
-$description = escapeStr($_POST['description']);
-$creatorId = $_SESSION['id'];
-
+if(!isset($_POST['topicName']) || !isset($_POST['description'])){
+	Message::castMessage('Invalid data', false, 'index.php');
+	exit();
+}
 
 //Querrying the database
-$query = $database->query("INSERT INTO forum__topic VALUES(NULL, $forumId, '$topicName', '$description', $creatorId);");
-if($query) {
+$stmt = $database->query("INSERT INTO forum__topic VALUES(NULL, ?, ?, ?, ?);");
+$stmt->bind_param('issi', $_POST['forumId'], $_POST['topicName'], $_POST['description'], $_SESSION['id']);
+if($stmt->execute()) {
 	Message::castMessage('Successfully created topic.', true, 'index.php?forumId=' . $forumId);
 } else {
 	Message::castMessage('Could not create topic.', false, 'newTopic.php?forumId=' . $forumId);

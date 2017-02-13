@@ -25,8 +25,9 @@ if($HTML->hasPermission()) {
 				echo '<label><input type="checkbox" value="writeBulk" name="writeAll" onchange="allReceive(this)"/> Write a message to all users</label>';
 			}
 			echo '<select name="receiver[]" title="Name of the receiver" multiple="multiple">';
-			$result = $database->query('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ' . $_SESSION['id'] . ' AND id != 0;');
-			while ($row = $result->fetch_assoc()) {
+			$stmt = $database->prepare('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ? AND id != 0;');
+			$smt->bind_param('i', $_SESSION['id']);
+			while ($row = $stmt->execute()->fetch_assoc()) {
 				$selected = ($row['id'] == $selectId) ? 'selected="selected"' : '';
 				echo '<option value="' . $row['id'] . '" ' . $selected . '>[' . $row['status'] . '] ' . $row['name'] . ' - ' . $row['username'] . '</option>';
 			}
