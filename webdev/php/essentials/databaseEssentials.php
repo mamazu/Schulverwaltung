@@ -1,5 +1,16 @@
 <?php
 
+function getConnection(){
+	$dbConfig = simplexml_load_file(__DIR__.'/../../../tools/config/database.xml');
+	$use = $dbConfig->use;
+	for ($i=0; $i < count($dbConfig->host); $i++) {
+		if((string)$dbConfig->host[$i]["name"] == $use)
+			return $dbConfig->host[$i];
+	}
+	echo "Could not find connection using default";
+	return $dbConfig->host[0];
+}
+
 /**
  * @global mysqli $database
  */
@@ -12,7 +23,9 @@ global $database;
  */
 function connectDB() {
 	global $database;
-	$database = new mysqli('localhost', 'headmasterLogin', 'DAePHdAT5jaTN2Ba', 'schulverwaltung');
+	$connection = getConnection();
+
+	$database = new mysqli($connection->address, $connection->username, $connection->password, $connection->database);
 	$database->autocommit(true);
 	return $database->errno == 0;
 }
