@@ -79,7 +79,7 @@ CREATE TABLE `chat__messages` (
 
 CREATE TABLE `chat__online` (
   `id` int(11) NOT NULL,
-  `lastAction` datetime NOT NULL,
+  `lastAction` datetime NOT NULL COMMENT 'Timestamp of the last action the user did',
   `userId` int(11) NOT NULL COMMENT 'Id of the user that has signed in.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -106,10 +106,10 @@ CREATE TABLE `course__overview` (
   `id` int(11) NOT NULL COMMENT 'Id of the course',
   `teacherID` mediumint(11) UNSIGNED NOT NULL COMMENT 'Id of the teacher',
   `subject` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Name of the subject',
-  `type` enum('G','L') COLLATE utf8_unicode_ci NOT NULL,
+  `type` enum('G','L') COLLATE utf8_unicode_ci NOT NULL COMMENT 'Type of the class G (o-level) or L for (a-level)',
   `abbr` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The short form of the subjectname',
   `grade` tinyint(2) UNSIGNED NOT NULL DEFAULT '5' COMMENT 'The grade of the course that it takes place in',
-  `active` tinyint(1) NOT NULL
+  `active` tinyint(1) NOT NULL COMMENT 'True if the course is active and false otherwise'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Important Information about the class';
 
 -- --------------------------------------------------------
@@ -121,7 +121,7 @@ CREATE TABLE `course__overview` (
 CREATE TABLE `course__student` (
   `id` int(11) NOT NULL,
   `classID` mediumint(11) NOT NULL COMMENT 'Id of the class',
-  `studentID` int(11) NOT NULL
+  `studentID` int(11) NOT NULL COMMENT 'Id of the student'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=REDUNDANT;
 
 -- --------------------------------------------------------
@@ -147,9 +147,9 @@ CREATE TABLE `debug__debugger` (
 CREATE TABLE `debug__logger` (
   `id` int(11) NOT NULL,
   `event` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'What was done',
-  `topicId` int(11) NOT NULL,
+  `topicId` int(11) NOT NULL COMMENT 'Id of the topic',
   `issuer` int(11) NOT NULL COMMENT 'Who did it?',
-  `timestamp` datetime NOT NULL
+  `timestamp` datetime NOT NULL COMMENT 'Timestamp of the creation'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -246,8 +246,8 @@ CREATE TABLE `forum__topic` (
 
 CREATE TABLE `help__main` (
   `id` int(11) NOT NULL,
-  `question` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `answer` text COLLATE utf8_unicode_ci,
+  `question` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Question that is dealt with in the answer',
+  `answer` text COLLATE utf8_unicode_ci COMMENT 'Content of the help',
   `topic` int(11) NOT NULL COMMENT 'Id of the topic the question belongs to'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -312,7 +312,7 @@ CREATE TABLE `lesson__attended` (
 
 CREATE TABLE `lesson__overview` (
   `id` int(11) NOT NULL,
-  `classId` int(11) NOT NULL,
+  `classId` int(11) NOT NULL COMMENT 'Id of the class',
   `topic` text COLLATE utf8_unicode_ci COMMENT 'Topic of the lesson',
   `homework` tinyint(1) DEFAULT '0' COMMENT 'Have the students homework to do',
   `started` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The time the lesson actually started'
@@ -366,7 +366,7 @@ CREATE TABLE `task__toDo` (
   `studentID` mediumint(11) UNSIGNED NOT NULL COMMENT 'The student that has to do the homework',
   `done` tinyint(1) NOT NULL COMMENT 'Has the student done the homework',
   `deadline` date NOT NULL COMMENT 'The date the work has to be done',
-  `content` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `content` mediumtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Content of the todo',
   `typeID` tinyint(11) UNSIGNED NOT NULL DEFAULT '1' COMMENT 'What type of homework is it?',
   `prio` int(1) NOT NULL DEFAULT '0' COMMENT 'How important is this?'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -379,7 +379,7 @@ CREATE TABLE `task__toDo` (
 
 CREATE TABLE `task__type` (
   `id` int(11) NOT NULL,
-  `content` char(20) COLLATE utf8_unicode_ci NOT NULL
+  `content` char(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'name of the type'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -390,9 +390,9 @@ CREATE TABLE `task__type` (
 
 CREATE TABLE `test__other` (
   `id` int(11) NOT NULL,
-  `classId` int(11) NOT NULL,
-  `studentId` int(11) NOT NULL,
-  `markValue` tinyint(4) NOT NULL DEFAULT '0'
+  `classId` int(11) NOT NULL COMMENT 'Id of the class the test belongs to',
+  `studentId` int(11) NOT NULL COMMENT 'Id of the student who took the test',
+  `markValue` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Mark that the student scored'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -403,9 +403,9 @@ CREATE TABLE `test__other` (
 
 CREATE TABLE `test__task` (
   `id` int(11) NOT NULL,
-  `taskname` varchar(200) NOT NULL,
-  `description` text,
-  `maxScore` int(11) NOT NULL
+  `taskname` varchar(200) NOT NULL COMMENT 'Name of the task',
+  `description` text COMMENT 'Description of what is the task',
+  `maxScore` int(11) NOT NULL COMMENT 'Max score someone can get'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -430,9 +430,9 @@ CREATE TABLE `test__test` (
 
 CREATE TABLE `test__try` (
   `id` int(11) NOT NULL,
-  `testId` int(11) NOT NULL,
-  `taskNumber` int(11) NOT NULL,
-  `score` int(11) NOT NULL
+  `testId` int(11) NOT NULL COMMENT 'Id of the test',
+  `taskNumber` int(11) NOT NULL COMMENT 'Number of th task',
+  `score` int(11) NOT NULL COMMENT 'Score that has been achieved'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Try to do the test';
 
 -- --------------------------------------------------------
@@ -547,8 +547,8 @@ CREATE TABLE `user__password` (
 
 CREATE TABLE `user__permission` (
   `id` int(11) NOT NULL,
-  `admin` tinyint(1) DEFAULT NULL,
-  `teacher` tinyint(1) DEFAULT NULL
+  `admin` tinyint(1) DEFAULT NULL COMMENT 'Is the user an admin',
+  `teacher` tinyint(1) DEFAULT NULL COMMENT 'Is the user a teacher'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
