@@ -21,7 +21,7 @@ $HTML->outputHeader();
 		<br/>
 		Status:
 		<?php
-		echo ucfirst($settings->$STATUSARRAY[$settings->getStatus()]);
+		echo ucfirst($settings->STATUSARRAY[$settings->getStatus()]);
 		if($settings->getStatus() == 's') {
 			echo ' in Grade ' . $settings->getGrade();
 		}
