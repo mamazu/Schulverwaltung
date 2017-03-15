@@ -17,16 +17,18 @@ $failDestination = 'index.php';
 $sucDestination = 'loggedIn/overview/index.php';
 
 // Gets the userId and the forget state of the password
-$passwordQuerry = $database->query(
-	"SELECT
+$stmt = $database->prepare("SELECT
 		user__overview.id, forget
 	FROM user__overview
 	LEFT JOIN user__password
 	ON user__overview.id = user__password.id
 	WHERE
-		`username` = '$uname'
+		`username` = ?
 	AND
-		`password` = MD5(CONCAT('scnhjndur4hf389ur4h3fbjqdjsdncsjkvdnkvj', '$psw', passwordAppendix));");
+		`password` = MD5(CONCAT('scnhjndur4hf389ur4h3fbjqdjsdncsjkvdnkvj', ?, passwordAppendix));");
+$stmt->bind_param("ss", $uname, $uname);
+$stmt->execute();
+$passwordQuerry = $stmt->get_result();
 
 // Empty result means not a valid combination
 if($passwordQuerry->num_rows != 1) {
@@ -43,16 +45,18 @@ if ($userRow[1] == true) {
 }
 
 //Creating the session
-$sessionQuerry = $database->query("SELECT
+$stmt = $database->prepare("SELECT
 		overview.id AS 'id',
 		overview.grade AS 'grade',
 		interface.*
 	FROM user__overview overview
 	LEFT JOIN user__interface interface
 	ON interface.id = overview.id
-	WHERE overview.id = $userRow[0];");
+	WHERE overview.id = ?;");
+$stmt->bind_param("s", $userRow[0]);
+$stmt->execute();
 
-$sessionData = $sessionQuerry->fetch_assoc();
+$sessionData = $stmt->get_result()->fetch_assoc();
 $_SESSION['id'] = intval($sessionData['id']);
 $_SESSION['grade'] = intval($sessionData['grade']);
 $_SESSION['ui'] = array_map(intval, $sessionData);
