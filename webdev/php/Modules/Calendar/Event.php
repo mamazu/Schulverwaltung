@@ -147,12 +147,3 @@ class Event extends \tools\Database\DatabaseObject {
         );
     }
 }
-
-
-$evt = new Event(null, 2000, 2000, "msdkcm", "dscssld", 0);
-$eId = $evt->getID();
-$evt->commit();
-
-$evt2 = new Event($eId);
-$evt2->setTopic("This is a serious event");
-$evt2->commit();
