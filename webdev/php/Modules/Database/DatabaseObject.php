@@ -62,8 +62,8 @@ abstract class DatabaseObject {
 		$colValues = $this->prepare($state);
 		if(!$this->loaded)
 			$stmt = generateInsert($this->tableName, $colValues);
-		else
-			$stmt = generateUpdate($this->tableName, $colValues);
+        else
+			$stmt = generateUpdate($this->tableName, $colValues, $this->id);
 		if($stmt == ''){
 			echo 'Invalid table name.<br />';
 			return false;
