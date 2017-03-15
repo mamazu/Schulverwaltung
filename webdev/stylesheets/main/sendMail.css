@@ -1,10 +1,9 @@
 form#mailForm {
-	width: 60%;
-	min-width: 50em;
+	width: 50em;
+	max-width: 100%;
 	line-height: 1;
 	margin: auto;
 }
-
 label, label span{
 	display: block;
 	margin-bottom: .3em;

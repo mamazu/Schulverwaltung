@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Setup tools for the school administration</title>
+	<link rel="stylesheet" type="text/css" href="../../webdev/stylesheets/light/main.css" />
+	<link rel="stylesheet" type="text/css" href="../../webdev/stylesheets/main/main.css" />
+	<link rel="stylesheet" type="text/css" href="../../webdev/stylesheets/main/form.css" />
+</head>
+
+<body>
+	<div id="content">
+		<div id="mainContent">
+			<h1>Content settings</h1>
+			<form action="run.php" method="POST">
+				<fieldset>
+					<legend>Database Settings</legend>
+					<label>
+						Host:
+						<input type="text" name="hostname" maxlength="100" placeholder="Address of the database" value="localhost" />
+					</label>
+					<br />
+					<label>
+						Name of the database:
+						<input type="text" name="databaseName" maxlength="25" placeholder="Name of the database" />
+					</label>
+					<label>
+						<input type="checkbox" name="delete" /> Delete if database already exists
+					</label>
+					<br />
+					<label>
+						User of the database:
+						<input type="text" name="db_user" placeholder="Username of the sql user" />
+					</label>
+					<br />
+					<label>
+						Password for the user:
+						<input type="password" name="db_pw" placeholder="Password" />
+					</label>
+					<p>
+						<b>IMPORTANT</b>: The given user has to have the rights to create and if checked delete databases.
+					</p>
+				</fieldset>
+				<button type="submit">Create</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
