@@ -8,10 +8,11 @@
 
 namespace tools\calendar;
 
+include_once __DIR__.'/../Database/DatabaseObject.php';
 
-class Event {
+class Event extends \tools\Database\DatabaseObject {
 	public $description;
-	private $id, $start, $end, $topic, $private;
+	protected $startTime, $endTime, $topic, $private;
 
 	/**
 	 * Event constructor.
@@ -25,16 +26,17 @@ class Event {
 	 * @param bool $private
 	 */
 	public function __construct($id = NULL, $start = NULL, $end = NULL, $topic = NULL, $description = NULL, $private = NULL) {
-		if($id != NULL && $start == NULL) {
+	    parent::__construct($id, "event__upcoming");
+	    if($start == NULL) {
 			$this->load();
 			return;
-		}
-		$this->id = $id;
-		$this->start = date_create_from_format("Y-m-d H:i:s", $start);
-		$this->end = date_create_from_format("Y-m-d H:i:s", $end);
-		$this->topic = $topic;
-		$this->description = $description;
-		$this->private = boolval($private);
+		}else{
+            $this->startTime = date_create_from_format("Y-m-d H:i:s", $start);
+            $this->endTime = date_create_from_format("Y-m-d H:i:s", $end);
+            $this->topic = $topic;
+            $this->description = $description;
+            $this->private = boolval($private);
+        }
 	}
 
 	/**
@@ -42,67 +44,66 @@ class Event {
 	 * @return bool
 	 *		True if sucessful, false otherwise
 	 */
-	private function load() {
-		global $database;
-		$result = $database->query("SELECT startTime, endTime, topic, description, private FROM event__upcoming WHERE id=$this->id;");
-		if($result->num_rows == 0) {
-			return false;
-		}
-		$row = $result->fetch_assoc();
-		$this->start = $row['startTime'];
-		$this->end = $row['endTime'];
-		$this->topic = $row['name'];
-		$this->description = $row['description'];
-		$this->private = boolval($row['private']);
+	public function load() {
+		parent::load();
+		$this->startTime = date_create_from_format("Y-m-d H:i:s", $this->startTime);
+		$this->endTime= date_create_from_format("Y-m-d H:i:s", $this->endTime);
+		$this->private = boolval($this->private);
 		return true;
 	}
 
 	/**
+     * Returns the time the event starts
 	 * @return \DateTime
 	 */
-	public function getStart(): \DateTime {
-		return $this->start;
+	public function getStart(){
+		return $this->startTime;
 	}
 
 	/**
+     * Sets the starting time of the event
 	 * @param \DateTime $start
 	 * @return bool
 	 */
-	public function setStart(\DateTime $start) {
-		if($start > $this->end || $start == null) {
+	public function setStart($start) {
+		if($start > $this->endTime || $start == null) {
 			return false;
 		}
-		$this->start = $start;
+		$this->startTime = $start;
 		return true;
 	}
 
 	/**
+     * Gets the datetime when the event ends
 	 * @return \DateTime
 	 */
-	public function getEnd(): \DateTime {
-		return $this->end;
+	public function getEnd(){
+		return $this->endTime;
 	}
 
 	/**
+     * Sets the time when the event ends
 	 * @param \DateTime $end
 	 * @return bool
 	 */
-	public function setEnd(\DateTime $end) {
-		if($end < $this->start || $end == null) {
+	public function setEnd($end) {
+		if($end < $this->startTime || $end == null) {
 			return false;
 		}
-		$this->end = $end;
+		$this->endTime = $end;
 		return true;
 	}
 
 	/**
-	 * @return null|string
+     * Gets the purpose
+	 * @return string
 	 */
 	public function getTopic() {
 		return $this->topic;
 	}
 
 	/**
+     * Sets the topic if it is not empty
 	 * @param string $topic
 	 * @return bool
 	 */
@@ -115,33 +116,43 @@ class Event {
 	}
 
 	/**
+     * Returns if the event is private
 	 * @return boolean
 	 */
-	public function isPrivate(): bool {
+	public function isPrivate(){
 		return $this->private;
 	}
 
 	/**
+     * Sets the event to be private
 	 * @param boolean $private
 	 */
 	public function setPrivate(bool $private) {
 		$this->private = boolval($private);
 	}
 
-	/**
-	 * Commits any changes to the event object to the database
-	 * @return bool
-	 *		True if sucessful, false otherwise
-	 */
-	public function commit() {
-		global $database;
-		$private = $this->private ? 1 : 0;
-		$database->query('INSERT INTO event__upcoming(id, startTime, endTime, topic, description, private)VALUE' . "($this->id, '$this->start', '$this->end', '$this->topic', '$this->description', $private) ON DUPLICATE KEY REPLACE;");
-		return $database->errno == 0;
-	}
-
+    /**
+     * Gets the state of the object (must contain all the elements that should be stored in a database)
+     * @return array Associative array of the "property" => value
+     */
+    protected function getState()
+    {
+        return array(
+            "id" => $this->id,
+            "startTime" => $this->startTime,
+            "endTime" => $this->endTime,
+            "topic" => $this->topic,
+            "description" => $this->description,
+            "private" => $this->private
+        );
+    }
 }
 
 
 $evt = new Event(null, 2000, 2000, "msdkcm", "dscssld", 0);
+$eId = $evt->getID();
 $evt->commit();
+
+$evt2 = new Event($eId);
+$evt2->setTopic("This is a serious event");
+$evt2->commit();
