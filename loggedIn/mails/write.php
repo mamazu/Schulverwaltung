@@ -26,8 +26,10 @@ if($HTML->hasPermission()) {
 			}
 			echo '<select name="receiver[]" title="Name of the receiver" multiple="multiple">';
 			$stmt = $database->prepare('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ? AND id != 0;');
-			$smt->bind_param('i', $_SESSION['id']);
-			while ($row = $stmt->execute()->fetch_assoc()) {
+			$stmt->bind_param('i', $_SESSION['id']);
+			$stmt->execute();
+			while ($row = $stmt->get_result()) {
+				$row = $row->fetch_assoc();
 				$selected = ($row['id'] == $selectId) ? 'selected="selected"' : '';
 				echo '<option value="' . $row['id'] . '" ' . $selected . '>[' . $row['status'] . '] ' . $row['name'] . ' - ' . $row['username'] . '</option>';
 			}
