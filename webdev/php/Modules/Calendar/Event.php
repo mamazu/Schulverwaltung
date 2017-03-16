@@ -26,17 +26,17 @@ class Event extends \tools\Database\DatabaseObject {
 	 * @param bool $private
 	 */
 	public function __construct($id = NULL, $start = NULL, $end = NULL, $topic = NULL, $description = NULL, $private = NULL) {
-	    parent::__construct($id, "event__upcoming");
-	    if($start == NULL) {
+		parent::__construct($id, "event__upcoming");
+		if($start == NULL) {
 			$this->load();
 			return;
 		}else{
-            $this->startTime = date_create_from_format("Y-m-d H:i:s", $start);
-            $this->endTime = date_create_from_format("Y-m-d H:i:s", $end);
-            $this->topic = $topic;
-            $this->description = $description;
-            $this->private = boolval($private);
-        }
+			$this->startTime = date_create_from_format("Y-m-d H:i:s", $start);
+			$this->endTime = date_create_from_format("Y-m-d H:i:s", $end);
+			$this->topic = $topic;
+			$this->description = $description;
+			$this->private = boolval($private);
+		}
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Returns the time the event starts
+	 * Returns the time the event starts
 	 * @return \DateTime
 	 */
 	public function getStart(){
@@ -61,7 +61,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Sets the starting time of the event
+	 * Sets the starting time of the event
 	 * @param \DateTime $start
 	 * @return bool
 	 */
@@ -74,7 +74,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Gets the datetime when the event ends
+	 * Gets the datetime when the event ends
 	 * @return \DateTime
 	 */
 	public function getEnd(){
@@ -82,7 +82,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Sets the time when the event ends
+	 * Sets the time when the event ends
 	 * @param \DateTime $end
 	 * @return bool
 	 */
@@ -95,7 +95,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Gets the purpose
+	 * Gets the purpose
 	 * @return string
 	 */
 	public function getTopic() {
@@ -103,7 +103,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Sets the topic if it is not empty
+	 * Sets the topic if it is not empty
 	 * @param string $topic
 	 * @return bool
 	 */
@@ -116,7 +116,7 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Returns if the event is private
+	 * Returns if the event is private
 	 * @return boolean
 	 */
 	public function isPrivate(){
@@ -124,26 +124,26 @@ class Event extends \tools\Database\DatabaseObject {
 	}
 
 	/**
-     * Sets the event to be private
+	 * Sets the event to be private
 	 * @param boolean $private
 	 */
 	public function setPrivate(bool $private) {
 		$this->private = boolval($private);
 	}
 
-    /**
-     * Gets the state of the object (must contain all the elements that should be stored in a database)
-     * @return array Associative array of the "property" => value
-     */
-    protected function getState()
-    {
-        return array(
-            "id" => $this->id,
-            "startTime" => $this->startTime,
-            "endTime" => $this->endTime,
-            "topic" => $this->topic,
-            "description" => $this->description,
-            "private" => $this->private
-        );
-    }
+	/**
+	 * Gets the state of the object (must contain all the elements that should be stored in a database)
+	 * @return array Associative array of the "property" => value
+	 */
+	protected function getState()
+	{
+		return array(
+			"id" => $this->id,
+			"startTime" => $this->startTime,
+			"endTime" => $this->endTime,
+			"topic" => $this->topic,
+			"description" => $this->description,
+			"private" => $this->private
+		);
+	}
 }
