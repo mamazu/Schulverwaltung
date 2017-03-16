@@ -133,6 +133,9 @@ class Event extends \tools\Database\DatabaseObject {
 		$this->private = boolval($private);
 	}
 
+	public function getDescription(){ return $this->description;}
+	public function setDescription($new_description){ $this->description = (string) $new_description;}
+
 	/**
 	* Checks if the the datetime is inside the event
 	@param DateTime $date

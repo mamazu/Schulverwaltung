@@ -1,5 +1,6 @@
 <?php
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
+require_once '../../webdev/php/Modules/Calendar/Event.php';
 
 $HTML = new HTMLGenerator\Page('List of events', ['form.css']);
 global $database;
@@ -30,10 +31,10 @@ $result = $database->query("SELECT DISTINCT
 		AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
 if($result->num_rows != 0) {
 	while ($row = $result->fetch_row()) {
-		$event = new EventClass($row[0]);
-		echo '<h2>' . $event->getName() . '</h2>';
-		echo '<span class="it">From:</span> ' . $event->getStart() . '<br />';
-		echo '<span class="it">To:</span> ' . $event->getEnd() . '<br />';
+		$event = new \tools\Calendar\Event($row[0]);
+		echo '<h2>' . $event->getTopic() . '</h2>';
+		echo '<span class="it">From:</span> ' . $event->getStart()->format("d F Y") . '<br />';
+		echo '<span class="it">To:</span> ' . $event->getEnd()->format("d F Y") . '<br />';
 		echo '<span class="it">Description:</span> ' . $event->getDescription();
 	}
 } else {
