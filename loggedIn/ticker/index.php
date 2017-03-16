@@ -5,7 +5,6 @@ require_once '../../webdev/php/Classes/ClassClass.php';
 $HTML = new HTMLGenerator\Page('Information', ['information.css']);
 $HTML->outputHeader();
 global $database;
-var_dump($_SESSION);
 ?>
 <h1>Current News</h1>
 <p>
@@ -17,13 +16,13 @@ var_dump($_SESSION);
 		$result = $database->query('SELECT classID, notification FROM event__ticker');
 	} else {
 		if(isset($_SESSION['teacher']))
-			$result = $database->query('SELECT classID, notification FROM event__ticker LIMIT 50');
+			$stmt = $database->prepare('SELECT classID, notification FROM event__ticker LIMIT 50');
 		else{
 			$stmt = $database->prepare('SELECT classID, notification FROM event__ticker WHERE grade = ? LIMIT 50;');
 			$stmt->bind_param('i', $_SESSION['grade']);
-			$stmt->execute();
-			$result = $stmt->get_result();
 		}
+		$stmt->execute();
+		$result = $stmt->get_result();
 	}
 	while ($row = $result->fetch_assoc()) {
 		echo '<div class="information">';
@@ -33,6 +32,14 @@ var_dump($_SESSION);
 		}
 		echo $row['notification'];
 		echo '</div>';
+	}
+	if (hasPermission("ticker.create")){
+		?>
+		<form action="new.php" method="POST">
+			<input type="text" name="tickerMessage" />
+			<button type="submit">Create new</button>
+		</form>
+		<?php
 	}
 	?>
 </ul>

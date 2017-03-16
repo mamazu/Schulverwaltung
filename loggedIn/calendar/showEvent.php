@@ -1,6 +1,5 @@
 <?php
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
-require_once '../../webdev/php/Classes/EventClass.php';
 
 $HTML = new HTMLGenerator\Page('List of events', ['form.css']);
 global $database;
