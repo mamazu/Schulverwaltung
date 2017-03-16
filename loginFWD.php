@@ -18,7 +18,7 @@ $sucDestination = 'loggedIn/overview/index.php';
 
 // Gets the userId and the forget state of the password
 $stmt = $database->prepare("SELECT
-		user__overview.id, forget
+		user__overview.id, forget, password
 	FROM user__overview
 	LEFT JOIN user__password
 	ON user__overview.id = user__password.id
@@ -26,7 +26,7 @@ $stmt = $database->prepare("SELECT
 		`username` = ?
 	AND
 		`password` = MD5(CONCAT('scnhjndur4hf389ur4h3fbjqdjsdncsjkvdnkvj', ?, passwordAppendix));");
-$stmt->bind_param("ss", $uname, $uname);
+$stmt->bind_param("ss", $uname, $psw);
 $stmt->execute();
 $passwordQuerry = $stmt->get_result();
 
