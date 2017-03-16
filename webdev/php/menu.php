@@ -48,7 +48,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	$submenu = new MenuEntry('calendar/index.php', 'Calendar');
 	$submenu->addItem(new MenuEntry('calendar/create.php', 'Create Event'));
 	$menuItem->addItem($submenu);
-	$menuItem->addItem(new MenuEntry('overview/ticker.php', 'Ticker'));
+	$menuItem->addItem(new MenuEntry('ticker/index.php', 'Ticker'));
 	$menuItem->addItem(new MenuEntry('profile/settings.php', 'Settings'));
 	$menu->addItem($menuItem);
 
