@@ -15,16 +15,18 @@ class Event extends \tools\Database\DatabaseObject {
 	protected $startTime, $endTime, $topic, $private;
 
 	/**
-	 * Event constructor.
-	 * @param int $id
-	 * @param string $start
-	 *		e.g. '2015-1-25' for 25th January 2015
-	 * @param string $end
-	 *		e.g. '2015-1-25' for 25th January 2015
-	 * @param string $topic
-	 * @param string $description
-	 * @param bool $private
-	 */
+	* Event constructor.
+	* @param int $id
+	* @param string $start
+	* 		With dates given as ISO format
+	*		e.g. '2015-1-25' for 25th January 2015
+	* @param string $end
+	*		With dates given as ISO format
+	*		e.g. '2015-1-25' for 25th January 2015
+	* @param string $topic
+	* @param string $description
+	* @param bool $private
+	*/
 	public function __construct($id = NULL, $start = NULL, $end = NULL, $topic = NULL, $description = NULL, $private = NULL) {
 		parent::__construct($id, "event__upcoming");
 		if($start == NULL) {
@@ -129,6 +131,30 @@ class Event extends \tools\Database\DatabaseObject {
 	 */
 	public function setPrivate(bool $private) {
 		$this->private = boolval($private);
+	}
+
+	/**
+	* Checks if the the datetime is inside the event
+	@param DateTime $date
+	@return boolean
+	**/
+	public function contains($date){
+		return $date->getTimeStamp() >= $this->startTime->getTimeStamp() && $date->getTimeStamp() <= $this->endTime->getTimeStamp();
+	}
+
+	/**
+	* Checks if the the datetime is inside the event
+	@param DateTime $date
+	@return boolean
+	**/
+	public function containsDay($date){
+		$start = clone $this->startTime;
+		$end = clone $this->endTime;
+		return $date->getTimeStamp() >= $start->setTime(0,0,0)->getTimeStamp() && $date->getTimeStamp() <= $end->setTime(0, 0, 0)->getTimeStamp();
+	}
+
+	public function __toString(){
+		return $this->topic . ' (' . $this->startTime->format('Y-m-d H:i:s') . ' to ' . $this->endTime->format('Y-m-d H:i:s') .')';
 	}
 
 	/**
