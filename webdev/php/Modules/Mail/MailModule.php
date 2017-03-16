@@ -55,8 +55,10 @@ class Overview{
 	 */
 	public static function userHas($user, $mail){
 		global $database;
-		$result = $database->query("SELECT id FROM user__messages WHERE id = $mail AND reciver = $user;");
-		return ($result->num_rows != 0);
+		$result = $database->prepare("SELECT id FROM user__messages WHERE id = ? AND receiver = ?;");
+		$result->bind_param("ii", $mail, $user);
+		$result->execute();
+		return ($result || $result->num_rows != 0);
 	}
 
 	/**
