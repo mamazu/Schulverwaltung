@@ -28,10 +28,10 @@ if($HTML->hasPermission()) {
 			$stmt = $database->prepare('SELECT id AS "id", UPPER(status) AS "status", CONCAT(`name`,\' \',surname) AS "name", username AS "username" FROM user__overview WHERE id != ? AND id != 0;');
 			$stmt->bind_param('i', $_SESSION['id']);
 			$stmt->execute();
-			while ($row = $stmt->get_result()) {
-				$row = $row->fetch_assoc();
+			$result = $stmt->get_result();
+			while ($row = $result->fetch_assoc()) {
 				$selected = ($row['id'] == $selectId) ? 'selected="selected"' : '';
-				echo '<option value="' . $row['id'] . '" ' . $selected . '>[' . $row['status'] . '] ' . $row['name'] . ' - ' . $row['username'] . '</option>';
+				printf('<option value="%s" %s>[%s] %s - %s</option>', $row['id'], $selected,  $row['status'], $row['name'], $row['username']);
 			}
 			echo '</select>';
 			?>
