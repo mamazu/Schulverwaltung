@@ -32,7 +32,7 @@ require_once 'Generators/Menugenerator/MenuGenerator.php';
 	//Marks
 	$menuItem = new MenuEntry('marks/index.php', 'Marks');
 	if (in_array('teacher', $perms)) {
-		$menuItem->addItem(new MenuEntry('marks/new/setMarks.php', 'Add marks'));
+		$menuItem->addItem(new MenuEntry('marks/new/index.php', 'Add marks'));
 	}
 	$menu->addItem($menuItem);
 
