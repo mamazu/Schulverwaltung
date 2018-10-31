@@ -9,7 +9,7 @@ $HTML->outputHeader(); ?>
 	<h1>Your Timetable</h1>
 	<table id="timetable">
 		<thead>
-		<?= generateTableRow(['#', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']); ?>
+		<?php echo generateTableRow(['#', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']); ?>
 		</thead>
 		<tbody>
 		<?php

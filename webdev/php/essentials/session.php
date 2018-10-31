@@ -6,11 +6,11 @@
  */
 function sessionSESSION()
 {
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-		return true;
-	}
-	return false;
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -18,8 +18,6 @@ function sessionSESSION()
  */
 function deleteSESSION()
 {
-	sessionSESSION();
-	session_destroy();
+    sessionSESSION();
+    session_destroy();
 }
-
-?>

@@ -41,7 +41,7 @@ $test2 = new Markmanager\Test($testId);
 $questions = $test2->getTasks();
 ?>
 <br />
-<h1>Testing the Test class <?= $testId ?></h1>
+<h1>Testing the Test class <?php echo $testId ?></h1>
 <p>with loading</p>
 <ul>
 	<li>ID test: <?php assert(!is_null($test->getID()), "Wrong Id: Cant be null"); ?> </li>

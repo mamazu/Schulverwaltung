@@ -17,8 +17,8 @@ if ($datestamp === false || $datestamp < 0) {
 }
 $HTML->outputHeader();
 ?>
-<h1>Eventlist for the <?= date('d.m.Y', $datestamp); ?></h1>
-<a href="index.php?<?= 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp) ?>">Get back</a><br/>
+<h1>Eventlist for the <?php echo date('d.m.Y', $datestamp); ?></h1>
+<a href="index.php?<?php echo 'm=' . date('m', $datestamp) . '&y=' . date('Y', $datestamp) ?>">Get back</a><br/>
 <?php
 $result = $database->query("SELECT DISTINCT
 		event__upcoming.id

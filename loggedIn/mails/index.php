@@ -20,7 +20,7 @@ else {
 }
 ?>
 
-<h2><?= ($trash) ? 'Trash' : 'Inbox' ?></h2>
+<h2><?php echo ($trash) ? 'Trash' : 'Inbox' ?></h2>
 
 <table id="mailTable">
 	<?php

@@ -20,13 +20,13 @@ $HTML->outputHeader();
 		<form onsubmit="return false;">
 			<fieldset>
 				<legend>Filter</legend>
-				<?= 'Done: ' . generateOption(['Done', 'To-Do'], 'toDoFilter', true); ?>
+				<?php echo 'Done: ' . generateOption(['Done', 'To-Do'], 'toDoFilter', true); ?>
 				<br/>
-				<?= 'Type: ' . generateOption(uniquify($currentStudent->getTypes()), 'typeFilter', true); ?>
+				<?php echo 'Type: ' . generateOption(uniquify($currentStudent->getTypes()), 'typeFilter', true); ?>
 				<br/>
-				<?= 'Priority: ' . generateOption($priority, 'priortiyFilter', true); ?>
+				<?php echo 'Priority: ' . generateOption($priority, 'priortiyFilter', true); ?>
 				<br/>
-				<?= 'Subject: ' . generateOption(uniquify($currentStudent->getSubjects()), 'subjectFilter', true); ?>
+				<?php echo 'Subject: ' . generateOption(uniquify($currentStudent->getSubjects()), 'subjectFilter', true); ?>
 				<br/>
 				<button onclick="filterTable()">Filter</button>
 				<button type="reset" onclick="resetFilter()">Reset</button>

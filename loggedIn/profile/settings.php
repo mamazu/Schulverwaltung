@@ -18,7 +18,7 @@ $HTML->outputHeader();
 	<fieldset>
 		<!-- Showing the student the information that he can't change -->
 		<legend>Immutable information</legend>
-		Name:		<?= $settings->getFullName(); ?>
+		Name:		<?php echo $settings->getFullName(); ?>
 		<br/>
 		Status:
 		<?php
@@ -46,15 +46,15 @@ $HTML->outputHeader();
 	<fieldset>
 		<legend>UI Settings</legend>
 		<label>
-			<input type="checkbox" name="nickName" <?= isChecked($_SESSION['ui']['nickName']); ?> /> Use nickname instead of the real names?
+			<input type="checkbox" name="nickName" <?php echo isChecked($_SESSION['ui']['nickName']); ?> /> Use nickname instead of the real names?
 		</label>
 		<br/>
 		<label>
-			<input type="checkbox" name="markNames" <?= isChecked($_SESSION['ui']['markNames']); ?> /> Should the marks be displayed as words?
+			<input type="checkbox" name="markNames" <?php echo isChecked($_SESSION['ui']['markNames']); ?> /> Should the marks be displayed as words?
 		</label>
 		<br/>
 		<label>
-			<input type="checkbox" name="dark" <?= isChecked($_SESSION['ui']['darkTheme']); ?> /> Enable the dark mode of the web-site
+			<input type="checkbox" name="dark" <?php echo isChecked($_SESSION['ui']['darkTheme']); ?> /> Enable the dark mode of the web-site
 		</label>
 	</fieldset>
 	<fieldset>

@@ -27,11 +27,11 @@ $HTML->outputHeader();
 ?>
 
 	<!-- Outputting the forum head-->
-	<h1><?= $object->getName(); ?></h1>
+	<h1><?php echo $object->getName(); ?></h1>
 	<p id="forumDescription">
-		<?= $object->getDescription(); ?>
+		<?php echo $object->getDescription(); ?>
 		<br />
-		<a href="settings.php?<?= $type; ?>Id=<?= $intId; ?>" class="rightAlign">Settings</a>
+		<a href="settings.php?<?php echo $type; ?>Id=<?php echo $intId; ?>" class="rightAlign">Settings</a>
 	</p>
 	<hr/>
 	<br/>
@@ -40,8 +40,8 @@ $HTML->outputHeader();
 		<ul>
 			<?php if (empty($subList)) { ?>
 				<li>
-					<h3>There are no <?= $subType . 's'; ?> to display.</h3>
-					<p>Create a new <?= $subType; ?> down below.</p>
+					<h3>There are no <?php echo $subType . 's'; ?> to display.</h3>
+					<p>Create a new <?php echo $subType; ?> down below.</p>
 				</li>
 				<?php
 
@@ -59,8 +59,8 @@ $HTML->outputHeader();
 				}
 				?>
 					<li>
-						<h3><?= $heading; ?></h3>
-						<p><?= $message; ?></p>
+						<h3><?php echo $heading; ?></h3>
+						<p><?php echo $message; ?></p>
 						<br/>
 						<?php
 					if (isset($postId)) {
@@ -82,7 +82,7 @@ if ($type == 'forum') {
 	?>
 	<form action="postNew.php" method="POST" id="newPost">
 		<!-- Copying data from the previous page -->
-		<input type="hidden" name="topicId" value="<?= $intId; ?>"/>
+		<input type="hidden" name="topicId" value="<?php echo $intId; ?>"/>
 		<!-- Textarea for the post message -->
 		<fieldset>
 			<legend>New Post</legend>

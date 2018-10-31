@@ -18,14 +18,14 @@ global $database;
 	<br/>
 	Grade: <select name="grade">
 		<?php
-	for ($i = 1; $i < 13; $i++) {
-		$selected = (isset($_GET['grade']) && $_GET['grade'] == $i) ? 'selected' : '';
-		echo '<option value="' . $i . '" ' . $selected . '>Grade ' . $i . '</li>';
-	}
-	?>
+for ($i = 1; $i < 13; $i++) {
+    $selected = (isset($_GET['grade']) && $_GET['grade'] == $i) ? 'selected' : '';
+    echo '<option value="' . $i . '" ' . $selected . '>Grade ' . $i . '</li>';
+}
+?>
 	</select>
 	<br/>
-	<label><input type="checkbox" value="showAll" name="showAll" <?php echo ($showAll) ? 'checked' : '' ?> /> Also show inactive</label>
+	<label><input type="checkbox" value="showAll" name="showAll" <?php echo ($showAll) ? 'checked' : ''; ?> /> Also show inactive</label>
 	<br/>
 	<button type="submit">Filter</button>
 </form>
@@ -34,16 +34,16 @@ global $database;
 	<?php
 $conditions = [];
 if (!isset($_GET['showAll'])) {
-	array_push($conditions, 'active = true');
+    array_push($conditions, 'active = true');
 }
 if (isset($_GET['courseType'])) {
-	array_push($conditions, 'type = "' . escapeStr($_GET['courseType']) . '"');
+    array_push($conditions, 'type = "' . escapeStr($_GET['courseType']) . '"');
 }
 if (isset($_GET['grade'])) {
-	array_push($conditions, 'course__overview.grade = ' . escapeStr($_GET['grade']));
+    array_push($conditions, 'course__overview.grade = ' . escapeStr($_GET['grade']));
 }
 $sqlCondition = implode(' AND ', $conditions);
-	// SQL Querry
+// SQL Querry
 $result = $database->query('
 				SELECT
 					CONCAT(\'<a href="change.php?id=", course__overview.id, "\">", course__overview.id, "</a>") AS "ID",
@@ -56,16 +56,16 @@ $result = $database->query('
 				ON teacherId = user.id
 				WHERE ' . $sqlCondition . ';
 				');
-	// Outputting the result
+// Outputting the result
 if ($result->num_rows > 0) {
-	echo generateTableHead(getFields($result, false));
-	while ($row = $result->fetch_assoc()) {
-		$color = ($row['active']) ? "done" : "unDone";
-		unset($row['active']);
-		echo generateTableRow(array_values($row), 'class="' . $color . '"');
-	}
+    echo generateTableHead(getFields($result, false));
+    while ($row = $result->fetch_assoc()) {
+        $color = ($row['active']) ? "done" : "unDone";
+        unset($row['active']);
+        echo generateTableRow(array_values($row), 'class="' . $color . '"');
+    }
 } else {
-	echo '<tr><td colspan="' . $database->field_count . '">No courses matched your filter.</td></tr>';
+    echo '<tr><td colspan="' . $database->field_count . '">No courses matched your filter.</td></tr>';
 }
 ?>
 </table>

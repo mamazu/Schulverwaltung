@@ -6,15 +6,14 @@ require_once '../../../webdev/php/Modules/Forum/Post.php';
 $HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], null, null, 1);
 $HTML->outputHeader();
 
-$id = (isset($_GET['id'])) ? intval($_GET['id']) : -1;
-$topicId = isset($_GET['topicId']) ? intval($_GET['topicId']) : 0;
+$id = array_get_value($GET, 'id', -1);
+$topicId = array_get_value($_GET, 'topicId', 0);
 $destination = 'readForum.php?topicId=' . $topicId;
-if ($id == 0 || $id == -1) {
+if ($id === 0 || $id === -1) {
 	Message::castMessage('Invalid post id', false, $destination);
 }
-$post = new Post($id);
-//todo: Check if user has the permission to do that
-?>
+$post = new Post((int) $id);
+//todo: Check if user has the permission to do that ?>
 <h1>Editing the post of <?php echo ClassPerson::staticGetName($post->getCreator()); ?></h1>
 <div id="originalPost">
 	<span style="font-style: italic;">Original text:</span>
