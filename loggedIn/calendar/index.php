@@ -10,9 +10,30 @@ if (isset($_GET['date']) && isDate($_GET['date'])) {
 }
 
 $HTML->outputHeader();
-$calendar = new tools\calendar\Calendar($_GET['m'], $_GET['y']);
+$month = array_key_exists('m', $_GET) ? $_GET['m'] : null;
+$year = array_key_exists('y', $_GET) ? $_GET['y'] : null;
+$calendar = new tools\calendar\Calendar($month, $year);
+
+function renderMonths()
+{
+	global $calendar;
+	for ($i = 1; $i < 13; $i++) {
+		$monthName = date('F', mktime(0, 0, 0, $i, 10));
+		$selected = $i == $calendar->getMonth() ? 'selected' : '';
+		echo "<option value=\"$i\" $selected> $monthName</option>";
+	}
+}
+
+function renderYears()
+{
+	global $calendar;
+	for ($i = date('Y'); $i >= 1970; $i--) {
+		$selected = $i == $calendar->getYear() ? 'selected' : '';
+		echo "<option value=\"$i\" $selected> $i</option>";
+	}
+}
 ?>
-<h1>Calendar of <?= $calendar->getMonth("string"); ?></h1>
+<h1>Calendar of <?=$calendar->getMonth("string");?></h1>
 <?php
 if (!isset($date)) {
 	?>
@@ -20,24 +41,12 @@ if (!isset($date)) {
 		<label>
 			Month:
 			<select name="m">
-				<?php
-			for ($i = 1; $i < 13; $i++) {
-				$monthName = date('F', mktime(0, 0, 0, $i, 10));
-				$selected = $i == $calendar->getMonth() ? 'selected' : '';
-				echo "<option value=\"$i\" $selected> $monthName</option>";
-			}
-			?>
+				<?php renderMonths();?>
 			</select>
 		</label>
 		<label>Year:
 			<select name="y">
-				<option value="<?= date('Y') ?>" selected="selected"><?= date('Y') ?></option>
-				<?php
-			for ($i = date('Y') - 1; $i >= 1970; $i--) {
-				$selected = $i == $calendar->getYear() ? 'selected' : '';
-				echo "<option value=\"$i\" $selected> $i</option>";
-			}
-			?>
+				<?php renderYears();?>
 			</select>
 		</label>
 		<button type="submit">Set</button>
