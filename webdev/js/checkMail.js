@@ -11,18 +11,21 @@ function checkMail() {
 	var invalid = [];
 
 	//Subject can not be empty
-	if (document.getElementsByName('subject')[0].value.length == 0) {
+	var subjectTag = document.getElementsByName('subject')[0];
+	if (subjectTag.value.length === 0) {
 		valid = false;
-		invalid.push(document.getElementsByName('subject')[0]);
+		invalid.push(subjectTag);
 		alert('Subject can\'t be empty.');
 	}
 
 	//Message content can not be the default message
-	if (document.getElementsByName('message')[0].value.length < 5) {
+	var messageTag = document.getElementsByName('message')[0];
+	if (messageTag.value.length < 5) {
 		valid = false;
-		invalid.push(document.getElementsByName('message')[0]);
+		invalid.push(messageTag);
 		alert('The text has to be at least 5 characters long.');
 	}
+
 	markInvalidFields(invalid);
 	return valid;
 }

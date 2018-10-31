@@ -4,7 +4,7 @@ function reloadContent(adress, destination) {
 	var httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = function () {
 		if ((httpRequest.readyState === 4 || httpRequest.readyState === 0) && httpRequest.status === 200) {
-			return destination.innerHTML = httpRequest.responseText;
+			destination.innerHTML = httpRequest.responseText;
 		}
 	};
 	httpRequest.open('GET', adress);

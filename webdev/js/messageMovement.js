@@ -7,10 +7,11 @@ function show() {
 }
 
 function hide() {
-	for (var i = 0; i < element.length; i++)
+	for (var i = 0; i < element.length; i++) {
 		if (element[i]) {
 			element[i].style.display = "none";
 		} else {
 			window.console.log('Could not find object to hide');
 		}
+	}
 }

@@ -1,12 +1,14 @@
 var container;
 function toggleVisibilty() {
 	var currentStyle = container.style.display;
-	if (container.childNodes.length == 0)
-		loadParticipantList('participantsField.php')
-	if (currentStyle === 'block')
+	if (container.childNodes.length === 0) {
+		loadParticipantList('participantsField.php');
+	}
+	if (currentStyle === 'block') {
 		container.style.display = 'none';
-	else
+	} else {
 		container.style.display = 'block';
+	}
 }
 
 function loadParticipantList(adress) {
