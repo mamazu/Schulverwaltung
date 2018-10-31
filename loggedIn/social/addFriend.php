@@ -9,17 +9,17 @@ $newFriends = (int)$_POST['newFriends'];
 $home = 'index.php';
 
 #If the default element is still in the list. => Remove it
-if($newFriends[0] == 0)
+if ($newFriends[0] == 0)
 	$newFriends = array_slice($newFriends, 1);
 
-if(count($newFriends) == 0) {
+if (count($newFriends) == 0) {
 	Message::castMessage('You have just selected the default text.', false, $home);
 	exit();
 }
 
 $stmt = $database->prepare('INSERT INTO user__friends(fOne, fTwo) VALUES (?, ?);');
 $stmt->bind_param('ii', $_SESSION['id'], $newFriends);
-if($stmt->execute()) {
+if ($stmt->execute()) {
 	Message::castMessage('Successfully send friend requests', true, $home);
 	Logger::log('New friend request for user: ' . $newFriends, Logger::SOCIAL);
 } else {

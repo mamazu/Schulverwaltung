@@ -9,7 +9,8 @@
 
 namespace Marks;
 
-class Overview {
+class Overview
+{
 	private $id = 0;
 	private $grades = [];
 
@@ -18,9 +19,10 @@ class Overview {
 	 * @param int $id
 	 *		Id of the student.
 	 */
-	public function __construct($id) {
+	public function __construct($id)
+	{
 		$this->id = intval($id);
-		if($this->id > 0) {
+		if ($this->id > 0) {
 			$this->loadGrades();
 		}
 	}
@@ -28,7 +30,8 @@ class Overview {
 	/**
 	 * Loads the all grades a student has passed.
 	 */
-	private function loadGrades() {
+	private function loadGrades()
+	{
 		global $database;
 		$result = $database->query("SELECT grade  FROM course__overview RIGHT JOIN course__student ON classID = course__overview.id WHERE studentID = $this->id ORDER BY grade;");
 		while ($row = $result->fetch_row()) {
@@ -41,7 +44,8 @@ class Overview {
 	 * @return array
 	 *	Array of grades
 	 */
-	public function getGrade() {
+	public function getGrade()
+	{
 		return $this->grades;
 	}
 
@@ -50,7 +54,8 @@ class Overview {
 	 * @return int
 	 *	Number of grades
 	 */
-	public function getGradeCount() {
+	public function getGradeCount()
+	{
 		return count($this->grades);
 	}
 }

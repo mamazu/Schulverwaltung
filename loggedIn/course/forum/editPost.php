@@ -3,13 +3,13 @@ require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Classes/ClassPerson.php';
 require_once '../../../webdev/php/Modules/Forum/Post.php';
 
-$HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], null, null, 1);
 $HTML->outputHeader();
 
 $id = (isset($_GET['id'])) ? intval($_GET['id']) : -1;
 $topicId = isset($_GET['topicId']) ? intval($_GET['topicId']) : 0;
 $destination = 'readForum.php?topicId=' . $topicId;
-if($id == 0 || $id == -1) {
+if ($id == 0 || $id == -1) {
 	Message::castMessage('Invalid post id', false, $destination);
 }
 $post = new Post($id);

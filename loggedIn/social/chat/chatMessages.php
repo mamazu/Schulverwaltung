@@ -12,7 +12,7 @@ $result = $database->query('SELECT	message, user.username AS "sender", sendDate
 while ($row = $result->fetch_assoc()) {
 	$sendDate = strtotime($row['sendDate']);
 	$dif = abs($sendDate - $lastMessage);
-	if($dif > 86400) {
+	if ($dif > 86400) {
 		$lastMessage = $sendDate;
 		echo '<div class="daysPassed">';
 		$daysAgo = floor($dif / 86400);

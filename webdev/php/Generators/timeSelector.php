@@ -9,23 +9,24 @@
  * @return string
  * 	Returns a working HTML select tag
  */
-function timeSelector($name = NULL, $mode = 24) {
+function timeSelector($name = null, $mode = 24)
+{
 	//Hours
-	$nameAttribH = ($name == NULL) ? '' : ' name="' . $name . 'H"';
+	$nameAttribH = ($name == null) ? '' : ' name="' . $name . 'H"';
 	$finalString = "<select$nameAttribH>";
 	for ($i = 0; $i < 24; $i++) {
-	$finalString.='<option value="' . $i . '">' . toTimeFormat($i, $mode) . '</option>';
+		$finalString .= '<option value="' . $i . '">' . toTimeFormat($i, $mode) . '</option>';
 	}
-	$finalString.= '</select> : ';
+	$finalString .= '</select> : ';
 
 	//Minutes
-	$nameAttribM = ($name == NULL) ? '' : ' name="' . $name . 'M"';
+	$nameAttribM = ($name == null) ? '' : ' name="' . $name . 'M"';
 	$finalString .= "<select$nameAttribM>";
 	for ($i = 0; $i < 60; $i++) {
-	$formated = unsignedZeroFill($i);
-	$finalString.='<option value="' . $i . '">' . $formated . '</option>';
+		$formated = unsignedZeroFill($i);
+		$finalString .= '<option value="' . $i . '">' . $formated . '</option>';
 	}
-	$finalString.= '</select>';
+	$finalString .= '</select>';
 	return $finalString;
 }
 
@@ -37,21 +38,22 @@ function timeSelector($name = NULL, $mode = 24) {
  * 	The timeformat either 12 or 24 if the value is neither 24 will be used as default
  * @return int
  */
-function toTimeFormat($hours, $timeFormat = 24) {
+function toTimeFormat($hours, $timeFormat = 24)
+{
 	$normalized = $hours % 24;
 	if ($timeFormat != 12) {
-	return unsignedZeroFill($normalized);
+		return unsignedZeroFill($normalized);
 	}
 	switch ($normalized) {
-	case 0:
-		return '12 am';
-	case 12:
-		return '12 pm';
-	default:
-		$formated = unsignedZeroFill($normalized % 12);
-		if ((int) ($normalized / 12) == 0) {
-		return $formated . ' am';
-		}
-		return $formated . ' pm';
+		case 0:
+			return '12 am';
+		case 12:
+			return '12 pm';
+		default:
+			$formated = unsignedZeroFill($normalized % 12);
+			if ((int)($normalized / 12) == 0) {
+				return $formated . ' am';
+			}
+			return $formated . ' pm';
 	}
 }

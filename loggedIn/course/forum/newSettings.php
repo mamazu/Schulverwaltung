@@ -10,8 +10,8 @@ $type = $_POST['type'];
 $intId = (int)$_POST['idVal'];
 
 //Creating object based on the settings type.
-$object = NULL;
-if($type == 'forum' || $type == 'topic') {
+$object = null;
+if ($type == 'forum' || $type == 'topic') {
 	$object = new Section($intId, $type);
 } else {
 	Message::castMessage('Invalid type. Don\'t mess with the sourcecode.', false, 'index.php');
@@ -21,7 +21,7 @@ if($type == 'forum' || $type == 'topic') {
 $sucName = $object->setName($_POST['newName']);
 $sucDesc = $object->setDescription($_POST['newDescription']);
 
-if($sucName && $sucDesc) {
+if ($sucName && $sucDesc) {
 	Message::castMessage('Successfully changed the settings.', true, 'settings.php?' . $type . 'Id=' . $intId);
 } else {
 	Message::castMessage('Could not change settings.', false, 'settings.php?' . $type . 'Id=' . $intId);

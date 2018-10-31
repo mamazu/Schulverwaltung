@@ -2,7 +2,7 @@ var selectBox;
 
 function loadStudents(adress, callback_func) {
 	var httpRequest = new XMLHttpRequest();
-	httpRequest.onreadystatechange = function(callback) {
+	httpRequest.onreadystatechange = function (callback) {
 		if ((httpRequest.readyState === 4 || httpRequest.readyState === 0) && httpRequest.status === 200) {
 			callback_func(httpRequest.responseText);
 		}
@@ -29,7 +29,7 @@ function putInSelect(content) {
 		alert("This class has no students assigned to it");
 	}
 	// Creating a new option list
-	data.studentList.forEach(function(student) {
+	data.studentList.forEach(function (student) {
 		var element = document.createElement('option');
 		element.appendChild(document.createTextNode(student));
 		selectBox.appendChild(element);

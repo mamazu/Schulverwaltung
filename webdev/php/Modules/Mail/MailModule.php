@@ -5,7 +5,8 @@ namespace MailManager;
 require_once __DIR__ . '/../../Classes/ClassPerson.php';
 require_once __DIR__ . '/Mail.php';
 
-class Overview{
+class Overview
+{
 
 	private $mailList = [];
 	private $trashed = false;
@@ -16,7 +17,8 @@ class Overview{
 	 * @param int  $id
 	 * @param bool $trash
 	 */
-	function __construct($id, $trash = false){
+	function __construct($id, $trash = false)
+	{
 		$this->id = intval($id);
 		$this->trashed = boolval($trash);
 		$this->load();
@@ -30,11 +32,12 @@ class Overview{
 	 * @return bool
 	 *		Returns true if
 	 */
-	private function load(){
+	private function load()
+	{
 		global $database;
 		$selectTrashed = ($this->trashed) ? 'IS NOT NULL' : 'IS NULL';
 		$result = $database->query("SELECT id, sender, subject, content, readStatus, sendDate, deleted FROM user__messages WHERE reciver = $this->id AND deleted $selectTrashed ORDER BY readStatus, sendDate DESC;");
-		while($row = $result->fetch_assoc()){
+		while ($row = $result->fetch_assoc()) {
 			$this->mailList[intval($row['id'])] = new Mail($row['sender'], $row['subject'], $row['content'], $row['readStatus'], $row['sendDate'], $row['deleted']);
 		}
 		return $database->errno != 0;
@@ -53,7 +56,8 @@ class Overview{
 	 *
 	 * @return boolean
 	 */
-	public static function userHas($user, $mail){
+	public static function userHas($user, $mail)
+	{
 		global $database;
 		$result = $database->prepare("SELECT id FROM user__messages WHERE id = ? AND receiver = ?;");
 		$result->bind_param("ii", $mail, $user);
@@ -66,7 +70,8 @@ class Overview{
 	 *
 	 * @return array int => Message
 	 */
-	public function getMessages(){
+	public function getMessages()
+	{
 		return $this->mailList;
 	}
 
@@ -76,7 +81,8 @@ class Overview{
 	 *
 	 * @return int
 	 */
-	public function getTotal(){
+	public function getTotal()
+	{
 		return count($this->mailList);
 	}
 
@@ -87,8 +93,9 @@ class Overview{
 	 *
 	 * @return int
 	 */
-	public function getUnread(){
-		$binaryArray = array_map(function($mail){
+	public function getUnread()
+	{
+		$binaryArray = array_map(function ($mail) {
 			/**
 			 * @var Mail $mail
 			 */
@@ -103,7 +110,8 @@ class Overview{
 	 *
 	 * @return array
 	 */
-	public function getIds(){
+	public function getIds()
+	{
 		return array_keys($this->mailList);
 	}
 

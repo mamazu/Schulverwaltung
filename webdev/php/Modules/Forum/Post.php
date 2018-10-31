@@ -1,6 +1,7 @@
 <?php
 
-class Post {
+class Post
+{
 
 	private $id = 0;
 	private $message = '';
@@ -8,11 +9,12 @@ class Post {
 	private $creator = 0;
 	private $time = 0;
 
-	public function __construct($id) {
+	public function __construct($id)
+	{
 		global $database;
 		$this->id = (int)$id;
 		$result = $database->query('SELECT post, poster, postTime, visiblity FROM forum__post WHERE id = ' . $this->id . ';');
-		if($result->num_rows != 1) {
+		if ($result->num_rows != 1) {
 			return;
 		}
 		$row = $result->fetch_assoc();
@@ -28,7 +30,8 @@ class Post {
 	 * Returns the id of the post
 	 * @return int
 	 */
-	public function getId() {
+	public function getId()
+	{
 		return $this->id;
 	}
 
@@ -36,8 +39,9 @@ class Post {
 	 * Returns the content of the post (message)
 	 * @return string
 	 */
-	public function getMessage() {
-		if($this->visibility == 'show') {
+	public function getMessage()
+	{
+		if ($this->visibility == 'show') {
 			return $this->message;
 		} else {
 			return 'This message has been ' . ($this->visibility == 'delete') ? 'deleted' : 'hidden';
@@ -48,7 +52,8 @@ class Post {
 	 * Returns the id of the poster
 	 * @return int
 	 */
-	public function getCreator() {
+	public function getCreator()
+	{
 		return $this->creator;
 	}
 
@@ -56,7 +61,8 @@ class Post {
 	 * Returns the timestamp the post was sent
 	 * @return int (timestamp)
 	 */
-	public function getTime() {
+	public function getTime()
+	{
 		return $this->time;
 	}
 
@@ -67,7 +73,8 @@ class Post {
 	 * Deletes the current post.
 	 * @return boolean
 	 */
-	public function delete() {
+	public function delete()
+	{
 		return $this->changeState('delete');
 	}
 
@@ -78,11 +85,12 @@ class Post {
 	 * @return boolean
 	 *		Returns if the visibility update is successfull
 	 */
-	private function changeState($newVisibility) {
+	private function changeState($newVisibility)
+	{
 		global $database;
 		$newState = escapeStr($newVisibility);
 		$database->query('UPDATE forum__post SET visibility = "' . $newState . '" WHERE id=' . $this->id);
-		if($database->affected_rows) {
+		if ($database->affected_rows) {
 			$this->visibility = $newState;
 		}
 		return (bool)$database->affected_rows;
@@ -92,7 +100,8 @@ class Post {
 	 * Hides the post in the history
 	 * @return boolean
 	 */
-	public function hide() {
+	public function hide()
+	{
 		return $this->changeState('hide');
 	}
 

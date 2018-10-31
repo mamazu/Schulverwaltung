@@ -2,7 +2,7 @@
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Modules/MarkSystem/Test.php';
 
-$HTML = new HTMLGenerator\Page('Create a new Test', ['form.css', 'formTable.css'],['generateNewRow.js'], NULL, 1);
+$HTML = new HTMLGenerator\Page('Create a new Test', ['form.css', 'formTable.css'], ['generateNewRow.js'], null, 1);
 $HTML->outputHeader();
 ?>
 <h1>Create a new test</h1>

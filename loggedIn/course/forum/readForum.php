@@ -4,19 +4,19 @@ require_once '../../../webdev/php/Classes/ClassPerson.php';
 require_once '../../../webdev/php/Modules/Forum/Section.php';
 require_once '../../../webdev/php/Modules/Forum/Post.php';
 
-$HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], null, null, 1);
 
-$object = NULL;
-if(isset($_GET['forumId'])) {
-	$intId = (int) $_GET['forumId'];
+$object = null;
+if (isset($_GET['forumId'])) {
+	$intId = (int)$_GET['forumId'];
 	$object = new Section($intId);
-} elseif(isset($_GET['topicId'])) {
-	$intId = (int) $_GET['topicId'];
+} elseif (isset($_GET['topicId'])) {
+	$intId = (int)$_GET['topicId'];
 	$object = new Section($intId, 'topic');
 }
 
 //Return if neither is set.
-if($object == NULL || $intId < 1) {
+if ($object == null || $intId < 1) {
 	header('Location: index.php');
 }
 $type = $object->getType();
@@ -38,43 +38,45 @@ $HTML->outputHeader();
 	<!-- Outputting the topics-->
 	<div id="topicArea">
 		<ul>
-			<?php if(empty($subList)) { ?>
+			<?php if (empty($subList)) { ?>
 				<li>
 					<h3>There are no <?= $subType . 's'; ?> to display.</h3>
 					<p>Create a new <?= $subType; ?> down below.</p>
 				</li>
 				<?php
-			} else {
-				for($i = 0; $i < count($subList); $i++) {
-					if($object->getType() == 'forum') {
-						$subItem = new Section($subList[$i], 'topic');
-						$heading = '<a href="readForum.php?topicId=' . $subList[$i] . '">' . $subItem->getName() . '</a>';
-						$message = substr($subItem->getDescription(), 0, 50);
-					} else {
-						$subItem = new Post($subList[$i]);
-						$postId = $subItem->getId();
-						$heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['ui']['nickName']) . ' says: ';
-						$message = $subItem->getMessage();
-					}
-					?>
+
+		} else {
+			for ($i = 0; $i < count($subList); $i++) {
+				if ($object->getType() == 'forum') {
+					$subItem = new Section($subList[$i], 'topic');
+					$heading = '<a href="readForum.php?topicId=' . $subList[$i] . '">' . $subItem->getName() . '</a>';
+					$message = substr($subItem->getDescription(), 0, 50);
+				} else {
+					$subItem = new Post($subList[$i]);
+					$postId = $subItem->getId();
+					$heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['ui']['nickName']) . ' says: ';
+					$message = $subItem->getMessage();
+				}
+				?>
 					<li>
 						<h3><?= $heading; ?></h3>
 						<p><?= $message; ?></p>
 						<br/>
 						<?php
-						if(isset($postId)) {
-							echo '<a href="editPost.php?id=' . $postId . '&topicId=' . $intId . '">Edit this post</a>';
-						}
-						?>
+					if (isset($postId)) {
+						echo '<a href="editPost.php?id=' . $postId . '&topicId=' . $intId . '">Edit this post</a>';
+					}
+					?>
 					</li>
 					<?php
-				}
+
 			}
-			?>
+		}
+		?>
 		</ul>
 	</div>
 <?php
-if($type == 'forum') {
+if ($type == 'forum') {
 	echo '<a href="newTopic.php?forumId=' . $intId . '">Create new topic</a>';
 } else {
 	?>
@@ -91,6 +93,7 @@ if($type == 'forum') {
 		</fieldset>
 	</form>
 	<?php
+
 }
 $HTML->outputFooter();
 ?>

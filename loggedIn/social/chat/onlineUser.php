@@ -17,7 +17,7 @@ $result = $database->query('SELECT
 		ON chat__online.userId = user.id
 		ORDER BY lastAction DESC
 		LIMIT 50;');
-if($result->num_rows == 0) {
+if ($result->num_rows == 0) {
 	echo '<p> Nobody is online :(</p>';
 	exit();
 }
@@ -27,7 +27,7 @@ while ($row = $result->fetch_assoc()) {
 	// Set user inactive
 	$class = ($row['timeSinceLastAction'] > $timeBeforeKick / 2) ? 'class="inactive"' : '';
 	//Echo it
-	echo "<li $class>$username" . date(' [h:i A]', strtotime($row['lastAction'])) .'</li>';
+	echo "<li $class>$username" . date(' [h:i A]', strtotime($row['lastAction'])) . '</li>';
 }
 echo '</ul>';
 ?>

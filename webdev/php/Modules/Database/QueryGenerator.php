@@ -8,7 +8,8 @@ namespace tools\Database;
  * @param int $id Id of the updated entry
  * @return string String of the sql statement
  */
-function generateUpdate($tableName, $data, $id){
+function generateUpdate($tableName, $data, $id)
+{
 	if (is_null($tableName)) return '';
 	$stmt = "UPDATE $tableName SET ";
 	foreach ($data as $column => $value) {
@@ -23,7 +24,8 @@ function generateUpdate($tableName, $data, $id){
  * @param  array $data Associative array
  * @return string String of the sql statement
  */
-function generateInsert($tableName, $data){
+function generateInsert($tableName, $data)
+{
 	if (is_null($tableName)) return '';
 	$stmt = "INSERT INTO $tableName ";
 	$stmt .= '(' . implode(',', array_keys($data)) . ') VALUES ';

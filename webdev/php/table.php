@@ -1,6 +1,7 @@
 <?php
 
-function getTimetable(){
+function getTimetable()
+{
 	global $database;
 	$queryTable = '
 	SELECT
@@ -16,17 +17,17 @@ function getTimetable(){
 	ORDER BY lesson, day;';
 	$times = getTimes();
 	$result = $database->query($queryTable);
-	if($database->errno != 0){
+	if ($database->errno != 0) {
 		return '';
 	}
 	$allData = [];
-	for($i = 0; $i < count($times); $i++){
+	for ($i = 0; $i < count($times); $i++) {
 		$allData[$i] = [$times[$i]];
 	}
-	while($row = $result->fetch_assoc()){
-		if(is_null($row['subject'])){
+	while ($row = $result->fetch_assoc()) {
+		if (is_null($row['subject'])) {
 			$allData[$row['lesson']][$row['day']] = 'Unknown course';
-		}else{
+		} else {
 			$allData[$row['lesson']][$row['day']] = dataToString($row);
 		}
 	}
@@ -41,7 +42,8 @@ function getTimetable(){
  *
  * @return string
  */
-function dataToString($arrayData){
+function dataToString($arrayData)
+{
 	return $arrayData['subject'] . '<br />(' . $arrayData['room'] . ')';
 }
 
@@ -51,12 +53,13 @@ function dataToString($arrayData){
  *
  * @return array
  */
-function getTimes(){
+function getTimes()
+{
 	global $database;
 	$times = [];
 	$result = $database->query('SELECT start, end FROM timetable__standardTimes;');
-	if($result){
-		for($i = 0; $row = $result->fetch_row(); $i++){
+	if ($result) {
+		for ($i = 0; $row = $result->fetch_row(); $i++) {
 			$beginning = date('H:i', strtotime($row[0]));
 			$end = date('H:i', strtotime($row[1]));
 			array_push($times, $beginning . '<br />' . $end);

@@ -1,30 +1,33 @@
 <?php
 
-class DirectoryList{
+class DirectoryList
+{
 	private static $baseDir = 'Schulverwalung/files/documents';
 	private $id;
 	private $type = '';
 
 	/**
-	* Constructor for the DirectoryList
-	* @param int $id Id of the type you want to have
+	 * Constructor for the DirectoryList
+	 * @param int $id Id of the type you want to have
 	 * @param string $type
-	* [optional] The type of the id
-	*	'c' for course
-	*	'e' for event
-	*	'g' for Grade
-	**/
-	public function __construct($id, $type='c'){
-		$this->id = (int) $id;
+	 * [optional] The type of the id
+	 *	'c' for course
+	 *	'e' for event
+	 *	'g' for Grade
+	 **/
+	public function __construct($id, $type = 'c')
+	{
+		$this->id = (int)$id;
 		$this->type = strtolower(substr($type, 0, 1));
 		$this->exists = $this->isExisting();
 	}
 
 	/**
-	* Returns wheater the directory exists
-	* @return boolean
-	**/
-	public function isExisting(){
+	 * Returns wheater the directory exists
+	 * @return boolean
+	 **/
+	public function isExisting()
+	{
 		$dirName = $this->type . $this->id;
 		return file_exists(DirectoryList::$baseDir . '/' . $dirName);
 	}
@@ -41,10 +44,11 @@ class DirectoryList{
 	 *	0: Directory was not found and was created
 	 *	-1: Directory was not found and could not be created
 	 **/
-	public static function setBaseDir($newBaseDir = 'Schulverwalung/files/documents') {
+	public static function setBaseDir($newBaseDir = 'Schulverwalung/files/documents')
+	{
 		$base = DirectoryList::path_safe($newBaseDir);
 		$exists = file_exists($base);
-		if($exists) {
+		if ($exists) {
 			return (count(scandir($base)) == 2) ? 1 : 2;
 		}
 		$created = mkdir($base, 0777, true);
@@ -56,25 +60,28 @@ class DirectoryList{
 	 * @param string $name
 	 * @return string
 	 **/
-	private static function path_safe($name) {
+	private static function path_safe($name)
+	{
 		$except = array('\\', ':', '*', '?', '"', '<', '>', '|', '&');
 		return str_replace($except, '', $name);
 	}
 
 	/**
-	* Returns the type property.
+	 * Returns the type property.
 	 * @return string
-	**/
-	public function getShortType(){
+	 **/
+	public function getShortType()
+	{
 		return $this->type;
 	}
 
 	/**
-	* Returns the full type name
-	* @return string
-	**/
-	public function getFullType(){
-		switch($this->type){
+	 * Returns the full type name
+	 * @return string
+	 **/
+	public function getFullType()
+	{
+		switch ($this->type) {
 			case 'c':
 				return 'Course';
 			case 'e':
@@ -87,15 +94,16 @@ class DirectoryList{
 	}
 
 	/**
-	* Shows all the files in the directory.
+	 * Shows all the files in the directory.
 	 * @param boolean $verbose
-	* 	If verbose is true, the output will be in a table otherwise just a filelist.
-	* @return boolean
-	*	True on success, false otherwise
-	**/
-	public function listDir($verbose=false){
+	 * 	If verbose is true, the output will be in a table otherwise just a filelist.
+	 * @return boolean
+	 *	True on success, false otherwise
+	 **/
+	public function listDir($verbose = false)
+	{
 		$exists = $this->isExisting();
-		if($exists){
+		if ($exists) {
 			//TODO: list directory here
 		}
 		return $exists;

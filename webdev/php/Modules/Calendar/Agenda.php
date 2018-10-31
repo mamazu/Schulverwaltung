@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mamazu
@@ -8,16 +9,19 @@
 
 namespace tools\calendar;
 
-class Agenda {
+class Agenda
+{
 	private $eventList;
 
-	public function __construct($count = 10) {
+	public function __construct($count = 10)
+	{
 		$this->count = intval($count);
 		$this->eventList = ['ongoing' => array(), 'upcoming' => array()];
 		$this->load();
 	}
 
-	private function load() {
+	private function load()
+	{
 		global $database;
 		$date = date('Y-m-d');
 		$result = $database->query("SELECT *, startTime <= '$date' AS 'ongoing' FROM event__upcoming WHERE startTime >= '$date' OR endTime >= '$date' LIMIT $this->count;");
@@ -31,10 +35,11 @@ class Agenda {
 	 * Returns the list of Events
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		$result = '<ul>';
-		foreach($this->eventList as $type => $eventList) {
-			foreach($eventList as $event) {
+		foreach ($this->eventList as $type => $eventList) {
+			foreach ($eventList as $event) {
 				$result .= '<li class="' . $type . '">' . $event->getStart() . ' - ' . $event->getTopic() . '</li>';
 			}
 		}

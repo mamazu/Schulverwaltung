@@ -6,11 +6,11 @@ global $database;
 
 //If the get variable is set
 $topic = (int)$_GET['topic'];
-if($topic == 0) {
+if ($topic == 0) {
 	header('Location: chooseTopic.php');
 } else {
 	$topicResult = $database->query('SELECT topic FROM help__topics WHERE id = ' . $topic . ';');
-	if($topicResult->num_rows == 1) {
+	if ($topicResult->num_rows == 1) {
 		$topicRow = $topicResult->fetch_row();
 		$topicName = $topicRow[0];
 	} else {
@@ -39,22 +39,22 @@ while ($row = $result->fetch_assoc()) {
 	<div id="questionList">
 		<ul>
 			<?php
-			for($i = 0; $i < count($questions); $i++) {
-				echo '<li class="question"><a href="#' . $i . '">' . $questions[$i] . '</a></li>';
-			}
-			?>
+		for ($i = 0; $i < count($questions); $i++) {
+			echo '<li class="question"><a href="#' . $i . '">' . $questions[$i] . '</a></li>';
+		}
+		?>
 		</ul>
 	</div>
 	<div id="answerList">
 		<?php
-		for($i = 0; $i < count($answers); $i++) {
-			echo '<div class="answer" id="question' . $i . '">
+	for ($i = 0; $i < count($answers); $i++) {
+		echo '<div class="answer" id="question' . $i . '">
 		<a name="' . $i . '"></a>
 		<h4>Q: ' . $questions[$i] . '</h4>
 		<p> ' . nl2br($answers[$i]) . ' </p>
 		</div>';
-		}
-		?>
+	}
+	?>
 	</div>
 	<footer>
 		<a href="chooseTopic.php">Back</a>

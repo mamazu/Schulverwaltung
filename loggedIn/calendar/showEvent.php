@@ -6,13 +6,13 @@ $HTML = new HTMLGenerator\Page('List of events', ['form.css']);
 global $database;
 
 //Check for get variable
-if(!isset($_GET['date'])) {
+if (!isset($_GET['date'])) {
 	Header('Location: index.php');
 }
 
 //Convert to timestamp
 $datestamp = strtotime($_GET['date']);
-if($datestamp === false || $datestamp < 0) {
+if ($datestamp === false || $datestamp < 0) {
 	Message::castMessage('Invalid dateformat', false, 'index.php');
 }
 $HTML->outputHeader();
@@ -29,7 +29,7 @@ $result = $database->query("SELECT DISTINCT
 	WHERE
 		(" . date('"Y-m-d"', $datestamp) . " BETWEEN DATE(startTime) AND DATE(endTime))
 		AND (NOT private OR (private AND creatorID = " . $_SESSION['id'] . "));");
-if($result->num_rows != 0) {
+if ($result->num_rows != 0) {
 	while ($row = $result->fetch_row()) {
 		$event = new \tools\Calendar\Event($row[0]);
 		echo '<h2>' . $event->getTopic() . '</h2>';
@@ -41,7 +41,7 @@ if($result->num_rows != 0) {
 	echo 'Today there is nothing happening.';
 }
 
-echo '<br/><a href="create.php?date='.$datestamp.'">Create new</a>';
+echo '<br/><a href="create.php?date=' . $datestamp . '">Create new</a>';
 
 $HTML->outputFooter();
 ?>

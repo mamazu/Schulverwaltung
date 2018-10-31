@@ -1,24 +1,27 @@
 <?php
 namespace MarkManager;
 
-class Task extends \tools\Database\DatabaseObject {
+class Task extends \tools\Database\DatabaseObject
+{
 	protected $question, $answer, $type, $maxScore;
 
-	public function __construct($id, $question='', $answer='', $questionType='FreeText', $maxScore=0, $save=false){
+	public function __construct($id, $question = '', $answer = '', $questionType = 'FreeText', $maxScore = 0, $save = false)
+	{
 		parent::__construct($id, 'test__tasks');
-		if($id && !$question)
+		if ($id && !$question)
 			$this->load();
-		else{
+		else {
 			$this->question = $question;
 			$this->answer = $answer;
 			$this->setType($questionType);
 			$this->setMaxScore($maxScore);
-			if($save)
+			if ($save)
 				$this->commit();
 		}
 	}
 
-	public function load(){
+	public function load()
+	{
 		parent::load();
 		$this->maxScore = intval($this->maxScore);
 	}
@@ -29,8 +32,9 @@ class Task extends \tools\Database\DatabaseObject {
 	 * @return boolean True if the assigning worked false if the type was invalid
 	 * @see TaskType Types that are accepted
 	 */
-	public function setType($type){
-		if(in_array($type, TaskType::getTaskTypes()) === false)
+	public function setType($type)
+	{
+		if (in_array($type, TaskType::getTaskTypes()) === false)
 			return false;
 		$this->type = $type;
 		return true;
@@ -38,23 +42,46 @@ class Task extends \tools\Database\DatabaseObject {
 
 	//Getter and Setter
 
-	public function setMaxScore($score){ $this->maxScore = max(0, $score); }
+	public function setMaxScore($score)
+	{
+		$this->maxScore = max(0, $score);
+	}
 
-	public function getMaxScore(){ return $this->maxScore; }
+	public function getMaxScore()
+	{
+		return $this->maxScore;
+	}
 
-	public function getQuestion(){ return $this->question; }
-	public function setQuestion($question){ $this->question = $question; }
-	public function getAnswer(){ return $this->answer; }
-	public function setAnswer($answer){ $this->answer = (string) $answer; }
-	public function getType(){ return $this->type; }
+	public function getQuestion()
+	{
+		return $this->question;
+	}
+	public function setQuestion($question)
+	{
+		$this->question = $question;
+	}
+	public function getAnswer()
+	{
+		return $this->answer;
+	}
+	public function setAnswer($answer)
+	{
+		$this->answer = (string)$answer;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 
 	//DatabaseObject
 
-	public function __toString(){
-		return 'Class: ' . get_class($this)."\nId: $this->id\nQuestion: $this->question\nAnswer: $this->answer\nType: $this->type\nMax Score: $this->maxScore";
+	public function __toString()
+	{
+		return 'Class: ' . get_class($this) . "\nId: $this->id\nQuestion: $this->question\nAnswer: $this->answer\nType: $this->type\nMax Score: $this->maxScore";
 	}
 
-	protected function getState(){
+	protected function getState()
+	{
 		return [
 			'question' => $this->question,
 			'answer' => $this->answer,
@@ -64,15 +91,18 @@ class Task extends \tools\Database\DatabaseObject {
 	}
 }
 
-class TaskType{
-	private static $LIST = NULL;
+class TaskType
+{
+	private static $LIST = null;
 
-	public static function getTaskTypes(){
-		if(TaskType::$LIST == NULL) TaskType::fetch();
+	public static function getTaskTypes()
+	{
+		if (TaskType::$LIST == null) TaskType::fetch();
 		return TaskType::$LIST;
 	}
 
-	private static function fetch(){
+	private static function fetch()
+	{
 		global $database;
 		$type = $database->query("SHOW COLUMNS FROM test__tasks WHERE Field = 'type';")->fetch_assoc()['Type'];
 		preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);

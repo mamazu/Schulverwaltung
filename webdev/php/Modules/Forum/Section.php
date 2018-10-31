@@ -1,6 +1,7 @@
 <?php
 
-class Section {
+class Section
+{
 
 	private $id, $creatorId = 0;
 	private $name, $description = '';
@@ -12,12 +13,13 @@ class Section {
 	 * @param int $id
 	 * @param string $type
 	 */
-	public function __construct($id, $type = 'forum') {
+	public function __construct($id, $type = 'forum')
+	{
 		$this->id = (int)$id;
-		if(strtolower($type) == 'topic' || strtolower($type) == 't') {
+		if (strtolower($type) == 'topic' || strtolower($type) == 't') {
 			$this->type = 'topic';
 			$this->databaseName = 'forum__topic';
-		} elseif(strtolower($type) == 'forum' || strtolower($type) == 'f') {
+		} elseif (strtolower($type) == 'forum' || strtolower($type) == 'f') {
 			$this->type = 'forum';
 		} else {
 			$this->type = 'NULL';
@@ -27,7 +29,8 @@ class Section {
 		$this->setValues();
 	}
 
-	private function setValues() {
+	private function setValues()
+	{
 		global $database;
 		$result = $database->query('SELECT name, description, creatorId FROM ' . $this->databaseName . ' WHERE id = ' . $this->id . ';');
 		while ($row = $result->fetch_row()) {
@@ -43,7 +46,8 @@ class Section {
 	 * Returns the topic id
 	 * @return int
 	 */
-	public function getId() {
+	public function getId()
+	{
 		return $this->id;
 	}
 
@@ -51,7 +55,8 @@ class Section {
 	 * Returns the topic name
 	 * @return string
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
@@ -60,11 +65,12 @@ class Section {
 	 * @param String $newName
 	 * @return boolean
 	 */
-	public function setName($newName) {
+	public function setName($newName)
+	{
 		global $database;
 		$newForumName = escapeStr($newName);
 		$querry = $database->query("UPDATE $this->databaseName SET `name` = '$newForumName' WHERE id = $this->id;");
-		if($querry) {
+		if ($querry) {
 			$this->name = $newName;
 		}
 		return (bool)$querry;
@@ -74,7 +80,8 @@ class Section {
 	 * Returns the type of section this object was created with.
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
@@ -82,7 +89,8 @@ class Section {
 	 * Returns the topic description
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription()
+	{
 		return $this->description;
 	}
 
@@ -90,7 +98,8 @@ class Section {
 	 * Returns the id of the creator
 	 * @return int
 	 */
-	public function getCreator() {
+	public function getCreator()
+	{
 		return $this->creatorId;
 	}
 
@@ -98,12 +107,13 @@ class Section {
 	 * Returns an array with the ids of the posts in this topic.
 	 * @return array
 	 */
-	public function getSubList() {
+	public function getSubList()
+	{
 		global $database;
 		$result = [];
-		if($this->type == 'forum') {
+		if ($this->type == 'forum') {
 			$databaseName = 'forum__topic';
-		} elseif($this->type == 'topic') {
+		} elseif ($this->type == 'topic') {
 			$databaseName = 'forum__post';
 		} else {
 			return $result;
@@ -120,11 +130,12 @@ class Section {
 	 * @param String $newDescription
 	 * @return boolean
 	 */
-	public function setDescription($newDescription) {
+	public function setDescription($newDescription)
+	{
 		global $database;
 		$newDescr = escapeStr($newDescription);
 		$querry = $database->query("UPDATE $this->databaseName SET description = '$newDescr' WHERE id = $this->id;");
-		if($database->errno == 0) {
+		if ($database->errno == 0) {
 			$this->description = $newDescr;
 		}
 		return (bool)$querry;
@@ -136,7 +147,8 @@ class Section {
 	 * Deletes the current topic
 	 * @return boolean
 	 */
-	public function delete() {
+	public function delete()
+	{
 		global $database;
 		$database->query('DELETE FROM forum__topic WHERE id=' . $this->id . ';');
 		return $database->errno == 0;
@@ -150,7 +162,8 @@ class Section {
 	 *		The id of the poster
 	 * @return boolean
 	 */
-	public function newPost($message, $postId) {
+	public function newPost($message, $postId)
+	{
 		global $database;
 		$postContent = escapeStr($message);
 		$id = (int)$postId;

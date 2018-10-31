@@ -1,7 +1,7 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Generators/tableGenerator.php';
-$HTML = new HTMLGenerator\Page('Admin pannel', ['form.css', 'table.css'], NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Admin pannel', ['form.css', 'table.css'], null, null, 1);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 global $database;
@@ -11,11 +11,11 @@ $sortOrder = 'id';
 $showSystem = false;
 
 // Setting the sorting order if provided
-if(isset($_GET['order']) && array_key_exists($_GET['order'], $possibleSorters)) {
+if (isset($_GET['order']) && array_key_exists($_GET['order'], $possibleSorters)) {
 	$sortOrder = $possibleSorters[$_GET['order']];
 }
 // Showing the system administrator with id 0
-if(isset($_GET['show'])) {
+if (isset($_GET['show'])) {
 	$showSystem = true;
 }
 ?>
@@ -26,11 +26,11 @@ if(isset($_GET['show'])) {
 	<span>Order by:
 	<select name="order">
 		<?php
-		foreach($possibleSorters as $key => $value) {
-			$selected = ($value == $sortOrder) ? 'selected' : '';
-			echo '<option value="' . $key . '" ' . $selected . '>' . $key . '</option>';
-		}
-		?>
+	foreach ($possibleSorters as $key => $value) {
+		$selected = ($value == $sortOrder) ? 'selected' : '';
+		echo '<option value="' . $key . '" ' . $selected . '>' . $key . '</option>';
+	}
+	?>
 	</select>
 	</span>
 		<!--<br />-->
@@ -61,12 +61,12 @@ $num = $result->num_rows();
 echo '<p>There are ' . $num . ' users registered.</p>
 	<table>';
 // Outputting the table
-if($num > 0) {
+if ($num > 0) {
 	$row = $result->fetch_assoc();
 	$working = true;
 	echo '<tr>' . generateTableRow(array_keys($row)) . '</tr>';
 	while ($working) {
-		if($row['ID'] == 0) {
+		if ($row['ID'] == 0) {
 			$row['Edit'] = 'No way';
 			$row['Delete'] = 'No way';
 		}

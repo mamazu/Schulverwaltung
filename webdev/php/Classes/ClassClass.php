@@ -1,6 +1,7 @@
 <?php
 
-class StudentClass {
+class StudentClass
+{
 
 	private $id = 0;
 	private $teacher = null;
@@ -12,13 +13,14 @@ class StudentClass {
 	 * @param $classId
 	 * @internal param int $classID
 	 */
-	public function __construct($classId) {
+	public function __construct($classId)
+	{
 		global $database;
 		$this->id = (int)$classId;
 		$result = $database->query('SELECT id, teacherID, subject, abbr, `type`, CONCAT(grade, abbr, "-",`type`) AS "full"
 		FROM course__overview
 		WHERE id = ' . $this->id . ';');
-		if($result->num_rows == 0) {
+		if ($result->num_rows == 0) {
 			$this->abbr = '!none';
 			return;
 		}
@@ -36,10 +38,11 @@ class StudentClass {
 	 * @param int $classId
 	 * @return string
 	 */
-	public static function getClassName($classId) {
+	public static function getClassName($classId)
+	{
 		global $database;
 		$result = $database->query("SELECT subject FROM course__overview WHERE id = $classId;");
-		if($result->num_rows == 1) {
+		if ($result->num_rows == 1) {
 			return $result->fetch_row()[0];
 		}
 		return '';
@@ -50,7 +53,8 @@ class StudentClass {
 	 *		Returns the type of the course
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
@@ -61,9 +65,10 @@ class StudentClass {
 	 * @return boolean
 	 *		Returns true on sucess, false otherwise
 	 */
-	public function setType($newType) {
+	public function setType($newType)
+	{
 		global $database;
-		if(strlen($newType) < 4) {
+		if (strlen($newType) < 4) {
 			$this->type = $newType;
 			$result = $database->query("UPDATE course__overview SET type = '$newType' WHERE id = $this->id");
 			Logger::log('Changed the class type to ' . $newType . ' for the class with the id: ' . $this->id, Logger::CLASSMANAGEMENT);
@@ -79,10 +84,11 @@ class StudentClass {
 	 *		Returns the name of the teacher.
 	 * @return string
 	 */
-	public function getTeacher() {
+	public function getTeacher()
+	{
 		global $database;
 		$result = $database->query('SELECT concat(name, " ", surname) FROM user__overview WHERE id=' . $this->teacher . ' AND status="t";');
-		if($result->num_rows == 0) {
+		if ($result->num_rows == 0) {
 			return '';
 		}
 		$row = $result->fetch_row();
@@ -94,10 +100,11 @@ class StudentClass {
 	 *		Get the amount of students attending that class
 	 * @return int
 	 */
-	public function getMemberCount() {
+	public function getMemberCount()
+	{
 		global $database;
 		$result = $database->query('SELECT COUNT(*) FROM course__student WHERE classID=' . $this->id . ';');
-		if($result->num_rows) {
+		if ($result->num_rows) {
 			$row = $result->fetch_row();
 			return $row[0];
 		}
@@ -109,7 +116,8 @@ class StudentClass {
 	 *		Returns the abbreviation of the subject
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->abbr;
 	}
 
@@ -118,7 +126,8 @@ class StudentClass {
 	 *		Returns wheather the class was corect
 	 * @return boolean
 	 */
-	public function isValid() {
+	public function isValid()
+	{
 		return ($this->abbr[0] != '!');
 	}
 

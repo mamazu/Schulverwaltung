@@ -3,9 +3,9 @@
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Classes/ClassClass.php';
 
-$HTML = new HTMLGenerator\Page('Filesystem for courses', NULL, NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Filesystem for courses', null, null, null, 1);
 $HTML->outputHeader();
-if(!isset($_GET['courseId'])) {
+if (!isset($_GET['courseId'])) {
 	Message::castMessage('Select course first.', false, 'subject.php');
 }
 $id = intval($_GET['courseId']);

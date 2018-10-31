@@ -2,7 +2,7 @@
 
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../../webdev/php/Generators/tableGenerator.php';
-$HTML = new HTMLGenerator\Page('Admin pannel', ['table.css'], NULL, NULL, 2);
+$HTML = new HTMLGenerator\Page('Admin pannel', ['table.css'], null, null, 2);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 global $database;
@@ -17,7 +17,7 @@ $result = $result = $database->query('
 		JOIN user__permission
 		ON user__permission.id = user__overview.id
 		ORDER BY status;');
-if($result->num_rows != 0) {
+if ($result->num_rows != 0) {
 	$row = $result->fetch_assoc();
 	echo '<table><tr>' . generateTableHead(array_keys($row)) . '</tr>';
 	echo '<tr>' . generateTableRow(array_values($row)) . '</tr>';

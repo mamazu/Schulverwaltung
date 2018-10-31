@@ -1,6 +1,7 @@
 <?php
 
-class Homework {
+class Homework
+{
 
 	private $id;
 	private $material = [];
@@ -9,7 +10,8 @@ class Homework {
 	 * Constructor
 	 * @param int $id
 	 */
-	function __construct($id) {
+	function __construct($id)
+	{
 		global $database;
 		$this->id = $id;
 		#Getting the content
@@ -25,11 +27,11 @@ class Homework {
 		WHERE task__toDo.id=' . $this->id . ';';
 		$result = $database->query($query);
 		while ($row = $result->fetch_assoc()) {
-			foreach($row as $key => $value) {
-				if(is_null($value)) {
+			foreach ($row as $key => $value) {
+				if (is_null($value)) {
 					continue;
 				}
-				if(!isset($this->material[$key])) {
+				if (!isset($this->material[$key])) {
 					$this->material[$key] = $row[$key] . '; ';
 				} else {
 					$this->material[$key] .= $row[$key];
@@ -43,7 +45,8 @@ class Homework {
 	 *		Returns the topic of the homework
 	 * @return string
 	 */
-	function getTopic() {
+	function getTopic()
+	{
 		$semicolonPOS = strpos($this->material['task'], ';');
 		$this->material['task'] = substr($this->material['task'], 0, $semicolonPOS);
 		return $this->material['task'];
@@ -54,10 +57,11 @@ class Homework {
 	 *		Returns the HTML version of all materials
 	 * @return string
 	 */
-	function getMaterial() {
+	function getMaterial()
+	{
 		$returnString = '<ul>';
-		foreach($this->material as $key => $value) {
-			if(isset($value) && $key != 'task') {
+		foreach ($this->material as $key => $value) {
+			if (isset($value) && $key != 'task') {
 				$returnString .= '<li>' . ucfirst($key) . ': ' . $value . '</li>';
 			}
 		}

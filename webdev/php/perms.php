@@ -1,14 +1,15 @@
 <?php
 
-function getPermission() {
+function getPermission()
+{
 	global $database;
 	$perms = [];
 	$result = $database->query('SELECT * FROM user__permission WHERE id = ' . $_SESSION['id'] . ';');
-	if($result->num_rows == 1) {
+	if ($result->num_rows == 1) {
 		$row = $result->fetch_assoc();
 		unset($row['id']);
-		foreach($row as $key => $value) {
-			if(is_null($value) || $value == 0) {
+		foreach ($row as $key => $value) {
+			if (is_null($value) || $value == 0) {
 				continue;
 			}
 			array_push($perms, $key);
@@ -17,7 +18,8 @@ function getPermission() {
 	return $perms;
 }
 
-function hasPermission($permKey) {
+function hasPermission($permKey)
+{
 	$perms = getPermission();
 	return in_array($permKey, $perms);
 }

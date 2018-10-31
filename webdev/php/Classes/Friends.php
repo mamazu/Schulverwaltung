@@ -1,6 +1,7 @@
 <?php
 
-class Friends {
+class Friends
+{
 
 	private $id; # Int
 	private $pending = [];
@@ -12,14 +13,15 @@ class Friends {
 	 * @param int $studentId
 	 *	  The id of the student of whom you want the friendlist
 	 */
-	public function __construct($studentId) {
+	public function __construct($studentId)
+	{
 		global $database;
 		$this->id = (int)$studentId;
 		$result = $database->query("SELECT fOne, fTwo, accepted FROM user__friends WHERE fOne = $this->id OR fTwo = $this->id;");
 		while ($row = $result->fetch_row()) {
 			//Checks who is the friend.
 			$foreignID = ($row[0] == $this->id) ? $row[1] : $row[0];
-			if($row[1]) {
+			if ($row[1]) {
 				array_push($this->accpted, $foreignID);
 			} else {
 				$init = ($foreignID == $row['receiver']);
@@ -28,7 +30,8 @@ class Friends {
 		}
 	}
 
-	public function getFriendCount() {
+	public function getFriendCount()
+	{
 		return count($this->accpted);
 	}
 
@@ -41,11 +44,12 @@ class Friends {
 	 *	  State 1: Is your friend
 	 *	  State 2: Pending friend request
 	 */
-	public function isFriend($friendId) {
-		if(is_int(array_search($friendId, $this->accpted))) {
+	public function isFriend($friendId)
+	{
+		if (is_int(array_search($friendId, $this->accpted))) {
 			return 1;
 		}
-		if(is_int(array_search($friendId, $this->pending))) {
+		if (is_int(array_search($friendId, $this->pending))) {
 			return 2;
 		}
 		return 0;
@@ -57,8 +61,9 @@ class Friends {
 	 * @param int $friendId
 	 * @return boolean
 	 */
-	public function isPending($friendId) {
-		if($friendId > -1) {
+	public function isPending($friendId)
+	{
+		if ($friendId > -1) {
 			return is_int(array_search($friendId, $this->pending));
 		}
 		return false;
@@ -69,7 +74,8 @@ class Friends {
 	 *  Returns all the pending requests
 	 * @return array
 	 */
-	public function getPending() {
+	public function getPending()
+	{
 		return $this->pending;
 	}
 
@@ -78,7 +84,8 @@ class Friends {
 	 *  Returns all the accepted requests
 	 * @return array
 	 */
-	public function getAccepted() {
+	public function getAccepted()
+	{
 		return $this->accpted;
 	}
 

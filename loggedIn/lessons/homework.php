@@ -4,7 +4,7 @@ require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 $HTML = new HTMLGenerator\Page('Homework', ['form.css']);
 $HTML->outputHeader();
 
-if(isset($_SESSION['teacher'])) {
+if (isset($_SESSION['teacher'])) {
 	?>
 	<h1>Create a new homework assignment</h1>
 	<form method="post" action="createHomework.php">
@@ -28,6 +28,7 @@ if(isset($_SESSION['teacher'])) {
 		</fieldset>
 	</form>
 	<?php
+
 } else {
 	echo 'You are not a teacher.';
 }

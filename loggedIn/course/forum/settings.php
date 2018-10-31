@@ -1,16 +1,16 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 
-$HTML = new HTMLGenerator\Page('Forum', ['form.css', 'forum.css'], NULL, NULL, 1);
+$HTML = new HTMLGenerator\Page('Forum', ['form.css', 'forum.css'], null, null, 1);
 
 require_once '../../../webdev/php/Classes/ClassPerson.php';
 require_once '../../../webdev/php/Modules/Forum/Section.php';
 
-if(isset($_GET['forumId'])) {
+if (isset($_GET['forumId'])) {
 	$forumId = (int)$_GET['forumId'];
 	$object = new Section($forumId);
 } else {
-	if(isset($_GET['topicId'])) {
+	if (isset($_GET['topicId'])) {
 		$topicId = (int)$_GET['topicId'];
 		$object = new Section($topicId, 'topic');
 	} else {
@@ -38,9 +38,9 @@ echo "<h1>Change the $settingsName's setting</h1>";
 			ID: <?= $object->getId(); ?>
 			<br/>
 			Creator: <?php
-			$creator = (int)$object->getCreator();
-			echo ClassPerson::staticGetName($creator, $_SESSION['ui']['nickName']);
-			?>
+											$creator = (int)$object->getCreator();
+											echo ClassPerson::staticGetName($creator, $_SESSION['ui']['nickName']);
+											?>
 		</fieldset>
 		<button type="submit">Save settings</button>
 		<button type="reset">Revert changes</button>

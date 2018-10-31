@@ -1,9 +1,9 @@
 var container;
-function toggleVisibilty(){
+function toggleVisibilty() {
 	var currentStyle = container.style.display;
-	if(container.childNodes.length == 0)
+	if (container.childNodes.length == 0)
 		loadParticipantList('participantsField.php')
-	if(currentStyle === 'block')
+	if (currentStyle === 'block')
 		container.style.display = 'none';
 	else
 		container.style.display = 'block';
@@ -20,7 +20,7 @@ function loadParticipantList(adress) {
 	httpRequest.send();
 }
 
-window.addEventListener('load', function(){
-	document.getElementsByName('private')[0].addEventListener("change",toggleVisibilty);
+window.addEventListener('load', function () {
+	document.getElementsByName('private')[0].addEventListener("change", toggleVisibilty);
 	container = document.getElementById('participantsField')
 }, false);

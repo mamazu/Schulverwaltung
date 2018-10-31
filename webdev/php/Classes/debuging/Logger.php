@@ -1,25 +1,28 @@
 <?php
 
-class Logger extends LoggerConstants{
+class Logger extends LoggerConstants
+{
 
 	private $allEvents = [];
 
-	public function __construct($id = NULL){
+	public function __construct($id = null)
+	{
 		global $database;
 		$sql = 'SELECT * FROM debug__logger';
-		$sql .= ($id = NULL) ? ';' : ' WHERE issuer=' . (int)$id . ';';
+		$sql .= ($id = null) ? ';' : ' WHERE issuer=' . (int)$id . ';';
 		$result = $database->query($sql);
-		while($row = $result->fetch_assoc()){
+		while ($row = $result->fetch_assoc()) {
 			array_push($this->allEvents, new Event($row['event'], $row['issuer'], $row['ts']));
 		}
 	}
 
-	public static function log($event, $eventType){
+	public static function log($event, $eventType)
+	{
 		global $database;
 		$topic = (int)$eventType;
-		if(isset($_SESSION['id'])){
+		if (isset($_SESSION['id'])) {
 			$database->query("INSERT INTO debug__logger(event, topicId, issuer, `timestamp`) VALUES ('$event', $topic, " . $_SESSION['id'] . ', NOW());');
-		}else{
+		} else {
 			$database->query("INSERT INTO debug__logger(event, topicId, issuer, `timestamp`) VALUES ('$event', $topic, 0, NOW());");
 		}
 	}
@@ -35,15 +38,16 @@ class Logger extends LoggerConstants{
 	 *
 	 * @return array
 	 */
-	public function filterPeriod($start = NULL, $end = NULL){
+	public function filterPeriod($start = null, $end = null)
+	{
 		$filteredEvents = [];
 		//If start is null set it to be yesterday
-		$startTime = ($start == NULL) ? time() - 3600 * 24 : $start;
+		$startTime = ($start == null) ? time() - 3600 * 24 : $start;
 		//If end is null set it to be today
-		$endTime = ($end == NULL) ? time() : $end;
-		for($i = 0; $i < count($this->allEvents); $i++){
+		$endTime = ($end == null) ? time() : $end;
+		for ($i = 0; $i < count($this->allEvents); $i++) {
 			$eventTime = $this->allEvents[$i]->getTimeStamp();
-			if($startTime <= $eventTime && $eventTime <= $endTime){
+			if ($startTime <= $eventTime && $eventTime <= $endTime) {
 				array_push($filteredEvents, $this->allEvents[$i]);
 			}
 		}
@@ -58,11 +62,12 @@ class Logger extends LoggerConstants{
 	 *
 	 * @return Event
 	 */
-	public function getEvent($eventNumber){
-		if(-1 < $eventNumber && $eventNumber < count($this->allEvents)){
+	public function getEvent($eventNumber)
+	{
+		if (-1 < $eventNumber && $eventNumber < count($this->allEvents)) {
 			return $this->allEvents[$eventNumber];
-		}else{
-			return NULL;
+		} else {
+			return null;
 		}
 	}
 
@@ -74,14 +79,16 @@ class Logger extends LoggerConstants{
 	 *
 	 * @return int
 	 */
-	public function getEventCount(){
+	public function getEventCount()
+	{
 		return count($this->allEvents);
 	}
 
 	// </editor-fold>
 }
 
-class LoggerConstants{
+class LoggerConstants
+{
 
 	const OTHER = 0;
 	const USERMANAGEMENT = 1;

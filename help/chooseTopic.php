@@ -17,10 +17,10 @@ $result = $database->query('SELECT id, topic FROM help__topics;');
 	<h1>Table of contents</h1>
 	<ul class="topicList">
 		<?php
-		while ($row = $result->fetch_row()) {
-			echo '<li><a href="help.php?topic=' . $row[0] . '">' . $row[1] . '</a></li>';
-		}
-		?>
+	while ($row = $result->fetch_row()) {
+		echo '<li><a href="help.php?topic=' . $row[0] . '">' . $row[1] . '</a></li>';
+	}
+	?>
 	</ul>
 	<footer>
 		<a href="../index.php">Back to the login page</a>

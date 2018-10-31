@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mamazu
@@ -8,13 +9,15 @@
 
 namespace Marks;
 
-class Test {
+class Test
+{
 	private $id;
 	private $name;
 	private $desciption;
 	private $dateWritten;
 
-	public function __construct($id) {
+	public function __construct($id)
+	{
 
 	}
 }

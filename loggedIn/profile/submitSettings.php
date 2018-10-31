@@ -10,14 +10,14 @@ session_start();
 $destination = 'settings.php';
 
 // Changing the password
-if(isset($_POST['newPswOne']) && isset($_POST['newPswTwo'])) {
+if (isset($_POST['newPswOne']) && isset($_POST['newPswTwo'])) {
 	$old = $_POST['oldPsw'];
 	$new = [$_POST['newPswOne'], $_POST['newPswTwo']];
-	if($new[0] === $new[1]) {
+	if ($new[0] === $new[1]) {
 		//	todo: Setting the user password once and for all
 		$stmt = $database->prepare('UPDATE user__password SET password = MD5(?) WHERE id=?;');
 		$stmt->bind_param('si', $new[0], $_SESSION['id']);
-		if($stmt->execute()){
+		if ($stmt->execute()) {
 			Message::castMessage('Settings successfully saved.', true, $destination);
 			Logger::log('The user changed his own password.', Logger::USERMANAGEMENT);
 		}
@@ -34,7 +34,7 @@ $_SESSION['ui']['nickName'] = $nickName = (int)(bool)$_POST['nickName'];
 $stmt = $database->query('UPDATE user__interface SET darkTheme = ?, nickName = ?, markNames = ? WHERE id = ?;');
 $stmt->bind_param('iiii', $darkTheme, $nickName, $markNames, $_SESSION['id']);
 
-if($stmt->execute()) {
+if ($stmt->execute()) {
 	Message::castMessage('Settings successfully saved.', true, $destination);
 }
 ?>

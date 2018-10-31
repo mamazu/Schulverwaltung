@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mamazu
@@ -8,31 +9,33 @@
 
 namespace tools\calendar;
 
-include_once __DIR__.'/../Database/DatabaseObject.php';
+include_once __DIR__ . '/../Database/DatabaseObject.php';
 
-class Event extends \tools\Database\DatabaseObject {
+class Event extends \tools\Database\DatabaseObject
+{
 	public $description;
 	protected $startTime, $endTime, $topic, $private;
 
 	/**
-	* Event constructor.
-	* @param int $id
-	* @param string $start
-	* 		With dates given as ISO format
-	*		e.g. '2015-1-25' for 25th January 2015
-	* @param string $end
-	*		With dates given as ISO format
-	*		e.g. '2015-1-25' for 25th January 2015
-	* @param string $topic
-	* @param string $description
-	* @param bool $private
-	*/
-	public function __construct($id = NULL, $start = NULL, $end = NULL, $topic = NULL, $description = NULL, $private = NULL) {
+	 * Event constructor.
+	 * @param int $id
+	 * @param string $start
+	 * 		With dates given as ISO format
+	 *		e.g. '2015-1-25' for 25th January 2015
+	 * @param string $end
+	 *		With dates given as ISO format
+	 *		e.g. '2015-1-25' for 25th January 2015
+	 * @param string $topic
+	 * @param string $description
+	 * @param bool $private
+	 */
+	public function __construct($id = null, $start = null, $end = null, $topic = null, $description = null, $private = null)
+	{
 		parent::__construct($id, "event__upcoming");
-		if($start == NULL) {
+		if ($start == null) {
 			$this->load();
 			return;
-		}else{
+		} else {
 			$this->startTime = date_create_from_format("Y-m-d H:i:s", $start);
 			$this->endTime = date_create_from_format("Y-m-d H:i:s", $end);
 			$this->topic = $topic;
@@ -46,10 +49,11 @@ class Event extends \tools\Database\DatabaseObject {
 	 * @return bool
 	 *		True if sucessful, false otherwise
 	 */
-	public function load() {
+	public function load()
+	{
 		parent::load();
 		$this->startTime = date_create_from_format("Y-m-d H:i:s", $this->startTime);
-		$this->endTime= date_create_from_format("Y-m-d H:i:s", $this->endTime);
+		$this->endTime = date_create_from_format("Y-m-d H:i:s", $this->endTime);
 		$this->private = boolval($this->private);
 		return true;
 	}
@@ -58,7 +62,8 @@ class Event extends \tools\Database\DatabaseObject {
 	 * Returns the time the event starts
 	 * @return \DateTime
 	 */
-	public function getStart(){
+	public function getStart()
+	{
 		return $this->startTime;
 	}
 
@@ -67,8 +72,9 @@ class Event extends \tools\Database\DatabaseObject {
 	 * @param \DateTime $start
 	 * @return bool
 	 */
-	public function setStart($start) {
-		if($start > $this->endTime || $start == null) {
+	public function setStart($start)
+	{
+		if ($start > $this->endTime || $start == null) {
 			return false;
 		}
 		$this->startTime = $start;
@@ -79,7 +85,8 @@ class Event extends \tools\Database\DatabaseObject {
 	 * Gets the datetime when the event ends
 	 * @return \DateTime
 	 */
-	public function getEnd(){
+	public function getEnd()
+	{
 		return $this->endTime;
 	}
 
@@ -88,8 +95,9 @@ class Event extends \tools\Database\DatabaseObject {
 	 * @param \DateTime $end
 	 * @return bool
 	 */
-	public function setEnd($end) {
-		if($end < $this->startTime || $end == null) {
+	public function setEnd($end)
+	{
+		if ($end < $this->startTime || $end == null) {
 			return false;
 		}
 		$this->endTime = $end;
@@ -100,7 +108,8 @@ class Event extends \tools\Database\DatabaseObject {
 	 * Gets the purpose
 	 * @return string
 	 */
-	public function getTopic() {
+	public function getTopic()
+	{
 		return $this->topic;
 	}
 
@@ -109,8 +118,9 @@ class Event extends \tools\Database\DatabaseObject {
 	 * @param string $topic
 	 * @return bool
 	 */
-	public function setTopic($topic) {
-		if(strlen($topic) == 0 || $topic == null) {
+	public function setTopic($topic)
+	{
+		if (strlen($topic) == 0 || $topic == null) {
 			return false;
 		}
 		$this->topic = $topic;
@@ -121,7 +131,8 @@ class Event extends \tools\Database\DatabaseObject {
 	 * Returns if the event is private
 	 * @return boolean
 	 */
-	public function isPrivate(){
+	public function isPrivate()
+	{
 		return $this->private;
 	}
 
@@ -129,35 +140,45 @@ class Event extends \tools\Database\DatabaseObject {
 	 * Sets the event to be private
 	 * @param boolean $private
 	 */
-	public function setPrivate(bool $private) {
+	public function setPrivate(bool $private)
+	{
 		$this->private = boolval($private);
 	}
 
-	public function getDescription(){ return $this->description;}
-	public function setDescription($new_description){ $this->description = (string) $new_description;}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDescription($new_description)
+	{
+		$this->description = (string)$new_description;
+	}
 
 	/**
-	* Checks if the the datetime is inside the event
+	 * Checks if the the datetime is inside the event
 	@param DateTime $date
 	@return boolean
-	**/
-	public function contains($date){
+	 **/
+	public function contains($date)
+	{
 		return $date->getTimeStamp() >= $this->startTime->getTimeStamp() && $date->getTimeStamp() <= $this->endTime->getTimeStamp();
 	}
 
 	/**
-	* Checks if the the datetime is inside the event
+	 * Checks if the the datetime is inside the event
 	@param DateTime $date
 	@return boolean
-	**/
-	public function containsDay($date){
+	 **/
+	public function containsDay($date)
+	{
 		$start = clone $this->startTime;
 		$end = clone $this->endTime;
-		return $date->getTimeStamp() >= $start->setTime(0,0,0)->getTimeStamp() && $date->getTimeStamp() <= $end->setTime(0, 0, 0)->getTimeStamp();
+		return $date->getTimeStamp() >= $start->setTime(0, 0, 0)->getTimeStamp() && $date->getTimeStamp() <= $end->setTime(0, 0, 0)->getTimeStamp();
 	}
 
-	public function __toString(){
-		return $this->topic . ' (' . $this->startTime->format('Y-m-d H:i:s') . ' to ' . $this->endTime->format('Y-m-d H:i:s') .')';
+	public function __toString()
+	{
+		return $this->topic . ' (' . $this->startTime->format('Y-m-d H:i:s') . ' to ' . $this->endTime->format('Y-m-d H:i:s') . ')';
 	}
 
 	/**

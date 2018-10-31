@@ -7,7 +7,7 @@ $HTML = new HTMLGenerator\Page('Mail inbox', ['mails.css']);
 
 # Getting the mail id
 $mailId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-if($mailId == 0) {
+if ($mailId == 0) {
 	header('Location: index.php');
 	exit();
 }
@@ -17,7 +17,7 @@ $mail = new MailManager\Mail();
 $mail->load($mailId);
 $HTML->outputHeader();
 
-if(MailManager\Overview::userHas($_SESSION['id'], $mailId)) {
+if (MailManager\Overview::userHas($_SESSION['id'], $mailId)) {
 	$mail->setRead($mailId);
 	?>
 	<!-- Outputing mail content -->
@@ -32,6 +32,7 @@ if(MailManager\Overview::userHas($_SESSION['id'], $mailId)) {
 		</p>
 	</div>
 	<?php
+
 } else {
 	# Throwing an error if the user has insufficient permission
 	Message::castMessage('You don\'t have the permission to read this message.', false, 'index.php');

@@ -8,7 +8,7 @@ $HTML = new HTMLGenerator\Page('To-Do', ['table.css', 'form.css', 'todo.css'], [
 $currentStudent = new ClassToDo($_SESSION['id']);
 
 $toggleId = isset($_GET['toggleId']) ? intval($_GET['toggleId']) : 0;
-if($toggleId != 0) {
+if ($toggleId != 0) {
 	$suc = $currentStudent->toggle($toggleId);
 	header('Location: list.php');
 	exit();
@@ -38,15 +38,15 @@ $HTML->outputHeader();
 			<?php echo generateTableHead(['Date', 'Topic', 'Type', 'Priority']); ?>
 			<tbody>
 			<!-- Generating the body of the table -->
-			<?php echo (string) $currentStudent; ?>
+			<?php echo (string)$currentStudent; ?>
 			</tbody>
 			<tfoot>
 			<tr>
 				<?php
-				if(!$currentStudent->isEmpty()) {
-					echo '<td colspan = "4">' . $currentStudent->getSummary() . '</td>';
-				}
-				?>
+			if (!$currentStudent->isEmpty()) {
+				echo '<td colspan = "4">' . $currentStudent->getSummary() . '</td>';
+			}
+			?>
 			</tr>
 			</tfoot>
 		</table>

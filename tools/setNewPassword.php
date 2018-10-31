@@ -9,7 +9,7 @@ $username = escapeStr($_POST['username']);
 $password = escapeStr($_POST['newPassword']);
 
 $idResult = $database->query("SELECT id FROM user__overview WHERE username = '$username';");
-if($idResult->num_rows != 1) {
+if ($idResult->num_rows != 1) {
 	echo 'Could not change password. Invalid username';
 	exit();
 }

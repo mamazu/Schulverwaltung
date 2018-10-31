@@ -2,18 +2,20 @@
 
 namespace HTMLGenerator;
 
-class Header {
+class Header
+{
 
 	private $title;
 	private $cssFiles = ['main.css', 'menu.css', 'messages.css'];
 	private $jsFiles = ['messageMovement.js'];
 	private $otherInformation = [];
 	private $subdir = 0;
-	private $mode = NULL;
+	private $mode = null;
 	private $metaInformation = ['charset' => HeaderMode::DEFAULTCHARSET];
 
 	//Constructor for the object
-	public function __construct($pageName, $curCSS = NULL, $curJS = NULL, $other = NULL, $subdir = 0) {
+	public function __construct($pageName, $curCSS = null, $curJS = null, $other = null, $subdir = 0)
+	{
 		$this->title = $pageName;
 		$this->subdir = (int)$subdir;
 		$this->addCSS($curCSS);
@@ -26,17 +28,19 @@ class Header {
 	 * @param String $cssFile
 	 * @return boolean
 	 */
-	public function addCSS($cssFile) {
-		return ($cssFile != NULL) ? $this->addFile($cssFile, $this->cssFiles) : false;
+	public function addCSS($cssFile)
+	{
+		return ($cssFile != null) ? $this->addFile($cssFile, $this->cssFiles) : false;
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Setter">
 
-	private function addFile($fileToAdd, &$arrayToPush) {
-		if($fileToAdd == NULL) {
+	private function addFile($fileToAdd, &$arrayToPush)
+	{
+		if ($fileToAdd == null) {
 			return false;
 		}
-		if(is_array($fileToAdd)) {
+		if (is_array($fileToAdd)) {
 			$arrayToPush = array_merge($arrayToPush, $fileToAdd);
 		} else {
 			array_push($arrayToPush, $fileToAdd);
@@ -49,8 +53,9 @@ class Header {
 	 * @param String $jsFile
 	 * @return boolean
 	 */
-	public function addJS($jsFile) {
-		return ($jsFile != NULL) ? $this->addFile($jsFile, $this->jsFiles) : false;
+	public function addJS($jsFile)
+	{
+		return ($jsFile != null) ? $this->addFile($jsFile, $this->jsFiles) : false;
 	}
 
 	/**
@@ -58,8 +63,9 @@ class Header {
 	 * @param String $otherStuff
 	 * @return boolean
 	 */
-	public function addOther($otherStuff) {
-		return ($otherStuff != NULL) ? $this->addFile($otherStuff, $this->otherInformation) : false;
+	public function addOther($otherStuff)
+	{
+		return ($otherStuff != null) ? $this->addFile($otherStuff, $this->otherInformation) : false;
 	}
 
 	/**
@@ -68,7 +74,8 @@ class Header {
 	 * @param HeaderMode $mode
 	 * @return HeaderMode
 	 */
-	public function toogleMode($mode) {
+	public function toogleMode($mode)
+	{
 		$this->mode = $mode;
 		return $this->mode;
 	}
@@ -78,9 +85,10 @@ class Header {
 	 * @param array $newInformation
 	 * @return boolean
 	 */
-	public function setMetaInformation($newInformation) {
-		if(is_array($newInformation)) {
-			foreach($newInformation as $info => $value) {
+	public function setMetaInformation($newInformation)
+	{
+		if (is_array($newInformation)) {
+			foreach ($newInformation as $info => $value) {
 				$this->metaInformation[$info] = $value;
 			}
 			return true;
@@ -88,14 +96,16 @@ class Header {
 		return false;
 	}
 
-	public function getTitle() {
+	public function getTitle()
+	{
 		return $this->title;
 	}
 
 	// </editor-fold>
 	// <editor-fold defaultstate="collapsed" desc="Getter of the class">
 
-	public function getMode() {
+	public function getMode()
+	{
 		return $this->mode;
 	}
 
@@ -105,13 +115,14 @@ class Header {
 	 * @return string
 	 *		Returns a fully valid header information
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		$result = '<head><title>' . $this->title . '</title><!-- Meta information -->';
 		//Outputting meta information about the site.
-		foreach($this->metaInformation as $information => $value) {
+		foreach ($this->metaInformation as $information => $value) {
 			$result .= "<meta $information=\"$value\" />\n";
 		}
-		$result.= '
+		$result .= '
 			<!-- ****** faviconit.com Favicons ****** -->
 			<link rel="shortcut icon" href="/Schulverwaltung/res/Favicon/favicon.ico">
 			<link rel="icon" sizes="16x16 32x32 64x64" href="/Schulverwaltung/res/Favicon/favicon.ico">
@@ -138,9 +149,9 @@ class Header {
 		//Outputting the css files
 		$result .= '<!-- Stylesheets -->';
 		$currentDir = $this->getDir();
-		foreach($this->cssFiles as $file) {
+		foreach ($this->cssFiles as $file) {
 			$result .= '<link rel="stylesheet" href="' . $currentDir . 'stylesheets/main/' . $file . '" />' . "\n";
-			switch($this->mode) {
+			switch ($this->mode) {
 				case HeaderMode::DARKMODE:
 					$result .= '<link rel="stylesheet" href="' . $currentDir . 'stylesheets/dark/' . $file . '" />' . "\n";
 					break;
@@ -153,7 +164,7 @@ class Header {
 		}
 		//Outputting the javascript files
 		$result .= '<!-- Javascript -->';
-		foreach($this->jsFiles as $file) {
+		foreach ($this->jsFiles as $file) {
 			$result .= '<script type="text/javascript" src="' . $currentDir . 'js/' . $file . '"></script>' . "\n";
 		}
 		$result .= '</head>';
@@ -162,11 +173,12 @@ class Header {
 
 	// </editor-fold>
 
-	private function getDir() {
+	private function getDir()
+	{
 		$result = ($this->subdir == -1) ? 'webdev/' : '../../webdev/';
 
 		$subdirPart = '';
-		for($i = 0; $i < $this->subdir; $i++) {
+		for ($i = 0; $i < $this->subdir; $i++) {
 			$subdirPart .= '../';
 		}
 		return $subdirPart . $result;
@@ -174,7 +186,8 @@ class Header {
 }
 
 
-class HeaderMode {
+class HeaderMode
+{
 
 	const NORMALMODE = 0;
 	const DARKMODE = 1;

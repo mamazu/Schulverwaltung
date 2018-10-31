@@ -8,7 +8,7 @@ $HTML->outputHeader();
 $testRun = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $testId = isset($_GET['testId']) ? intval($_GET['testId']) : 0;
 
-if($testRun == 0){
+if ($testRun == 0) {
 	Header('Location: index.php');
 	exit;
 }

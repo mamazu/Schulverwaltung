@@ -1,6 +1,7 @@
 <?php
 
-class FileInformation {
+class FileInformation
+{
 	private $fullFileName = '';
 	private $exists = false;
 	private $information = [];
@@ -10,9 +11,10 @@ class FileInformation {
 	 * @param string $fileName
 	 *	Name of the file that you want to have info about
 	 **/
-	public function __construct($fileName) {
+	public function __construct($fileName)
+	{
 		$this->exists = file_exists($fileName);
-		if($this->exists) {
+		if ($this->exists) {
 			$this->getFileInformation();
 		}
 	}
@@ -22,10 +24,11 @@ class FileInformation {
 	 * @return boolean
 	 *	Returns true if the database contains information about that file
 	 **/
-	private function getFileInformation() {
+	private function getFileInformation()
+	{
 		global $database;
 		$result = $database->query("SELECT uploadDate, uploaderId, comment FROM fileUpload__fileInformation WHERE name = '$this->fullFileName';");
-		if($result->num_rows == 0) {
+		if ($result->num_rows == 0) {
 			return false;
 		}
 		$row = $result->fetch_assoc();
@@ -37,7 +40,8 @@ class FileInformation {
 	 * Returns if the file exists
 	 * @return boolean
 	 **/
-	public function isExisting() {
+	public function isExisting()
+	{
 		return $this->exists;
 	}
 
@@ -45,7 +49,8 @@ class FileInformation {
 	 * Returns the amount of properties the information array has stored
 	 * @return int
 	 **/
-	public function getPropertyCount() {
+	public function getPropertyCount()
+	{
 		return count($this->information);
 	}
 
@@ -53,7 +58,8 @@ class FileInformation {
 	 * Default toString method
 	 * @return string
 	 **/
-	public function toString() {
+	public function toString()
+	{
 		return $this->listInfo();
 	}
 
@@ -61,9 +67,10 @@ class FileInformation {
 	 * Lists the information about the file
 	 * @param bool $verbose
 	 */
-	public function listInfo($verbose = false) {
+	public function listInfo($verbose = false)
+	{
 		$result = '';
-		if(!$verbose) {
+		if (!$verbose) {
 			$result .= '<li><a href="' . $this->fullFileName . '" title="Link to the file">' . basename($this->fullFileName) . '</a></li>';
 			echo $result;
 		}

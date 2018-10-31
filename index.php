@@ -3,7 +3,7 @@ require 'webdev/php/Generators/HTMLGenerator/Page.php';
 
 $page = new \HTMLGenerator\Page('Login to use the service', ['main.css', 'login.css', 'form.css', 'messages.css'], ['messageMovement.js'], null, -1);
 $page->outputHeader();
-if(isset($_SESSION['id'])) {
+if (isset($_SESSION['id'])) {
 	header('Location: loggedIn/overview/index.php');
 }
 ?>

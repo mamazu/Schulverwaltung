@@ -11,15 +11,15 @@ session_start();
 $messageID = intval($_GET['id']);
 $destination = '../read.php';
 
-if(MailManager\Overview::userHas($_SESSION['id'], $messageID)){
+if (MailManager\Overview::userHas($_SESSION['id'], $messageID)) {
 	$stmt = $database->prepare("UPDATE user__messages SET deleted = NOW() WHERE id = ?");
 	$stmt->bind_param('i', $messageID);
-	if($stmt->execute()){
+	if ($stmt->execute()) {
 		Logger::log("The message (id: $messageID) was deleted", Logger::SOCIAL);
 		Message::castMessage('Message was sucessfully deleted', true, $destination);
 		exit();
 	}
 	Message::castMessage('Message couldn\'t be deleted', false, $destination);
-}else{
+} else {
 	Message::castMessage('You have no permission to do that.', false, $destination);
 }

@@ -13,15 +13,15 @@ include_once '../Task.php';
 connectDB();
 $tStart = microtime(true);
 
-$test = new Markmanager\Test(NULL, "The great wall", time() + 20000, 0, true);
-$test->addTask(new Markmanager\Task(NULL, 'How old am I?', 15, 'Numerical', 5, true));
-$test->addTask(new Markmanager\Task(NULL, 'What is my name?', 'Huhu', 'FreeText', 10, true));
+$test = new Markmanager\Test(null, "The great wall", time() + 20000, 0, true);
+$test->addTask(new Markmanager\Task(null, 'How old am I?', 15, 'Numerical', 5, true));
+$test->addTask(new Markmanager\Task(null, 'What is my name?', 'Huhu', 'FreeText', 10, true));
 
 $questions = $test->getTasks();
 $test->commitTaskList();
 $test->printTasks("\n------------------\n", true);
 echo nl2br($test . "\n------------------\n");
-echo 'Saving took: '. (microtime(true) - $tStart) . '<br/>';
+echo 'Saving took: ' . (microtime(true) - $tStart) . '<br/>';
 $testId = $test->getID();
 ?>
 <br />
@@ -52,8 +52,8 @@ $questions = $test2->getTasks();
 </ul>
 <br />
 <?php
-echo 'Loading took: '. (microtime(true) - $tLoad) . '<br/>';
-echo 'Total time: '. (microtime(true) - $tStart) . '<br/>';
+echo 'Loading took: ' . (microtime(true) - $tLoad) . '<br/>';
+echo 'Total time: ' . (microtime(true) - $tStart) . '<br/>';
 ?>
 </body>
 </html>

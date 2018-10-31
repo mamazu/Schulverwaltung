@@ -4,8 +4,9 @@
  * Starts a session if not started.
  * @return boolean
  */
-function sessionSESSION() {
-	if(session_status() == PHP_SESSION_NONE) {
+function sessionSESSION()
+{
+	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 		return true;
 	}
@@ -15,7 +16,8 @@ function sessionSESSION() {
 /**
  * Delete the current session.
  */
-function deleteSESSION() {
+function deleteSESSION()
+{
 	sessionSESSION();
 	session_destroy();
 }

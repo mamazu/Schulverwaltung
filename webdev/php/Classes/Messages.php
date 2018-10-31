@@ -2,18 +2,21 @@
 
 require_once __DIR__ . '/../essentials/essentials.php';
 
-class Message {
+class Message
+{
 
 	//Showing the message
-	public static function show() {
+	public static function show()
+	{
 		if (Message::hasMessage()) {
 			echo '<div id="m' . $_GET['mType'] . '" class="userInfoBox">' .
-			$_GET['message']
-			. '</div>';
+				$_GET['message']
+				. '</div>';
 		}
 	}
 
-	public static function hasMessage() {
+	public static function hasMessage()
+	{
 		return isset($_GET['message']);
 	}
 
@@ -23,7 +26,8 @@ class Message {
 	 * @param boolean $suc Was the operation successfull
 	 * @param String $destination Where will the message lead you [optional]
 	 */
-	public static function castMessage($message = '', $suc = false, $destination = '#') {
+	public static function castMessage($message = '', $suc = false, $destination = '#')
+	{
 		# Sets the concatination operator
 		$concat = isIn('?', $destination) ? '&' : '?';
 		if ($destination != '#') {

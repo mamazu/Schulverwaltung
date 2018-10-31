@@ -1,33 +1,39 @@
 <?php
 
-class NamedObject {
+class NamedObject
+{
 
 	private $name = '';
 
-	public function setName($newName) {
-	if ($newName == NULL) {
-		$this->name = '';
-	} else {
-		$this->name = $newName;
-	}
+	public function setName($newName)
+	{
+		if ($newName == null) {
+			$this->name = '';
+		} else {
+			$this->name = $newName;
+		}
 	}
 
-	public function getName() {
-	return $this->name;
+	public function getName()
+	{
+		return $this->name;
 	}
 
 }
 
-class LabeledObject {
+class LabeledObject
+{
 
 	private $label = '';
 
-	public function setLabel($newLabel) {
-	$this->label = $newLabel;
+	public function setLabel($newLabel)
+	{
+		$this->label = $newLabel;
 	}
 
-	public function getLabel() {
-	return $this->label;
+	public function getLabel()
+	{
+		return $this->label;
 	}
 
 }

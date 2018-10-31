@@ -1,9 +1,9 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
 
-$HTML = new HTMLGenerator\Page('Set new marks', ['form.css'], ['queryTestInformation.js'], NULL, 1);
+$HTML = new HTMLGenerator\Page('Set new marks', ['form.css'], ['queryTestInformation.js'], null, 1);
 $HTML->outputHeader();
-if(!$HTML->hasPermission()){
+if (!$HTML->hasPermission()) {
 	echo 'You don\'t have permission to view this page';
 	$HTML->outputFooter();
 	exit();
@@ -17,14 +17,14 @@ if(!$HTML->hasPermission()){
 			<select onchange="queryStudents(this.value)" name="class">
 				<option selected disabled value="0">None</option>
 				<?php
-					$stmt = $database->prepare('SELECT id, CONCAT(subject, type, "(", grade,")") FROM course__overview WHERE teacherID = ?;');
-					$stmt->bind_param('i', $_SESSION['id']);
-					if($stmt->execute()){
-						$result = $stmt->get_result();
-						while($row = $result->fetch_row())
-							printf('<option value="%i">%s</option>', $row[0], $row[1]);
-					}
-				?>
+			$stmt = $database->prepare('SELECT id, CONCAT(subject, type, "(", grade,")") FROM course__overview WHERE teacherID = ?;');
+			$stmt->bind_param('i', $_SESSION['id']);
+			if ($stmt->execute()) {
+				$result = $stmt->get_result();
+				while ($row = $result->fetch_row())
+					printf('<option value="%i">%s</option>', $row[0], $row[1]);
+			}
+			?>
 			</select>
 		</label>
 		<label>Test:

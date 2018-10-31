@@ -1,13 +1,15 @@
 <?php
 
-class Event {
+class Event
+{
 
 	private $event, $issuer, $timeStamp;
 
-	public function __construct($event, $issuer, $timeStamp) {
-	$this->event = $event;
-	$this->issuer = $issuer;
-	$this->timeStamp = strtotime($timeStamp);
+	public function __construct($event, $issuer, $timeStamp)
+	{
+		$this->event = $event;
+		$this->issuer = $issuer;
+		$this->timeStamp = strtotime($timeStamp);
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Getter">
@@ -16,8 +18,9 @@ class Event {
 	 * 		Returns the name of the event
 	 * @return string
 	 */
-	public function getEvent() {
-	return $this->event;
+	public function getEvent()
+	{
+		return $this->event;
 	}
 
 	/**
@@ -25,8 +28,9 @@ class Event {
 	 * 		Returns the id of the initiator of that event
 	 * @return int
 	 */
-	public function getIssuer() {
-	return $this->issuer;
+	public function getIssuer()
+	{
+		return $this->issuer;
 	}
 
 	/**
@@ -34,8 +38,9 @@ class Event {
 	 * 		Returns the timestamp the event has happend
 	 * @return int
 	 */
-	public function getTimeStamp() {
-	return $this->timeStamp;
+	public function getTimeStamp()
+	{
+		return $this->timeStamp;
 	}
 
 	// </editor-fold>

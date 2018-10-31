@@ -1,12 +1,14 @@
 <?php
 
-class Overview {
+class Overview
+{
 
 	private $id = 0;
 	private $nextLesson = null;
 	private $news = null;
 
-	public function __construct($studentId) {
+	public function __construct($studentId)
+	{
 		$this->id = intval($studentId);
 		$this->nextLesson = $this->calcNextLesson();
 		$this->news = $this->getNews();
@@ -17,7 +19,8 @@ class Overview {
 	 *		Querries the database for the next lesson
 	 * @return array
 	 */
-	private function calcNextLesson() {
+	private function calcNextLesson()
+	{
 		global $database;
 		$result = $database->query('
 		SELECT
@@ -36,14 +39,15 @@ class Overview {
 		AND studentID = ' . $this->id . '
 		AND timetable__standardTimes.`start` >= "' . date('H:i:s') . '"
 		LIMIT 1;');
-		if($result->field_count == 1) {
+		if ($result->field_count == 1) {
 			$row = $result->fetch_assoc();
 			return [$row['subject'], $row['type'], $row['start'], $row['room']];
 		}
-		return NULL;
+		return null;
 	}
 
-	private function getNews() {
+	private function getNews()
+	{
 		global $database;
 		$allNews = [];
 		$result = $database->query('
@@ -60,13 +64,13 @@ class Overview {
 		OR event__ticker.classId = course__student.classID
 		WHERE user__overview.id = ' . $this->id . '
 		LIMIT 5;');
-		if($result->field_count != 0) {
+		if ($result->field_count != 0) {
 			while ($row = $result->fetch_assoc()) {
 				$string = $row['information'] . ' [';
-				if(!is_null($row['grade'])) {
+				if (!is_null($row['grade'])) {
 					$string .= 'Grade ' . $row['grade'] . ', ';
 				}
-				if(!is_null($row['class'])) {
+				if (!is_null($row['class'])) {
 					$string .= 'Course ' . $row['class'] . ', ';
 				}
 				$string = substr($string, 0, count($string) - 3) . ']';
@@ -80,7 +84,8 @@ class Overview {
 	 * Returns the next lesson object list
 	 * @return array
 	 */
-	public function getNextLesson() {
+	public function getNextLesson()
+	{
 		return $this->nextLesson;
 	}
 
@@ -88,8 +93,9 @@ class Overview {
 	 * Gets the news for the user
 	 * @return array
 	 */
-	public function getImportantNews() {
-		if(count($this->news) == 0) {
+	public function getImportantNews()
+	{
+		if (count($this->news) == 0) {
 			return ["None"];
 		}
 		return $this->news;

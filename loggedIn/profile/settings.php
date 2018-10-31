@@ -3,7 +3,8 @@ require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Generators/optionGenerator.php';
 require_once '../../webdev/php/Classes/ClassPerson.php';
 
-function isChecked($bool) {
+function isChecked($bool)
+{
 	return $bool ? 'checked="checked"' : '';
 }
 
@@ -21,11 +22,11 @@ $HTML->outputHeader();
 		<br/>
 		Status:
 		<?php
-		echo ucfirst($settings->STATUSARRAY[$settings->getStatus()]);
-		if($settings->getStatus() == 's') {
-			echo ' in Grade ' . $settings->getGrade();
-		}
-		?>
+	echo ucfirst($settings->STATUSARRAY[$settings->getStatus()]);
+	if ($settings->getStatus() == 's') {
+		echo ' in Grade ' . $settings->getGrade();
+	}
+	?>
 	</fieldset>
 	<!-- Allowing the student to change his password -->
 	<fieldset>

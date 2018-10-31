@@ -1,6 +1,7 @@
 <?php
 
-class MenuEntry {
+class MenuEntry
+{
 
 	private $link, $caption;
 	private $width = 100;
@@ -12,7 +13,8 @@ class MenuEntry {
 	 * @param string $link
 	 * @param string $caption
 	 */
-	public function __construct($link = NULL, $caption = NULL) {
+	public function __construct($link = null, $caption = null)
+	{
 		$this->link = is_null($link) ? '' : $link;
 		$this->caption = is_null($caption) ? '' : $caption;
 	}
@@ -24,17 +26,19 @@ class MenuEntry {
 	 * @return boolean
 	 *		Returns true if it works otherwise false
 	 */
-	public function addItem($newItem = NULL) {
-		if($newItem instanceof MenuEntry) {
+	public function addItem($newItem = null)
+	{
+		if ($newItem instanceof MenuEntry) {
 			array_push($this->subItems, $newItem);
 			return true;
 		}
 		return false;
 	}
 
-	public function setWidth($newWidth) {
+	public function setWidth($newWidth)
+	{
 		$width = (float)$newWidth;
-		if($width <= 0 || $width > 100) {
+		if ($width <= 0 || $width > 100) {
 			$this->width = 100;
 			return false;
 		}
@@ -48,7 +52,8 @@ class MenuEntry {
 	 *		Returns the link where the menu items leads
 	 * @return string
 	 */
-	public function getLink() {
+	public function getLink()
+	{
 		return $this->link;
 	}
 
@@ -57,7 +62,8 @@ class MenuEntry {
 	 *		Returns the caption of the link
 	 * @return string
 	 */
-	public function getCaption() {
+	public function getCaption()
+	{
 		return $this->caption;
 	}
 
@@ -67,7 +73,8 @@ class MenuEntry {
 	 * @return array
 	 *		Array of MenuEntry
 	 */
-	public function getSubItems() {
+	public function getSubItems()
+	{
 		return $this->subItems;
 	}
 
@@ -77,18 +84,19 @@ class MenuEntry {
 	 * Returns the string version of the object
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		$submenus = '';
-		if(count($this->subItems) != 0) {
+		if (count($this->subItems) != 0) {
 			//Getting the submenus
 			$submenus .= '<ul>';
-			foreach($this->subItems as $submenu)
-				$submenus .= (string) $submenu;
+			foreach ($this->subItems as $submenu)
+				$submenus .= (string)$submenu;
 			$submenus .= '</ul>';
 		}
 		//Return the result
 		$aHref = '<a href="' . getRootURL($this->link) . '">' . $this->caption . '</a>';
-		return '<li style="width:' . $this->width . '%">'. $aHref . $submenus . '</li>';
+		return '<li style="width:' . $this->width . '%">' . $aHref . $submenus . '</li>';
 	}
 
 }

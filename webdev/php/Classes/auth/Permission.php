@@ -1,6 +1,7 @@
 <?php
 
-class Permission {
+class Permission
+{
 
 	private $permissionString;
 	private $permissionNode = [];
@@ -10,11 +11,12 @@ class Permission {
 	 * Sets a permission based on the permission node that is entered
 	 * @param String $node
 	 */
-	public function __construct($node) {
+	public function __construct($node)
+	{
 		$this->permissionString = $node;
 		$this->permissionNode = explode('.', $node);
 		$minusPos = strpos($this->permissionNode[0], '-');
-		if($minusPos !== false) {
+		if ($minusPos !== false) {
 			$this->granted = false;
 			$this->permissionNode[0] = substr($this->permissionNode[0], 2);
 		}
@@ -24,15 +26,19 @@ class Permission {
 	 * Sets the status of the permission to be revoked
 	 * @param $granted
 	 */
-	public function setGranted($granted) { $this->granted = $granted; }
+	public function setGranted($granted)
+	{
+		$this->granted = $granted;
+	}
 
 	/**
 	 * Returns true or false depending on wheather the user has the permission or not.
 	 * @param string $permission
 	 * @return boolean
 	 */
-	public function hasPermission($permission) {
-		if($this->match($permission)) {
+	public function hasPermission($permission)
+	{
+		if ($this->match($permission)) {
 			return $this->granted;
 		}
 		return false;
@@ -43,11 +49,12 @@ class Permission {
 	 * @param string $permission
 	 * @return boolean
 	 */
-	public function match($permission) {
+	public function match($permission)
+	{
 		$nodes = explode('.', $permission);
 		$minCount = min(count($nodes), count($this->permissionNode));
-		for($i = 0; $i < $minCount; $i++) {
-			if($nodes[$i] != $this->permissionNode[$i] && $this->permissionNode[$i] != '*') {
+		for ($i = 0; $i < $minCount; $i++) {
+			if ($nodes[$i] != $this->permissionNode[$i] && $this->permissionNode[$i] != '*') {
 				return false;
 			}
 		}
@@ -58,9 +65,15 @@ class Permission {
 	 * Returns the permission string
 	 * @return string
 	 */
-	public function __toString() { return $this->permissionString; }
+	public function __toString()
+	{
+		return $this->permissionString;
+	}
 
-	public function togglePermission() { $this->granted = !$this->granted; }
+	public function togglePermission()
+	{
+		$this->granted = !$this->granted;
+	}
 
 }
 

@@ -9,7 +9,8 @@ require_once 'databaseEssentials.php';
  * @return bool Whether the search is a substring of string
  * Whether the search is a substring of string
  */
-function isIn($search, $string) {
+function isIn($search, $string)
+{
 	return is_int(strpos($string, $search));
 }
 
@@ -21,10 +22,11 @@ function isIn($search, $string) {
  * @param string $zip
  * @return boolean
  */
-function check($mail = NULL, $tel = NULL, $zip = NULL) {
-	$mailValid = ($mail != NULL && !filter_var($mail, FILTER_VALIDATE_EMAIL));
-	$telValid = ($tel != NULL && (bool) preg_match('/(\d{4}[ -\/]?)?\d+/is', $tel));
-	$zipValid = ($zip != NULL && (bool) preg_match('/\d+/is', $zip) == 0);
+function check($mail = null, $tel = null, $zip = null)
+{
+	$mailValid = ($mail != null && !filter_var($mail, FILTER_VALIDATE_EMAIL));
+	$telValid = ($tel != null && (bool)preg_match('/(\d{4}[ -\/]?)?\d+/is', $tel));
+	$zipValid = ($zip != null && (bool)preg_match('/\d+/is', $zip) == 0);
 	return $mailValid || $telValid || $zipValid;
 }
 
@@ -33,8 +35,9 @@ function check($mail = NULL, $tel = NULL, $zip = NULL) {
  * @param int $var
  * @return boolean
  */
-function validId($var) {
-	return ((int) $var) > 0;
+function validId($var)
+{
+	return ((int)$var) > 0;
 }
 
 /**
@@ -47,8 +50,9 @@ function validId($var) {
  * @return float
  * 	Returns a float or an int if $decimalPlaces = 0
  */
-function roundUp($value, $decimalPlaces = 0) {
-	$digit = (int) $decimalPlaces;
+function roundUp($value, $decimalPlaces = 0)
+{
+	$digit = (int)$decimalPlaces;
 	return ceil($value * pow(10, $digit)) / pow(10, $digit);
 }
 
@@ -62,8 +66,9 @@ function roundUp($value, $decimalPlaces = 0) {
  * @return float
  * 	Returns a float or an int if $decimalPlaces = 0
  */
-function roundDown($value, $decimalPlaces = 0) {
-	$digit = (int) $decimalPlaces;
+function roundDown($value, $decimalPlaces = 0)
+{
+	$digit = (int)$decimalPlaces;
 	return floor($value * pow(10, $digit)) / pow(10, $digit);
 }
 
@@ -73,7 +78,8 @@ function roundDown($value, $decimalPlaces = 0) {
  * @param string $date
  * @return boolean
  */
-function isDate($date) {
+function isDate($date)
+{
 	if (!isset($date) && strtotime($date) === false) {
 		return false;
 	}
@@ -86,7 +92,8 @@ function isDate($date) {
  * @param int $length
  * @return string
  */
-function generateRandomString($length = 10) {
+function generateRandomString($length = 10)
+{
 	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	$charactersLength = strlen($characters);
 	$randomString = '';
@@ -102,11 +109,12 @@ function generateRandomString($length = 10) {
  * @param int $numberOfDigits (optinal: default 2)
  * @return string
  */
-function unsignedZeroFill($number, $numberOfDigits = 2) {
-	$wholeNumber = (int) abs($number);
+function unsignedZeroFill($number, $numberOfDigits = 2)
+{
+	$wholeNumber = (int)abs($number);
 	$numberOfZeros = ($wholeNumber == 0) ? $numberOfDigits : $numberOfDigits - floor(log10($wholeNumber));
 	if ($numberOfZeros < 1) {
-		return (string) $number;
+		return (string)$number;
 	}
 	$result = '';
 	for ($i = 0; $i < $numberOfZeros - 1; $i++) {
@@ -122,7 +130,8 @@ function unsignedZeroFill($number, $numberOfDigits = 2) {
  * @param String $format Format of the output
  * @return String
  */
-function timeString($seconds, $format = 'H:i:s') {
+function timeString($seconds, $format = 'H:i:s')
+{
 	$absSeconds = abs(intval($seconds));
 	return date($format, $absSeconds);
 }

@@ -35,9 +35,9 @@ $stmt->execute()
 		</thead>
 		<tbody>
 		<?php
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-			?>
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()) {
+		?>
 			<tr class="<?php echo ($row['active']) ? 'red' : 'green'; ?>">
 				<td><?php echo $row['abbr']; ?></td>
 				<td><?php echo $row['subject']; ?></td>
@@ -46,8 +46,9 @@ $stmt->execute()
 				<td><?php echo '<a href="class.php?classID=' . $row['id'] . '">Details</a>'; ?></td>
 			</tr>
 			<?php
-		}
-		?>
+
+	}
+	?>
 		</tbody>
 	</table>
 <?php

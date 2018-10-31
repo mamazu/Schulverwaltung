@@ -7,7 +7,7 @@ session_start();
 
 global $database;
 # Exit if no class id is provided
-if(!isset($_GET['classId'])){
+if (!isset($_GET['classId'])) {
 	echo '{"error": "No class id provided", "studentList": []}';
 	exit();
 }
@@ -22,7 +22,7 @@ $stmt = $database->prepare("SELECT $name
 $stmt->bind_param('i', intval($_GET['classId']));
 
 # Exiting on fail
-if(!$stmt->execute()){
+if (!$stmt->execute()) {
 	echo '{"error": "Failed to query database", "studentList": []}';
 	exit();
 }

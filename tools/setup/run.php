@@ -1,6 +1,7 @@
 <?php
 
-function exitMessage($message){
+function exitMessage($message)
+{
 	Header("Location: result.php?error=$message");
 	exit();
 }
@@ -15,42 +16,42 @@ $recreate = isset($_POST['delete']);
 // Connecting to the database
 $database = new mysqli($host, $db_user, $db_pw);
 
-if ($database->connect_error != NULL){
+if ($database->connect_error != null) {
 	exitMessage('NO_CONNECT');
 }
 
 // Creating or dropping database when needed
-if($database->select_db($databaseName)){
-	if($recreate && !$database->query("DROP DATABASE $databaseName;")){
+if ($database->select_db($databaseName)) {
+	if ($recreate && !$database->query("DROP DATABASE $databaseName;")) {
 		exitMessage('NO_DROP');
 	}
-}else{
-	if($database->query("CREATE DATABASE $databaseName;")){
+} else {
+	if ($database->query("CREATE DATABASE $databaseName;")) {
 		$database->select_db($databaseName);
-	}else
+	} else
 		exitMessage('NO_DATABASE');
 }
 
 // Loading and querying the SQL structure from a file
 $sqlData = '../../webdev/sql/structure.sql';
-if(!is_file($sqlData))
+if (!is_file($sqlData))
 	exitMessage('NO_SQL');
 $sqlText = file_get_contents($sqlData);
 $database->multi_query($sqlText);
 
-do{
-	if(!$database->more_results())
+do {
+	if (!$database->more_results())
 		break;
-	if(!$database->next_result() || $database->errno) {
+	if (!$database->next_result() || $database->errno) {
 		exitMessage($database->error);
 	}
-}while(!$errors);
+} while (!$errors);
 
 $database->close();
 
 //writing it to the config
 $xmlFileName = '../config/database.xml';
-if(!is_file($xmlFileName))
+if (!is_file($xmlFileName))
 	exitMessage("NO_CONFIG");
 $xml = file_get_contents($xmlFileName);
 $document = DOMDocument::loadXML($xml);

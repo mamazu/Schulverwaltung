@@ -6,9 +6,10 @@
  * @param string $baseDir
  * @return string
  */
-function generatePermission($pageName, $baseDir = '/volume1/Schulverwaltung/loggedIn') {
+function generatePermission($pageName, $baseDir = '/volume1/Schulverwaltung/loggedIn')
+{
 	$start = 0;
-	if($baseDir != NULL && strpos($pageName, $baseDir) === 0) {
+	if ($baseDir != null && strpos($pageName, $baseDir) === 0) {
 		$start = strlen($baseDir);
 	}
 	$withoutExtention = dirname($pageName) . '/' . basename($pageName, '.php');
@@ -19,16 +20,17 @@ function generatePermission($pageName, $baseDir = '/volume1/Schulverwaltung/logg
 	return $permissionName;
 }
 
-function runDir($dirName = '.', $recurvie = false) {
+function runDir($dirName = '.', $recurvie = false)
+{
 	$result = [];
 	$path = __DIR__ . '/' . $dirName . '/';
 	$handle = opendir($path);
 	while ($file = readdir($handle)) {
-		if($file == '.' || $file == '..') {
+		if ($file == '.' || $file == '..') {
 			continue;
 		}
-		if(is_dir($path . $file)) {
-			if(!$recurvie) {
+		if (is_dir($path . $file)) {
+			if (!$recurvie) {
 				$perm = generatePermission($path . $file);
 				array_push($result, $perm . '.*');
 			} else {

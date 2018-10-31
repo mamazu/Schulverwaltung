@@ -5,7 +5,7 @@ require_once '../../webdev/php/Generators/timeSelector.php';
 $HTML = new HTMLGenerator\Page('Calendar', ['form.css'], ['calendar/checkEvent.js', 'calendar/participants.js']);
 $HTML->outputHeader();
 
-$startDate = isset($_GET['date'])? intval($_GET['date']): time();
+$startDate = isset($_GET['date']) ? intval($_GET['date']) : time();
 ?>
 
 	<h1>Create a new event</h1>

@@ -14,11 +14,11 @@ $HTML->outputHeader();
 		<label>Priority:
 			<select name="prio">
 				<?php
-				$result = $database->query('SELECT prioVal, content FROM task__priority;');
-				while ($row = $result->fetch_row()) {
-					echo '<option value="' . $row[0] . '">' . $row[1] . '</option>';
-				}
-				?>
+			$result = $database->query('SELECT prioVal, content FROM task__priority;');
+			while ($row = $result->fetch_row()) {
+				echo '<option value="' . $row[0] . '">' . $row[1] . '</option>';
+			}
+			?>
 			</select>
 		</label>
 		<br/>

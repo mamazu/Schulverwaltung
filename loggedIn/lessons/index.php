@@ -12,15 +12,15 @@ $HTML->outputHeader();
 
 global $database;
 
-if(!$lesson->lessonToday()) {
+if (!$lesson->lessonToday()) {
 	?>
 	<h1>No lesson</h1>
 	<p>You have the day off. Enjoy it. :D </p>
 	<?php
-	$HTML->outputFooter();
-	return;
+$HTML->outputFooter();
+return;
 }
-if($lesson->takesPlace()) {
+if ($lesson->takesPlace()) {
 	echo '<h1>Your current lesson</h1>';
 } else {
 	$timeString = timeString($lesson->getTimeToStart());
@@ -38,24 +38,25 @@ if($lesson->takesPlace()) {
 	<h2>Student list</h2>
 	<a href="../mails/write.php">Write a mail to everyone in the class</a>
 <?php
-if(isset($_SESSION['teacher'])) {
+if (isset($_SESSION['teacher'])) {
 	?>
 	<form method="POST" class="center" action="setAttendence.php">
 	<!-- Hidden fields -->
 	<input type="hidden" value="<?php echo $lesson->getId() ?>" name="lessonId"/>
 	Topic: <input type="text" placeholder="Set topic of the lesson" id="lessonTopic"/>
-<?php } ?>
+<?php 
+} ?>
 	<table>
 		<?php
 		//Making the table head
-		$cols = ['Name'];
-		if(isset($_SESSION['teacher'])) {
-			$cols = array_merge($cols, ['Attending', 'Homework']);
-		}
-		array_push($cols, 'Mail');
-		echo generateTableHead($cols);
+	$cols = ['Name'];
+	if (isset($_SESSION['teacher'])) {
+		$cols = array_merge($cols, ['Attending', 'Homework']);
+	}
+	array_push($cols, 'Mail');
+	echo generateTableHead($cols);
 		//Querying all the students
-		$result = $database->query('SELECT
+	$result = $database->query('SELECT
 			status,
 			user__overview.id AS "id",
 			CONCAT(`name`, " ", surname) AS "name"
@@ -66,34 +67,35 @@ if(isset($_SESSION['teacher'])) {
 		ORDER BY
 			status DESC, surname ASC;');
 		//Outputting them in a table
-		$img = '<img src="' . getRootURL('../webdev/images/mail.png') . '" title="Mailsymbol" style="height:1em"/>';
-		while ($row = $result->fetch_assoc()) {
-			$id = $row['id'];
-			echo '<tr>';
-			echo '<td><a href="' . getRootURL('profile/profile.php') . '?id=' . $id . '">' . $row['name'] . '</a></td>';
-			if(isset($_SESSION['teacher'])) {
-				if($row['status'] == 't') {
-					echo '<td></td><td></td>';
-				} else {
-					echo '<td><input type="checkbox" checked="checked" name="attend[]" value="' . $id . '" /></td>
-			<td><input type="checkbox" checked="checked" name="homework[]" value="' . $id . '" /></td>';
-				}
-			}
-			echo '<td>';
-			if($_SESSION['id'] != $id) {
-				echo "<a href=\"../mails/write.php?receiver=$id\">$img</a>";
+	$img = '<img src="' . getRootURL('../webdev/images/mail.png') . '" title="Mailsymbol" style="height:1em"/>';
+	while ($row = $result->fetch_assoc()) {
+		$id = $row['id'];
+		echo '<tr>';
+		echo '<td><a href="' . getRootURL('profile/profile.php') . '?id=' . $id . '">' . $row['name'] . '</a></td>';
+		if (isset($_SESSION['teacher'])) {
+			if ($row['status'] == 't') {
+				echo '<td></td><td></td>';
 			} else {
-				echo 'X';
+				echo '<td><input type="checkbox" checked="checked" name="attend[]" value="' . $id . '" /></td>
+			<td><input type="checkbox" checked="checked" name="homework[]" value="' . $id . '" /></td>';
 			}
-			echo '</td></tr>';
 		}
-		?>
+		echo '<td>';
+		if ($_SESSION['id'] != $id) {
+			echo "<a href=\"../mails/write.php?receiver=$id\">$img</a>";
+		} else {
+			echo 'X';
+		}
+		echo '</td></tr>';
+	}
+	?>
 	</table>
-<?php if(isset($_SESSION['teacher'])) { ?>
+<?php if (isset($_SESSION['teacher'])) { ?>
 	<br/>
 	<button type="submit">Submit changes</button>
 	</form>
 	<?php
+
 }
 $HTML->outputFooter();
 ?>

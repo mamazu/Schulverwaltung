@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mamazu
@@ -9,7 +10,8 @@
 namespace Marks;
 
 
-class Subject {
+class Subject
+{
 	private $id;
 	private $name;
 	private $test = [];
@@ -20,7 +22,8 @@ class Subject {
 	 * @param $id
 	 *		Id of the subject
 	 */
-	public function __construct($id) {
+	public function __construct($id)
+	{
 		$this->id = intval($id);
 		$this->loadMarks();
 	}
@@ -28,10 +31,11 @@ class Subject {
 	/**
 	 * Loads the data from the database
 	 */
-	private function loadMarks() {
+	private function loadMarks()
+	{
 		global $database;
 		$resultInformation = $database->query("SELECT subject, abbr FROM course__overview WHERE id = $this->id;");
-		if(mysql_num_rows($resultInformation) == 1) {
+		if (mysql_num_rows($resultInformation) == 1) {
 			$this->name = $resultInformation->fetch_row();
 		}
 		$resultTest = $database->query("SELECT id FROM test__test WHERE classId = $this->id AND studentId = $this->studentId;;");
@@ -44,9 +48,10 @@ class Subject {
 		}
 	}
 
-	public function getAverage() {
+	public function getAverage()
+	{
 		$allMarks = array_merge($this->otherMarks, $this->test);
-		if(count($allMarks) == 0) {
+		if (count($allMarks) == 0) {
 			return -1;
 		}
 		return array_sum($allMarks) / count($allMarks);

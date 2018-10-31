@@ -1,10 +1,11 @@
 <?php
 
-function getConnection(){
-	$dbConfig = simplexml_load_file(__DIR__.'/../../../tools/config/database.xml');
+function getConnection()
+{
+	$dbConfig = simplexml_load_file(__DIR__ . '/../../../tools/config/database.xml');
 	$use = $dbConfig->use;
-	for ($i=0; $i < count($dbConfig->host); $i++) {
-		if((string)$dbConfig->host[$i]["name"] == $use)
+	for ($i = 0; $i < count($dbConfig->host); $i++) {
+		if ((string)$dbConfig->host[$i]["name"] == $use)
 			return $dbConfig->host[$i];
 	}
 	echo "Could not find connection using default";
@@ -21,7 +22,8 @@ global $database;
  * @return boolean
  *	  If the connection failed, it returns false
  */
-function connectDB() {
+function connectDB()
+{
 	global $database;
 	$connection = getConnection();
 
@@ -37,7 +39,8 @@ function connectDB() {
  * @return String
  *	  The escaped String
  */
-function escapeStr($input) {
+function escapeStr($input)
+{
 	global $database;
 	$escaped = nl2br(htmlentities(mysqli_escape_string($database, $input)));
 	return $escaped;
@@ -49,17 +52,18 @@ function escapeStr($input) {
  * @param bool $all
  * @return array
  */
-function getFields($querry, $all = true) {
-	if(!$querry) {
+function getFields($querry, $all = true)
+{
+	if (!$querry) {
 		return [];
 	}
 	global $database;
 	$result = [];
-	for($i = 0; $i < $database->field_count; $i++) {
+	for ($i = 0; $i < $database->field_count; $i++) {
 		$fieldName = mysqli_field_seek($database->store_result(), $i);
-		if($all) {
+		if ($all) {
 			array_push($result, $fieldName);
-		} elseif(ctype_upper($fieldName[0])) {
+		} elseif (ctype_upper($fieldName[0])) {
 			array_push($result, $fieldName);
 		}
 	}

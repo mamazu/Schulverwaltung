@@ -13,15 +13,15 @@ $HTML->outputHeader(); ?>
 		</thead>
 		<tbody>
 		<?php
-		foreach($timetable as $period){
-			echo '<tr>';
-			for($i = 0; $i < 6; $i++){
-				$free = '<span class="free">Freetime</span>';
-				echo '<td>' . (isset($period[$i]) ? $period[$i] : $free) . '</td>';
-			}
-			echo '</tr>';
+	foreach ($timetable as $period) {
+		echo '<tr>';
+		for ($i = 0; $i < 6; $i++) {
+			$free = '<span class="free">Freetime</span>';
+			echo '<td>' . (isset($period[$i]) ? $period[$i] : $free) . '</td>';
 		}
-		?>
+		echo '</tr>';
+	}
+	?>
 		</tbody>
 	</table>
 <?php $HTML->outputFooter(); ?>

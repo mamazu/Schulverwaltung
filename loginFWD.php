@@ -31,7 +31,7 @@ $stmt->execute();
 $passwordQuerry = $stmt->get_result();
 
 // Empty result means not a valid combination
-if($passwordQuerry->num_rows != 1) {
+if ($passwordQuerry->num_rows != 1) {
 	Logger::log("Username $uname was used to login.", LoggerConstants::LOGIN);
 	Message::castMessage('Invalid username or invalid password', false, $failDestination);
 	exit();

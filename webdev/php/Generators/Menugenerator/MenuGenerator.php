@@ -17,17 +17,19 @@ $additionalDepth = substr_count($subst, '/');
  * @param string $url
  * @return string
  */
-function getRootURL($url) {
-	if($url == '#' || $url == '')
+function getRootURL($url)
+{
+	if ($url == '#' || $url == '')
 		return '#';
 	global $additionalDepth;
-	for($i = 0; $i < $additionalDepth; $i++) {
+	for ($i = 0; $i < $additionalDepth; $i++) {
 		$url = '../' . $url;
 	}
 	return $url;
 }
 
-class MenuGenerator {
+class MenuGenerator
+{
 
 	private $menuItems = [];
 
@@ -38,8 +40,9 @@ class MenuGenerator {
 	 * @return boolean
 	 *		Returns if the action was successfull
 	 */
-	public function addItem($newItem = NULL) {
-		if($newItem == NULL || !($newItem instanceof MenuEntry)) {
+	public function addItem($newItem = null)
+	{
+		if ($newItem == null || !($newItem instanceof MenuEntry)) {
 			return false;
 		}
 		array_push($this->menuItems, $newItem);
@@ -54,9 +57,10 @@ class MenuGenerator {
 	 * @return boolean
 	 *		Returns true on success otherwise false
 	 */
-	public function setItem($newItem) {
-		for($i = 0; $i < count($newItem); $i++) {
-			if(!($newItem[$i] instanceof MenuEntry)) {
+	public function setItem($newItem)
+	{
+		for ($i = 0; $i < count($newItem); $i++) {
+			if (!($newItem[$i] instanceof MenuEntry)) {
 				return false;
 			}
 		}
@@ -71,13 +75,14 @@ class MenuGenerator {
 	 * @return boolean
 	 *		Returns if the action was successfull
 	 */
-	public function removeItem($newItem = NULL) {
-		if($newItem == NULL || !($newItem instanceof MenuEntry)) {
+	public function removeItem($newItem = null)
+	{
+		if ($newItem == null || !($newItem instanceof MenuEntry)) {
 			return false;
 		}
 		$found = false;
-		for($i = 0; $i < count($this->menuItems); $i++) {
-			if($this->menuItems[$i] == $newItem) {
+		for ($i = 0; $i < count($this->menuItems); $i++) {
+			if ($this->menuItems[$i] == $newItem) {
 				unset($this->menuItems[$i]);
 				$found = true;
 			}
@@ -89,7 +94,8 @@ class MenuGenerator {
 	 * getLength()
 	 * @return integer
 	 */
-	public function getLength() {
+	public function getLength()
+	{
 		return count($this->menuItems);
 	}
 
@@ -97,11 +103,12 @@ class MenuGenerator {
 	 * Gets the string of the object
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		$finalString = '<nav id="menu"><ul>';
 		$menuItems = count($this->menuItems);
 		$itemWidth = roundDown(100.0 / $menuItems, 4);
-		for($i = 0; $i < $menuItems; $i++) {
+		for ($i = 0; $i < $menuItems; $i++) {
 			$this->menuItems[$i]->setWidth($itemWidth);
 			$finalString .= (string)$this->menuItems[$i];
 		}

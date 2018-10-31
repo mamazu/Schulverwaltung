@@ -1,12 +1,14 @@
 <?php
 
-class ClassHomework {
+class ClassHomework
+{
 
 	private $id;
 	private $material = [];
 
 	//constuctor
-	function __construct($id) {
+	function __construct($id)
+	{
 		global $database;
 		$this->id = (int)$id;
 		#Getting the content
@@ -19,11 +21,11 @@ class ClassHomework {
 		WHERE
 			task__toDo.id=' . $this->id . ';');
 		while ($row = $result->fetch_assoc()) {
-			foreach($row as $key => $value) {
-				if(is_null($value)) {
+			foreach ($row as $key => $value) {
+				if (is_null($value)) {
 					continue;
 				}
-				if(!isset($this->material[$key])) {
+				if (!isset($this->material[$key])) {
 					$this->material[$key] = $row[$key] . '; ';
 				} else {
 					$this->material[$key] .= $row[$key];
@@ -34,16 +36,18 @@ class ClassHomework {
 
 	//END: costructor
 	//getter and setter
-	function getTopic() {
+	function getTopic()
+	{
 		$semicolonPOS = strpos($this->material['task'], ';');
 		$this->material['task'] = substr($this->material['task'], 0, $semicolonPOS);
 		return $this->material['task'];
 	}
 
-	function getMaterial() {
+	function getMaterial()
+	{
 		$returnString = '<ul>';
-		foreach($this->material as $key => $value) {
-			if(isset($value) && $key != 'task') {
+		foreach ($this->material as $key => $value) {
+			if (isset($value) && $key != 'task') {
 				$returnString .= '<li>' . ucfirst($key) . ': ' . $value . '</li>';
 			}
 		}

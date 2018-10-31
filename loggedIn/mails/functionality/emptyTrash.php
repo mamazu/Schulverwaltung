@@ -9,8 +9,8 @@ session_start();
 $studentId = $_SESSION['id'];
 $stmt = $database->prepare("DELETE FROM user__messages WHERE deleted IS NOT NULL AND reciver = ?;");
 $stmt->bind_param('i', $_SESSION['id']);
-if($stmt->execute()){
+if ($stmt->execute()) {
 	Message::castMessage('Succesfully emptied trash', true, '../index.php');
-}else{
+} else {
 	Message::castMessage('Could not empty trash can', false, '../index.php');
 }
