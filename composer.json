@@ -1,0 +1,17 @@
+{
+    "name": "mamazu/schulverwaltung",
+    "authors": [
+        {
+            "name": "mamazu",
+            "email": "maxo.pech@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mamazu\\Schulverwaltung\\": "webdev/php"
+        }
+    }
+}

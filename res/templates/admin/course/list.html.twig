@@ -1,0 +1,38 @@
+<!-- Providing a filter for the courses -->
+<h1>List of all courses</h1>
+<hr/>
+<form method="GET" class="twoCols center" style="display: flex">
+    <div style="flex-grow: 1">
+        Type:
+        <select name="courseType">
+            {% for key, value in {'G': 'O-Level', 'L': 'A-Level'} %}
+                <option value="{{ key }}" {% if courseType == key %}selected {% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="flex-grow: 1">
+        Grade:
+        <select name="grade">
+            {% for i in range(1, 12) %}
+                <option value="{{ i }}" {% if grade == i %}selected {% endif %}>Grade {{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="flex-grow: 1">
+        <label>
+            <input type="checkbox" value="showAll" name="showAll" {% if showAll %}checked{% endif %} />
+            Also show inactive
+        </label>
+    </div>
+    <button type="submit" style="flex-grow: 1">Filter</button>
+</form>
+<hr/>
+<table>
+    {% if tableRows|length > 0 %}
+        {% for tableRow in tableRows %}
+            {{ tableRow|raw }}
+        {% endfor %}
+    {% else %}
+        <tr><td>No courses matched your filter.</td></tr>
+    {% endif %}
+</table>

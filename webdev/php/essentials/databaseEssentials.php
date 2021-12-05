@@ -47,27 +47,3 @@ function escapeStr($input)
 	$escaped = nl2br(htmlentities(mysqli_escape_string($database, $input)));
 	return $escaped;
 }
-
-/**
- * Get the field names aquired by the querry.
- * @param array $querry
- * @param bool $all
- * @return array
- */
-function getFields($querry, $all = true)
-{
-	if (!$querry) {
-		return [];
-	}
-	global $database;
-	$result = [];
-	for ($i = 0; $i < $database->field_count; $i++) {
-		$fieldName = mysqli_field_seek($database->store_result(), $i);
-		if ($all) {
-			array_push($result, $fieldName);
-		} elseif (ctype_upper($fieldName[0])) {
-			array_push($result, $fieldName);
-		}
-	}
-	return $result;
-}
