@@ -153,3 +153,15 @@ function timeString($seconds, $format = 'H:i:s')
     $absSeconds = abs(intval($seconds));
     return date($format, $absSeconds);
 }
+
+/**
+ * Dumps the variable content and dies
+ *
+ * @param mixed $variable
+ */
+function dd($variable) {
+    echo "<pre>";
+    var_dump($variable);
+    echo "</pre>";
+    die();
+}

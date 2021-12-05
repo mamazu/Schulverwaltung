@@ -29,6 +29,7 @@ function connectDB()
 	global $database;
 	$connection = getConnection();
 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	$database = new mysqli($connection->address, $connection->username, $connection->password, $connection->database);
 	$database->autocommit(true);
 	return $database->errno == 0;
