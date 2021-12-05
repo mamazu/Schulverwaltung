@@ -17,7 +17,7 @@ $mail = new MailManager\Mail();
 $mail->load($mailId);
 $HTML->outputHeader();
 
-if (MailManager\Overview::userHas($_SESSION['id'], $mailId)) {
+if (MailManager\MailModule::userHas($_SESSION['id'], $mailId)) {
 	$mail->setRead($mailId);
 	?>
 	<!-- Outputing mail content -->

@@ -6,10 +6,13 @@
  */
 class Authorization
 {
-
-    private $id;
     /**
-     * @var array
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var array<Permission>
      */
     private $permissionList = [];
 
@@ -55,9 +58,11 @@ class Authorization
     {
         global $database;
         require_once 'Permission.php';
-        $result = $database->query("SELECT permNode FROM permission__users JOIN permission__names ON permId = permission__names.id WHERE userId = $id;");
-        while ($row = $result->fetch_row()) {
-            $perm = new Permission($result->fetch_row()[0]);
+        $stmt = $database->prepare("SELECT permNode FROM permission__users JOIN permission__names ON permId = permission__names.id WHERE userId = ?;");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        while ($row = $stmt->get_result()->fetch_row()) {
+            $perm = new Permission($row[0]);
             if ($perm->match($node)) {
                 return true;
             }
@@ -88,8 +93,8 @@ class Authorization
             if ($permission->hasPermission($node)) {
                 return true;
             }
-
         }
+        die();
         return false;
     }
 

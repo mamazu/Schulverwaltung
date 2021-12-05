@@ -5,7 +5,7 @@ namespace MailManager;
 require_once __DIR__ . '/../../Classes/ClassPerson.php';
 require_once __DIR__ . '/Mail.php';
 
-class Overview
+class MailModule
 {
 
 	private $mailList = [];
@@ -36,7 +36,10 @@ class Overview
 	{
 		global $database;
 		$selectTrashed = ($this->trashed) ? 'IS NOT NULL' : 'IS NULL';
-		$result = $database->query("SELECT id, sender, subject, content, readStatus, sendDate, deleted FROM user__messages WHERE reciver = $this->id AND deleted $selectTrashed ORDER BY readStatus, sendDate DESC;");
+		$stmt = $database->prepare("SELECT id, sender, subject, content, readStatus, sendDate, deleted FROM user__messages WHERE receiver = ? AND deleted $selectTrashed ORDER BY readStatus, sendDate DESC;");
+        $stmt->bind_param('i', $this->id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
 			$this->mailList[intval($row['id'])] = new Mail($row['sender'], $row['subject'], $row['content'], $row['readStatus'], $row['sendDate'], $row['deleted']);
 		}

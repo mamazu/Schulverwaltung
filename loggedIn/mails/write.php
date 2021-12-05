@@ -3,13 +3,14 @@
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 
 $HTML = new HTMLGenerator\Page('New Mail', ['form.css', 'sendMail.css'], ['checkMail.js'], null);
-$HTML->outputHeader();
 $selectId = isset($_GET['receiver']) ? intval($_GET['receiver']) : 0;
 
 global $database;
 if ($HTML->hasPermission()) {
+$HTML->outputHeader();
 	?>
 <h1>New Mail</h1>
+<a href="index.php">Go back</a>
 <form action="functionality/send.php" method="POST" onsubmit="return checkMail();" id="mailForm">
 	<fieldset>
 		<legend>General information</legend>
