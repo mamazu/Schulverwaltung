@@ -46,7 +46,7 @@ if ($userRow[1] == true) {
 
 //Creating the session
 $stmt = $database->prepare("SELECT
-		overview.id AS 'id',
+		overview.id AS 'user_id',
 		overview.grade AS 'grade',
 		interface.*
 	FROM user__overview overview
@@ -57,7 +57,8 @@ $stmt->bind_param("s", $userRow[0]);
 $stmt->execute();
 
 $sessionData = $stmt->get_result()->fetch_assoc();
-$_SESSION['id'] = intval($sessionData['id']);
+
+$_SESSION['id'] = intval($sessionData['user_id']);
 $_SESSION['grade'] = intval($sessionData['grade']);
 $_SESSION['ui'] = array_map(intval, $sessionData);
 var_dump($_SESSION);

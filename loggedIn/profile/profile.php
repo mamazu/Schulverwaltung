@@ -31,7 +31,7 @@ if ($settings->getProfilePic()) {
 			Name: <?php echo $name[0] . ' ' . $name[1] . '<br />known as: ' . $name[2]; ?>
 		</li>
 		<li>
-			Birthday: <?php echo date('d.m.Y', $person->getBDate()); ?>
+			Birthday: <?php echo date('d.m.Y', $person->getBirthday()); ?>
 		</li>
 		<li>
 			Status:

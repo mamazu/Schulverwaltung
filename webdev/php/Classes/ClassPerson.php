@@ -16,7 +16,10 @@ class ClassPerson
 	{
 		if (intval($id)) {
 			global $database;
-			$result = $database->query("SELECT * FROM user__overview WHERE id = $id;");
+			$stmt = $database->prepare("SELECT name, surname, username, phone, mail, street, postalCode, region, status FROM user__overview WHERE id = ?;");
+			$stmt->bind_param('i', $id);
+			$stmt->execute();
+			$result = $stmt->get_result();
 			if ($result->num_rows == 1) {
 				$row = $result->fetch_assoc();
 				$this->name = [$row['name'], $row['surname'], $row['username']];
@@ -68,7 +71,7 @@ class ClassPerson
 
 	/**
 	 * Returns the full name with the pattern "firstName lastName (nickname)"
-	 * @return array
+	 * @return string
 	 */
 	public function getFullName()
 	{
@@ -97,7 +100,7 @@ class ClassPerson
 	 * Returns the birthday
 	 * @return string
 	 */
-	public function getBDate()
+	public function getBirthday()
 	{
 		return $this->bDate;
 	}
