@@ -19,6 +19,7 @@ function doneCheck($data)
 function getPriorities()
 {
 	global $priority, $database;
+	$priority = [];
 	$resultPrio = $database->query('SELECT content FROM task__priority ORDER BY prioVal;');
 	while ($row = $resultPrio->fetch_row()) {
 		$priority[count($priority)] = $row[0];

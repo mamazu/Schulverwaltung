@@ -22,11 +22,11 @@ $HTML->outputHeader();
 				<legend>Filter</legend>
 				<?php echo 'Done: ' . generateOption(['Done', 'To-Do'], 'toDoFilter', true); ?>
 				<br/>
-				<?php echo 'Type: ' . generateOption(uniquify($currentStudent->getTypes()), 'typeFilter', true); ?>
+				<?php echo 'Type: ' . generateOption(array_unique($currentStudent->getTypes()), 'typeFilter', true); ?>
 				<br/>
 				<?php echo 'Priority: ' . generateOption($priority, 'priortiyFilter', true); ?>
 				<br/>
-				<?php echo 'Subject: ' . generateOption(uniquify($currentStudent->getSubjects()), 'subjectFilter', true); ?>
+				<?php echo 'Subject: ' . generateOption(array_unique($currentStudent->getSubjects()), 'subjectFilter', true); ?>
 				<br/>
 				<button onclick="filterTable()">Filter</button>
 				<button type="reset" onclick="resetFilter()">Reset</button>

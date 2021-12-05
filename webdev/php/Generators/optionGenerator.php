@@ -17,17 +17,6 @@ function generateUserSelect($name = '', $excludeSelf = false)
 	return $finalResult;
 }
 
-function uniquify($list)
-{
-	$uniqueList = [];
-	for ($i = 0; $i < count($list); $i++) {
-		if (array_search($list[$i], $uniqueList) === false) {
-			array_push($uniqueList, $list[$i]);
-		}
-	}
-	return $uniqueList;
-}
-
 function generateOption($list, $name = null, $noneDefault = false)
 {
 	$final = '<select';

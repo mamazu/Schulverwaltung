@@ -19,7 +19,6 @@ $result = $database->query('
 	INNER JOIN course__overview ON course__student.id = course__overview.id
 	WHERE course__student.studentId = 1
 	ORDER BY test__overview.testDate;');
-
 if ($result->num_rows == 0) {
 	echo '<h1>No marks entered</h1>';
 } else {
