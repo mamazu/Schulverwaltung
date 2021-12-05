@@ -4,10 +4,12 @@ function getConnection()
 {
 	$dbConfig = simplexml_load_file(__DIR__ . '/../../../tools/config/database.xml');
 	$use = $dbConfig->use;
-	for ($i = 0; $i < count($dbConfig->host); $i++) {
-		if ((string)$dbConfig->host[$i]["name"] == $use)
-			return $dbConfig->host[$i];
+	foreach($dbConfig->host as $host) {
+		if ((string) $host->name == $use) {
+			return $host;
+		}
 	}
+
 	echo "Could not find connection using default";
 	return $dbConfig->host[0];
 }
