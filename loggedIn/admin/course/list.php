@@ -48,5 +48,6 @@ $HTML->render('admin/course/list.html.twig', [
     'courseType' => $_GET['courseType'],
     'grade' => $_GET['grade'],
     'showall' => $_GET['showAll'],
-    'tableRows' => $tableRows
+    'tableRows' => $tableRows,
+    'showAll' => isset($_GET['showAll']),
 ]);

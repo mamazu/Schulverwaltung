@@ -13,7 +13,7 @@ class Lesson
 	{
 		global $database;
 		$this->id = (int)$studenId;
-		$result = $database->query('SELECT DISTINCT
+		$stmt = $database->prepare('SELECT DISTINCT
 			course__overview.id AS "id",
 			course__overview.abbr AS "abbr",
 			course__overview.teacherID AS "teacherId",
@@ -23,14 +23,18 @@ class Lesson
 		FROM timetable__overview
 		JOIN course__overview ON course__overview.id = timetable__overview.classID
 		JOIN course__student ON course__overview.id = course__student.classID
-		JOIN timetable__standardTimes  ON timetable__standardTimes.id = timetable__overview.lesson
+		LEFT JOIN timetable__standardTimes  ON timetable__standardTimes.id = timetable__overview.lesson
 		WHERE
-			`day` = ' . date('N') . '
+			`day` = ?
 		AND
-			timetable__standardTimes.`start` >= "' . date('H:i:s') . '"
+			timetable__standardTimes.`start` >= ?
 		AND
-			(course__overview.teacherID = ' . $this->id . ' OR course__student.studentID = ' . $this->id . ')
+			(course__overview.teacherID = ? OR course__student.studentID = ?)
 		LIMIT 1;');
+		$stmt->bind_param('isii', date('N'), date('H:i:s'), $this->id, $this->id);
+		$stmt->execute();
+
+		$result = $stmt->get_result();
 		if ($result->num_rows == 0) {
 			$this->valid = false;
 			return;
@@ -51,7 +55,7 @@ class Lesson
 	private function initId()
 	{
 		global $database;
-		$started = date('Y-m-d, H:i:s', strtotime($this->time[0]));
+		$started = date('Y-m-d H:i:s', strtotime($this->time[0]));
 		$classId = $this->class[0];
 		$existsSELECT = $database->query("SELECT id FROM lesson__overview WHERE classId = $classId AND started = \"$started\";");
 		if ($existsSELECT->num_rows == 0) {
@@ -164,5 +168,3 @@ class Lesson
 
 	// </editor-fold>
 }
-
-?>
