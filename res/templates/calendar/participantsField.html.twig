@@ -1,0 +1,17 @@
+<legend>Participants</legend>
+<select multiple="multiple" name="participants[]">
+    <optgroup label="Persons">
+        {% for person in people %}
+            {% set name = person.realName %}
+            {% if useNickname %}
+                {% set name = person.username %}
+            {% endif %}
+            <option value="p{{ person.id }}">{{ name }}</option>
+        {% endfor %}
+    </optgroup>
+    <optgroup label="Courses">
+        {% for course in courses %}
+            <option value="c{{ course.Id }}">{{ course.courseName }}</option>
+        {% endfor %}
+    </optgroup>
+</select>

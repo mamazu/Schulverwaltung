@@ -1,0 +1,28 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>Calendar of {{ calendar.getMonth("string") }}</h1>
+    <form method="GET">
+        <label>
+            Month:
+            <select name="m">
+                {% for month in range(0, 11) %}
+                    {% set selected = calendar.getMonth() - 1 == month ? 'selected' %}
+                    <option value="{{ month + 1}}" {{ selected }}>{{ monthNames[month] }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Year:
+            <select name="y">
+                {% set currentYear = date('Y').format('Y') %}
+                {% for year in range(1990, currentYear) %}
+                    {% set selected = calendar.getYear() == year ? 'selected' %}
+                    <option value="{{ year }}" {{ selected }}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button type="submit">Set</button>
+    </form>
+
+    {{ calendar.output()|raw }}
+{% endblock %}

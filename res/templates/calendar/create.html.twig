@@ -1,0 +1,33 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>Create a new event</h1>
+    <form action="createEvent.php" method="POST" onsubmit="return checkEvent()">
+        <fieldset>
+            <legend>General information</legend>
+            <input type="text" name="eventName" placeholder="Name of the event"/>
+            <br/>
+            <label><textarea name="description">Describe the event</textarea></label>
+            <br/>
+            <label>
+                <input type="checkbox" name="private" value="private" checked="checked"/>
+                Is this event private?
+            </label>
+        </fieldset>
+        <fieldset id="participantsField" style="display:none"></fieldset>
+        <fieldset>
+            <legend>Times</legend>
+            <label>Start: <input type="text" name="start" value="{{ startDate|date('d.m.Y') }}"/></label>
+            <label>Time: {{ start|raw }}</label>
+            <br/>
+            <label>End: <input type="text" name="end"
+                               value="{{ (startDate + 24 * 3600)|date('d.m.Y') }}"/></label>
+            <label>Time: {{ end|raw }}</label>
+        </fieldset>
+        <fieldset>
+            <legend>Submit</legend>
+            <button type="submit">Create</button>
+            <button type="reset">Discard</button>
+        </fieldset>
+    </form>
+{% endblock %}

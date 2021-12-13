@@ -1,0 +1,20 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+
+    <h1>Eventlist for the {{ dateStampD.format('d.m.Y') }}</h1>
+    <a href="index.php?m={{ dateStampD.format('m') }}&y={{ dateStampD.format('Y') }}">Get back</a>
+    <br/>
+    {% if eventList|length == 0 %}
+        Today there is nothing happening.
+    {% else %}
+        {% for event in eventList %}
+            <h2>{{ event.getTopic() }}</h2>
+            <span class="it">From:</span> {{ event.getStart().format("d F Y")}}<br />
+            <span class="it">To:</span> {{ event.getEnd().format("d F Y") }}<br />
+            <span class="it">Description: </span>{{ event.getDescription() }}
+        {% endfor %}
+    {% endif %}
+
+    <br/><a href="create.php?date={{ dateStampD.format('d.m.Y') }}">Create new</a>
+{% endblock%}

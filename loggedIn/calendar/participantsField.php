@@ -1,26 +1,23 @@
 <?php
 include_once __DIR__ . '/../../webdev/php/essentials/databaseEssentials.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 connectDB();
 global $database;
 session_start();
-?>
-<legend>Participants</legend>
-<select multiple="multiple" name="participants[]">
-	<optgroup label="Persons">
-	<?php
-$result = $database->query('SELECT id, CONCAT(name, " ", surname) AS "realName", username FROM user__overview WHERE id > 0');
-while ($row = $result->fetch_assoc()) {
-	$username = ($_SESSION['ui']['nickName']) ? $row['username'] : $row['realName'];
-	echo '<option value="p' . $row['id'] . '">' . $username . '</option>';
-}
-?>
-	</optgroup>
-	<optgroup label="Courses">
-	<?php
-$result = $database->query('SELECT id, CONCAT(subject, " (Grade: ", grade, ")") AS "courseName" FROM course__overview WHERE id > 0 AND active');
-while ($row = $result->fetch_assoc()) {
-	echo '<option value="c' . $row['id'] . '">' . $row['courseName'] . '</option>';
-}
-?>
-	</optgroup>
-</select>
+
+$people = $database->query('SELECT id, CONCAT(name, " ", surname) AS "realName", username FROM user__overview WHERE id > 0')
+->fetch_all(MYSQLI_ASSOC);
+
+$courses = $database->query('SELECT id, CONCAT(subject, " (Grade: ", grade, ")") AS "courseName" FROM course__overview WHERE id > 0 AND active')
+->fetch_all(MYSQLI_ASSOC);
+
+// Rendering the template
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
+$twig = new \Twig\Environment($loader, [
+    __DIR__ . '/../../res/template_c',
+]);
+echo $twig->render('calendar/participantsField.html.twig', [
+    'courses' => $courses,
+    'people' => $people,
+    'useNickName' => $_SESSION['ui']['nickName'],
+]);

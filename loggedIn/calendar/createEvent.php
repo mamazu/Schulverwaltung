@@ -48,7 +48,9 @@ if ($startTime === false || $endTime === false) {
 
 global $database;
 //Inserting the creator
-$database->query("INSERT INTO event__participants(`type`, `value`)VALUE('p', ' . $creator . ');");
+$stmt = $database->prepare("INSERT INTO event__participants(`type`, `value`)VALUE('p', ?);");
+$stmt->bind_param('i', $creator);
+$stmt->execute();
 $insertId = $database->insert_id;
 //Inserting the event
 $private = $isPrivate ? '1' : '0';
