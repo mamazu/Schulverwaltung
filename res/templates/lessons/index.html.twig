@@ -1,0 +1,71 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    {% import "master.html.twig" as self %}
+
+    {% if lesson.lessonToday %}
+        <h1>
+            {% if lesson.takesPlace() %}
+                Your current lesson
+            {% else %} 
+                Your next lesson is in {{ lesson.timeToStart|date('H:i:s') }}
+            {% endif %}
+        </h1>
+        <p class="twoCols">
+            Name: {{ lesson.className }}
+            by {{ resolveName.call(lesson, lesson.teacherId) }}
+            <br />
+            Takes place at: {{ lesson.location }}<br />
+            Starts: {{ lesson.startingTime }} o'clock <br />
+            Ends: {{ lesson.endingTime }} o'clock
+        </p>
+        <h2>Student list</h2>
+        <a href="../mails/write.php">Write a mail to everyone in the class</a>
+
+        {% if isTeacher %}
+        <form method="POST" class="center" action="setAttendence.php">
+                <!-- Hidden fields -->
+                <input type="hidden" value="{{ lesson.id }}" name="lessonId" />
+                Topic: <input type="text" placeholder="Set topic of the lesson" id="lessonTopic" />
+        {% endif %}
+        {% set headers = ['Name'] %}
+        {% if isTeacher %}
+            {% set headers = headers|merge(['Attending', 'Homework' ]) %}
+        {% endif %}
+        {% set headers = headers|merge(['Mail']) %}
+
+            <table>
+                <thead>
+                {{ self.generateTableRow( headers )}}
+                </thead>
+                {% for student in studentList %}
+                    <tr>
+                        <td>
+                            <a href="../profile/profile.php?id={{student.id}}">{{student.name}}</a>
+                        </td>
+                        {% if isTeacher %}
+                            <td></td><td></td>
+                        {% else %}
+                            <td><input type="checkbox" checked="checked" name="attend[]" value="{{student.id}}" /></td>
+                            <td><input type="checkbox" checked="checked" name="homework[]" value="{{student.id}}" /></td>';
+                        {% endif %}
+                        <td> 
+                            {% if student.id != currentUserId %} 
+                                <a href="../mails/write.php?receiver={{student.id}}">{{ mailSymbol|raw }} </a> 
+                            {% else %}
+                            X 
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% if isTeacher %}
+            <br />
+            <button type="submit">Submit changes</button>
+        {% endif %}
+        </form>
+    {% else %}
+        <h1>No lesson</h1>
+        <p>You have the day off. Enjoy it. :D </p>
+    {% endif %}
+{% endblock %} 

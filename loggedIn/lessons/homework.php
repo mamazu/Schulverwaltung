@@ -1,36 +1,12 @@
 <?php
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
-
-$HTML = new HTMLGenerator\Page('Homework', ['form.css']);
-$HTML->outputHeader();
+require_once '../../vendor/autoload.php';
 
 if (isset($_SESSION['teacher'])) {
-	?>
-	<h1>Create a new homework assignment</h1>
-	<form method="post" action="createHomework.php">
-		<fieldset>
-			<legend>Basic information</legend>
-			<input type="text" name="topic" placeholder="Topic of the homework"/>
-			<textarea name="description">What should they do?</textarea>
-		</fieldset>
-		<fieldset>
-			<legend>Material (optional)</legend>
-			<ul style="list-style: none;">
-				<li>Books: <input type="text" name="book" placeholder="Enter the pages of the books seperated by a comma(,)"/></li>
-				<li>Worksheets: <input type="text" name="worksheet" placeholder="Enter the names of the worksheets seperated by a comma(,)"/></li>
-				<li>Link: <input type="text" name="link" placeholder="Enter a link"/></li>
-			</ul>
-		</fieldset>
-		<fieldset>
-			<legend>Submit or not</legend>
-			<button type="submit">Create homework</button>
-			<button type="reset">Discard</button>
-		</fieldset>
-	</form>
-	<?php
-
-} else {
-	echo 'You are not a teacher.';
+	Message::castMessage('You are not a teacher', false, '');
 }
-$HTML->outputFooter();
-?>
+
+$HTML = new HTMLGenerator\Page('Homework', ['form.css']);
+$HTML->render('lessons/homework.html.twig', [
+	'htmlGenerator' => $HTML
+]);

@@ -23,16 +23,16 @@ $homeworkId = array_filter(array_map('intval', $homeworkPOST), 'validId');
 
 #Creating a bool array for sql
 $boolArray = [];
-for ($i = 0; $i < count($attendedId); $i++) {
+foreach ($attendedId as $i => $iValue) {
 	$value = 'true, ';
-	$value .= in_array($attendedId[$i], $homeworkId) ? '1' : '0';
-	$boolArray[$attendedId[$i]] = $value;
+	$value .= in_array($iValue, $homeworkId) ? '1' : '0';
+	$boolArray[$iValue] = $value;
 	$homeworkId = array_diff($homeworkId, [$attendedId[$i]]);
 }
 
 $homeworkButNotHere = array_merge($homeworkId);
-for ($i = 0; $i < count($homeworkButNotHere); $i++) {
-	$boolArray[$homeworkButNotHere[$i]] = '01';
+foreach ($homeworkButNotHere as $iValue) {
+	$boolArray[$iValue] = '01';
 }
 
 #preparing SQL statement

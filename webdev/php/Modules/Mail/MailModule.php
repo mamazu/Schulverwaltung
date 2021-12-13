@@ -65,7 +65,7 @@ class MailModule
 		$result = $database->prepare("SELECT id FROM user__messages WHERE id = ? AND receiver = ?;");
 		$result->bind_param("ii", $mail, $user);
 		$result->execute();
-		return ($result || $result->num_rows != 0);
+		return ($result && $result->get_result()->num_rows != 0);
 	}
 
 	/**
