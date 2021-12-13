@@ -6,7 +6,22 @@
     </tr>
 {% endmacro %}
 
-{{ htmlGenerator.outputHeader() }}
-{% block content %}
-{% endblock %}
-{{ htmlGenerator.outputFooter() }}
+{{ htmlGenerator.outputHeader(true) }}
+
+<body onload="show()">
+    <!--The content -->
+    <div id="content">
+        <div id="mainContent">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer>
+        <p>
+            You are here: 
+            <a href="\Schulverwaltung/loggedIn/index.php">Home</a>
+            {{ htmlGenerator.generateBreadcrumb()|join(' > ') }}
+        </p>
+        </footer>
+    </div>
+</body>
+</html>

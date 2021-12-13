@@ -6,7 +6,6 @@ require_once __DIR__ . '/Header.php';
 
 class Page extends Header
 {
-
 	private $auth = null;
 	private $menuFile = '';
 	private $relativeURL = '';
@@ -23,6 +22,7 @@ class Page extends Header
 		require_once $dir . '../../Classes/debuging/Logger.php';
 		require_once $dir . '../../Classes/Messages.php';
 		require_once $dir . '../../essentials/session.php';
+		require_once $dir. '../../Generators/Menugenerator/MenuGenerator.php';
 
 		$this->subdir = $subdir;
 		if ($this->subdir != -1) {
@@ -60,46 +60,57 @@ class Page extends Header
 	 * outputHeader()
 	 *		Outputs the header of the HTML file
 	 */
-	public function outputHeader()
+	public function outputHeader($isTwig = false)
 	{
 		if (isset($_SESSION['ui']['darkTheme']) && $_SESSION['ui']['darkTheme']) {
 			$this->toogleMode(HeaderMode::DARKMODE);
 		}
 		echo '<!DOCTYPE html><html>';
 		echo parent::__toString();
+		if(!$isTwig) {
 		echo '<body onload="show()">';
+		}
 		// Showing pop-up messages
 		\Message::show();
+
+		$this->renderMenu();
+
+		if(!$isTwig) {
+			echo '<!--The content -->';
+			echo '<div id="content">
+					<div id="mainContent">';
+		}
+	}
+
+	public function renderMenu() {
 
 		// Showing menu
 		echo '<!-- Implementing the menu -->';
 		if ($this->subdir != -1) {
-			require $this->menuFile;
+			$items = require $this->menuFile;
+			$menu = new \MenuGenerator();
+			$menu->generateFromArray($items);
 		}
-
-		echo '<!--The content -->';
-		echo '<div id="content">
-				<div id="mainContent">';
 	}
 
 	/**
 	 * Outputs the footer of the HTML file
+	 * @deprecated
 	 */
 	public function outputFooter()
 	{
-		$location = ($this->subdir == -1) ? '' : join(' &gt; ', $this->analyseURL());
+		$location = ($this->subdir == -1) ? '' : join(' &gt; ', $this->generateBreadcrumb());
 		echo '</div>
 			  <footer><p>You are here: <a href="\Schulverwaltung/loggedIn/index.php">Home</a>' . $location . '</p></footer>
 			</div>
 		</body></html>';
 	}
 
-	/**
-	 * Returns an array of strings containing the indiviual directories
-	 * @return array
-	 */
-	private function analyseURL()
+	public function generateBreadcrumb(): array 
 	{
+		if ($this->subdir == -1) {
+			return [];
+		}
 		$parts = explode('/', $this->relativeURL);
 		for ($i = 0; $i < count($parts); $i++) {
 			$parts[$i] = ucfirst($parts[$i]);

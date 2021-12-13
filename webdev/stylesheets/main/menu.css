@@ -17,11 +17,11 @@ nav#menu {
 
 nav#menu ul {
 	list-style: none;
+	display: flex;
 }
 
-nav#menu > ul > li {
-	display: inline-block;
-	vertical-align: top;
+nav#menu ul li {
+	width: 100%;
 }
 
 nav#menu > ul > li:hover > ul {

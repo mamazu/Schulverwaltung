@@ -1,10 +1,35 @@
 <?php
 
+require_once __DIR__ . '/../../perms.php';
+
+//Calculates the additionalDepth
+global $additionalDepth;
+$uri = $_SERVER['REQUEST_URI'];
+$subst = substr($uri, strpos($uri, 'loggedIn/') + strlen('loggedIn/'));
+$additionalDepth = substr_count($subst, '/');
+
+/**
+ * getRootURL($url)
+ *	Returns the root url of the input path
+ * @global int $additionalDepth
+ * @param string $url
+ * @return string
+ */
+function getRootURL($url)
+{
+	if ($url == '#' || $url == '')
+		return '#';
+	global $additionalDepth;
+	for ($i = 0; $i < $additionalDepth; $i++) {
+		$url = '../' . $url;
+	}
+	return $url;
+}
+
 class MenuEntry
 {
 
 	private $link, $caption;
-	private $width = 100;
 	private $subItems = [];
 
 	/**
@@ -33,17 +58,6 @@ class MenuEntry
 			return true;
 		}
 		return false;
-	}
-
-	public function setWidth($newWidth)
-	{
-		$width = (float)$newWidth;
-		if ($width <= 0 || $width > 100) {
-			$this->width = 100;
-			return false;
-		}
-		$this->width = $width;
-		return true;
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Getter">
@@ -96,7 +110,7 @@ class MenuEntry
 		}
 		//Return the result
 		$aHref = '<a href="' . getRootURL($this->link) . '">' . $this->caption . '</a>';
-		return '<li style="width:' . $this->width . '%">' . $aHref . $submenus . '</li>';
+		return '<li>' . $aHref . $submenus . '</li>';
 	}
 
 }
