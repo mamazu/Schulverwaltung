@@ -3,7 +3,7 @@ nav{
 	background-color: inherit;
 }
 
-#menu ul li, #footer {
+nav, footer {
 	background-color: rgba(0, 0, 0, 0.4);
 }
 

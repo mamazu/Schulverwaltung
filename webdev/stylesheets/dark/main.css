@@ -1,13 +1,9 @@
-* {
-	color: white;
-}
-
-a {
-	color: #F2ED75;
-}
-
 body {
-	background-color: #3C3C3C;
+	--background-color: #3C3C3C;
+	--link-color:#F2ED75;
+	--text-color: white;
+	--menu-hover-color: #FF;
+	--deactivated-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Adapting hr line */

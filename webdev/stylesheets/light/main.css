@@ -1,12 +1,8 @@
 /*Color scheme for light*/
 body {
-	background-color: #F2F1C7;
-}
-
-a {
-	color: black;
-}
-
-nav#menu > ul li:hover {
-	background-color: #f2ed75;
+	--background-color: #F2F1C7;
+	--link-color: black;
+	--text-color: black;
+	--menu-hover-color: #F2ED75;
+	--deactivated-color: rgba(0, 0, 0, .3);
 }

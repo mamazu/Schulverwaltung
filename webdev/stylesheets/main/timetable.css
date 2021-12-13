@@ -1,3 +1,7 @@
 thead td {
 	padding: .2em 0;
 }
+
+.free {
+	color: var(--deactivated-color);
+}
