@@ -1,0 +1,18 @@
+<h1>Editing the post of {{ postToEdit }}</h1>
+<div id="originalPost">
+    <span style="font-style: italic;">Original text:</span>
+    <p style="display:block;">
+        <?php {{ post.getMessage() }} ?>
+    </p>
+</div>
+<br class="clear"/>
+<form action="submitEdit.php" method="POST">
+    <input type="hidden" name="id" value="{{id}}"/>
+    <input type="hidden" name="topicId" value="{{topicId}}"/>
+    <fieldset>
+        <legend>Submit your edits</legend>
+        <textarea name="newMessageText" placeholder="Please enter the new post here.">{{ post.getMessage() }}</textarea>
+    </fieldset>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+</form>

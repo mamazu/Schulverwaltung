@@ -21,7 +21,8 @@ if (!isset($_POST['topicName']) || !isset($_POST['description'])) {
 }
 
 //Querrying the database
-$stmt = $database->query("INSERT INTO forum__topic VALUES(NULL, ?, ?, ?, ?);");
+$forumId = $_POST['forumId'];
+$stmt = $database->prepare("INSERT INTO forum__topic VALUES(NULL, ?, ?, ?, ?);");
 $stmt->bind_param('issi', $_POST['forumId'], $_POST['topicName'], $_POST['description'], $_SESSION['id']);
 if ($stmt->execute()) {
 	Message::castMessage('Successfully created topic.', true, 'index.php?forumId=' . $forumId);

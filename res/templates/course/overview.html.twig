@@ -1,0 +1,27 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+<h1>Class Overview</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Abbr</td>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Homework</td>
+        <td>Details</td>
+    </tr>
+    </thead>
+    <tbody>
+	{% for course in courseList %}
+        <tr class="{{ course.active ? 'red' : 'green' }}">
+            <td>{{ course.abbr }}</td>
+            <td>{{ course.subject }}</td>
+            <td>{{ course.type }}</td>
+            <td>{{ course['HW done'] != null ? 'Yes' : 'No' }}</td>
+            <td><a href="class.php?classID={{ course.id }}">Details</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <!-- Outputting the forum head-->
+    <h1>{{ object.getName() }}</h1>
+    <p id="forumDescription">
+        {{ object.getDescription() }}
+        <br/>
+        <a href="settings.php?{{ type }}d={{ intId }}" class="rightAlign">Settings</a>
+    </p>
+    <hr/>
+    <br/>
+
+
+    <!-- Outputting the topics-->
+    <div id="topicArea">
+        <ul>
+            {% set subList = object.getSublist() %}
+            {% if subList|length == 0 %}
+                <li>
+                    <h3>There are no {{ subType }}s to display.</h3>
+                    <p>Create a new {{ subType }} down below.</p>
+                </li>
+            {% else %}
+                {% for subElement in subList %}
+                    {% if object.getType() == 'forum' %}
+                        $subItem = new Section($subList[$i], 'topic');
+                        $heading = '<a href="readForum.php?topicId={{ subElement->getId() }} "> {{ subElement.getName() }}</a>
+                        {% set message = subElement.getDescription()|slice(0, 50) %}
+                    {% else %}
+                        $subItem = new Post($subList[$i]);
+                        $postId = $subItem->getId();
+                        $heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['ui']['nickName']) . ' says: ';
+                        {% set message = subElement.getMessage() %}
+                    {% endif %}
+                    <li>
+                        <h3><?php echo $heading; ?></h3>
+                        <p>{{ message }}</p>
+                        <br/>
+                        <?php
+					{% if postId is defined %}
+						echo '<a href="editPost.html.twig?id={{ postId }}&topicId={{ intId }}">Edit this post</a>
+                        {% endif %}
+                        ?>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+
+    {% if type == 'forum' %}
+        <a href="newTopic.php?forumId={{ intId }}">Create new topic</a>
+    {% else %}
+        <form action="postNew.php" method="POST" id="newPost">
+            <!-- Copying data from the previous page -->
+            <input type="hidden" name="topicId" value="{{ intId }}"/>
+            <!-- Textarea for the post message -->
+            <fieldset>
+                <legend>New Post</legend>
+                <textarea name="postMessage" class="newTopic"
+                          placeholder="What do you want to tell the world?"></textarea>
+                <br/>
+                <button type="submit">Post</button>
+                <button type="reset">Discard</button>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}

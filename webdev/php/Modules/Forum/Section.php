@@ -57,7 +57,7 @@ class Section
 	 */
 	public function getName()
 	{
-		return $this->name;
+		return $this->name ?? 'unnamed forum';
 	}
 
 	/**

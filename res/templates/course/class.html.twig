@@ -1,0 +1,28 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>Information about the course: {{ class }}</h1>
+    Teacher: {{ class.getTeacher()}}<br />
+    Student-count:  {{ class.getMemberCount() }}
+    <h2>Lesson</h2>
+    <ul>
+        {% for lesson in lessons %}
+
+            <li>{{ lesson.lesson }} lesson: {{ date((lesson.day - 4) * 24 * 3600).format('l') }} in {{ lesson.room }} </li>
+        {% endfor %}
+    </ul>
+    <br/>
+
+
+    <h2>Homework ({{ homeworkCount }})</h2>
+    <ul>
+    {% if homeworkList|length == 0 %}
+        <li>No homework to do.</li>
+    {% else %}
+        {% for homework in homeworkList %}
+            {% set done = (homework['done']) ? 'done' : 'toDo' %}
+            {% set date = date(homework['deadline']).format('D, d.m.') %}
+            <li class="{{ done }}">[{{ date }}] {{ homework.content }}</li>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

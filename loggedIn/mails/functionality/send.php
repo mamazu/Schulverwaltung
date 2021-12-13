@@ -37,7 +37,7 @@ if (isset($_POST['writeAll']) && Authorization::userHasPermission($sender, 'soci
 		Logger::log("A new message (id: $database->insert_id) was send to the id $reciever.", Logger::SOCIAL);
 	}
 	if ($sucess)
-		$message['suc'] = 'Your messsage was sucessfully send.';
+        $mesages['suc'] = 'Your messsage was sucessfully send.';
 	else
 		$mesages['err'] = 'Your message could not be send.';
 }

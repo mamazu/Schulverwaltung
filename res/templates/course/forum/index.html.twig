@@ -1,0 +1,14 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>Foums you participate in</h1>
+
+    {% for space in spaces %}
+    <a href="readForum.php?forumId={{ space.id }}">
+        <div class="card">
+            <h2>{{ space.abbr }} </h2>
+            <p>{{ space.subject }}</p>
+        </div>
+    </a>
+    {% endfor %}
+{% endblock %}

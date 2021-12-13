@@ -18,7 +18,7 @@ if (isset($_POST['id']) && isset($_POST['newMessageText']) && isset($_POST['topi
 	}
 } else {
 	if (isset($_POST['id']) && isset($_POST['topicId'])) {
-		Message::castMessage('No message provided', false, 'editPost.php?topicId=' . $_POST['topicId'] . '&id=' . $_POST['id']);
+		Message::castMessage('No message provided', false, 'editPost.html.twig?topicId=' . $_POST['topicId'] . '&id=' . $_POST['id']);
 	} else {
 		Message::castMessage('Invalid id', false, 'index.php');
 	}
