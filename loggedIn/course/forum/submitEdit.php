@@ -23,4 +23,3 @@ if (isset($_POST['id']) && isset($_POST['newMessageText']) && isset($_POST['topi
 		Message::castMessage('Invalid id', false, 'index.php');
 	}
 }
-?>

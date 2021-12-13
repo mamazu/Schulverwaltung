@@ -1,5 +1,6 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
+require_once '../../../vendor/autoload.php';
 
 $HTML = new HTMLGenerator\Page('Forum', ['form.css', 'forum.css'], null, null, 1);
 
@@ -19,30 +20,11 @@ if (isset($_GET['forumId'])) {
 }
 $settingsName = $object->getType();
 
-$HTML->outputHeader();
+$creator = (int)$object->getCreator();
+$creatorName = ClassPerson::staticGetName($creator, $_SESSION['ui']['nickName']);
 
-echo "<h1>Change the $settingsName's setting</h1>";
-?>
-<a href="readForum.php?<?php echo $settingsName ?>Id=<?php echo $object->getId(); ?>" class="rightAlign">Back</a>
-<form action="newSettings.php" method="POST">
-	<input type="hidden" name="type" value="<?php echo $settingsName; ?>" />
-	<input type="hidden" name="idVal" value="<?php echo $object->getId(); ?>" />
-	<fieldset>
-		<legend>Alterable</legend>
-		Name: <input type="text" name="newName" value="<?php echo $object->getName(); ?>" placeholder="New name" />
-		<br />
-		Description: <textarea name="newDescription" placeholder="New name" /><?php echo $object->getDescription(); ?> </textarea>
-	</fieldset>
-	<fieldset>
-		<legend>Immutable</legend>
-		ID: <?php echo $object->getId(); ?>
-		<br />
-		Creator: <?php
-					$creator = (int)$object->getCreator();
-					echo ClassPerson::staticGetName($creator, $_SESSION['ui']['nickName']);
-					?>
-	</fieldset>
-	<button type="submit">Save settings</button>
-	<button type="reset">Revert changes</button>
-</form>
-<?php $HTML->outputFooter(); ?>
+$HTML->render('course/forum/settings.html.twig', [
+	'htmlGenerator' => $HTML,
+	'object' => $object,
+	'creatorName' =>  $creatorName
+]);
