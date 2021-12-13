@@ -1,37 +1,13 @@
 <?php
 require_once '../../../webdev/php/Generators/HTMLGenerator/Page.php';
+require_once '../../../vendor/autoload.php';
 global $database;
 
 $HTML = new HTMLGenerator\Page('Admin pannel', ['form.css'], null, null, 1);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
 $HTML->outputHeader();
 
-if (!isset($_POST['name'])) {
-	$result = $database->query('SELECT * FROM user__overview LIMIT 1;');
-	?>
-	<h1>Create a new user</h1>
-	<form method="POST" action="#">
-		<fieldset>
-			<legend>User information</legend>
-			<?php
-		foreach ($result->fetch_assoc() as $key => $value) {
-			$uKey = ucfirst($key);
-			if ($key != 'id') {
-				echo '<label for="' . $uKey . '">' . $uKey . ': </label>
-			<input name="' . $key . '" value="" type="text" placeholder="' . $uKey . '" id="' . $uKey . '" onchange="changed(this);"/><br />';
-			}
-		}
-		?>
-		</fieldset>
-		<fieldset>
-			<legend>Submit and reset</legend>
-			<button type="submit">Submit</button>
-			<button type="Reset">Reset</button>
-		</fieldset>
-	</form>
-	<?php
-
-} else {
+if (isset($_POST['name'])) {
 	$keys = '';
 	$values = '';
 	foreach ($_POST as $key => $value) {
@@ -55,6 +31,20 @@ if (!isset($_POST['name'])) {
 	} else {
 		Message::castMessage('User information incomplete please check the form.');
 	}
+    exit(1);
 }
-$HTML->outputFooter();
-?>
+
+$result = $database->query('SELECT * FROM user__overview LIMIT 1;')->fetch_assoc();
+foreach($result as $key => &$value) {
+    $value = '';
+}
+
+// Rendering the template
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
+$twig = new \Twig\Environment($loader, [
+    __DIR__ . '/../../../res/template_c',
+]);
+echo $twig->render('admin/users/create.html.twig', [
+    'htmlGenerator' => $HTML,
+    'baseInformation' => $result,
+]);

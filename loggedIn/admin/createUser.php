@@ -2,9 +2,9 @@
 require_once '../../webdev/php/Generators/HTMLGenerator/Page.php';
 require_once '../../webdev/php/Generators/randomGenerator.php';
 require_once '../../webdev/php/Classes/ClassPerson.php';
+require_once '../../vendor/autoload.php';
 
 $HTML = new HTMLGenerator\Page('Create new user', ['form.css', 'userCreate.css'], ['createUser.js']);
-$HTML->outputHeader();
 global $database;
 
 if (isset($_GET['username'])) {
@@ -44,56 +44,12 @@ if (isset($_GET['username'])) {
 		}
 	}
 }
-?>
-	<h1>Create new user</h1>
-	<form method="GET" action="#" name="newUser">
-		<fieldset>
-			<legend>User information</legend>
-			<input type="text" name="username" placeholder="Username"/>
-			<br/>
-			<input type="checkbox" checked="checked" name="mailPasswd"/>
-			<label for="mailPasswd">Send the user an email to set the password</label>
-			<br/>
-			<input type="password" name="password" placeholder="Enter the password you want"/>
-		</fieldset>
-		<fieldset>
-			<legend>Basic information</legend>
-			<input type="text" name="name" placeholder="Firstname"/>
-			<input type="text" name="lastName" placeholder="Lastname"/>
-			<br/>
-			<input type="date" name="bday" min="0" max="100" placeholder="Birthday"/>
-		</fieldset>
-		<fieldset>
-			<legend>Contact information</legend>
-			<input type="text" name="street" placeholder="Street and Housenumber">
-			<br/>
-			<input type="text" name="zip" pattern="\d{5}" placeholder="ZIP Code"/>
-			<input type="text" name="city" placeholder="City"/>
-			<br/>
-			<input type="tel" name="telephone" placeholder="Telephone" value="02131-"/>
-			<br/>
-			<input type="email" name="eMail" placeholder="E-Mail Adress"/>
-		</fieldset>
-		<fieldset>
-			<legend>School information</legend>
-			<select name="type" onchange="openHidden(this)">
-				<option selected="selected">Select type...</option>
-				<option value="s">Student</option>
-				<option value="t">Teacher</option>
-				<option value="h">Headmaster</option>
-			</select>
-			<!-- if the person is a student this will be extended -->
-			<fieldset class="hidden">
-				<legend>Student information</legend>
-				<input type="checkbox" name="inSchool">
-				<label for="inSchool">Student is not in school anymore</label>
-				<input type="number" min="1" max="14" placeholder="Grade"/>
-			</fieldset>
-		</fieldset>
-		<!-- Form buttons -->
-		<button type="reset">Reset page</button>
-		<button type="submit">Create new user</button>
-	</form>
-<?php
-$HTML->outputFooter();
-?>
+
+// Rendering the template
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
+$twig = new \Twig\Environment($loader, [
+    __DIR__ . '/../../res/template_c',
+]);
+echo $twig->render('admin/create_user.html.twig', [
+    'htmlGenerator' => $HTML,
+]);

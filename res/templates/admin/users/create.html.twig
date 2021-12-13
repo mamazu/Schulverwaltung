@@ -1,0 +1,17 @@
+{% block content %}
+<h1>Create a new user</h1>
+<form method="POST" action="#">
+    <fieldset>
+        <legend>User information</legend>
+        {{ include('admin/users/_render_all_fields.html.twig', {
+            'baseInformation': baseInformation,
+            'new': true
+        }) }}
+    </fieldset>
+    <fieldset>
+        <legend>Submit and reset</legend>
+        <button type="submit">Submit</button>
+        <button type="Reset">Reset</button>
+    </fieldset>
+</form>
+{% endblock %}

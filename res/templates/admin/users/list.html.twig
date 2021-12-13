@@ -1,0 +1,40 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    {% import "master.html.twig" as self %}
+    <!-- Start of the content -->
+    <h1>List of all students and teachers</h1>
+    <hr/>
+    <form class="threeCols center" method="GET">
+	<span>Order by:
+	<select name="order">
+		{% for key, value in possibleSorters %}
+            {% set selected = (value == sortOrder) ? 'selected' : '' %}
+            <option value="{{ key }}" {{ selected }}>{{ key }}</option>
+        {% endfor %}
+	</select>
+	</span>
+        <!--<br />-->
+        <label><input type="checkbox" name="show" {% if showSystem %}checked{% endif %} class="oneColumn"/> Show
+            administrator account</label>
+        <span><button type="submit">Reoder</button></span>
+    </form>
+    <hr class="clear"/>
+    <br/>
+    <p>There are {{ result|length }} users registered.</p>
+    <table>
+        {% for row in result %}
+            {{ self.generateTableRow(
+                row|keys|merge(['Edit', 'Delete'])
+            ) }}
+            {% set extraFields = [] %}
+            {% if row['ID'] != 0 %}
+                {% set extraFields = [
+                    '<a href="change.php?id={{ id }}">Edit</a>',
+                    '<a href="delete.php?id={{ id }}">Delete</a>'
+                ] %}
+            {% endif %}
+            <tr>{{ self.generateTableRow(row|merge(extraFields)) }}</tr>
+        {% endfor %}
+    </table>
+{% endblock %}

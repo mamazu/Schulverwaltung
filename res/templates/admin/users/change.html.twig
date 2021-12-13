@@ -1,0 +1,26 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>Changing the profile</h1>
+    <form action="changeInformation.php" method="POST">
+        <input type="hidden" value="{{ userId }}" name="id"/>
+        <fieldset>
+            <legend>Main information</legend>
+            {{ include('admin/users/_render_all_fields.html.twig', {'baseInformation': baseInformation}) }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Permissions</legend>
+		    {% for permission, has in permissions %}
+		        {{ permission }}: {{ has }} <br />
+            {% endfor %}
+        </fieldset>
+        <div style="position: relative">
+            <button type="reset">Reset</button>
+            <button type="submit">Submit</button>
+            {% if userId != SESSION['id'] %}
+                <a href="delete.php?id={{ userId }}" style="position:absolute; right:0;" class="button danger">Delete user</a>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}

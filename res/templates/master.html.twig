@@ -1,0 +1,12 @@
+{% macro generateTableRow(tds) %}
+    <tr>
+        {% for td in tds %}
+            <td>{{ td|raw }}</td>
+        {% endfor %}
+    </tr>
+{% endmacro %}
+
+{{ htmlGenerator.outputHeader() }}
+{% block content %}
+{% endblock %}
+{{ htmlGenerator.outputFooter() }}

@@ -6,7 +6,6 @@ require_once '../../../webdev/php/Database/QueryBuilder.php';
 
 $HTML = new HTMLGenerator\Page('List courses', ['todo.css', 'form.css', 'table.css'], ['checkMail.js'], null, 1);
 $HTML->changeMenuFile(__DIR__ . '/../menu.php');
-$HTML->outputHeader();
 global $database;
 
 $queryBuilder = new QueryBuilder('course__overview');
@@ -50,9 +49,9 @@ $twig = new \Twig\Environment($loader, [
     __DIR__ . '/../../../res/template_c',
 ]);
 echo $twig->render('admin/course/list.html.twig', [
+    'htmlGenerator' => $HTML,
     'courseType' => $_GET['courseType'],
     'grade' => $_GET['grade'],
     'showall' => $_GET['showAll'],
     'tableRows' => $tableRows
 ]);
-$HTML->outputFooter();

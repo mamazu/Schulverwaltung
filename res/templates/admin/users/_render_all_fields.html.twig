@@ -1,0 +1,9 @@
+{% for key, value in baseInformation %}
+    {% set uKey = key|capitalize %}
+    {%  if key == 'id' or (key == 'username' and not new) %}
+        {{ uKey }}: {{ value }}<br />
+    {% else %}
+        <label for="{{ uKey }}">{{ uKey }}: </label>
+        <input name="{{ key }}" value="{{ value }}" type="text" placeholder="{{ uKey }}" id="{{ uKey }}" onchange="changed(this);"/><br />
+    {% endif %}
+{% endfor %}

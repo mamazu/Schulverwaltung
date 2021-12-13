@@ -9,7 +9,7 @@ input {
 	padding: 5px;
 }
 
-button {
+button, .button {
 	color: black;
 	background-color: gray;
 	border-color: black;

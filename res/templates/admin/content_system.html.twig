@@ -1,0 +1,25 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+<form method="GET">
+    <fieldset>
+        <legend>Functionality</legend>
+        <label for="chat"><input type="checkbox" name="chat" {% if chat %}checked{% endif %}/> Enable Chat</label>
+    </fieldset>
+    <fieldset>
+        <legend>Defaults</legend>
+        <select name="system">
+            <option value="i" {% if system == 'i' %}selected{% endif %}>Imperial</option>
+            <option value="m" {% if system == 'm' %}selected{% endif %}>Metric</option>
+        </select>
+        system
+        <br/>
+        <label><input type="checkbox" name="profilePic" {% if profile %}checked {% endif %}/> Show profile picture</label>
+    </fieldset>
+    <fieldset>
+        <legend>Submit and reset</legend>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </fieldset>
+</form>
+{% endblock %}

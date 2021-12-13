@@ -32,10 +32,16 @@ textarea {
 	padding: .25em;
 }
 
-button {
+button, .button {
 	padding: 0 1em;
 	min-width: 5em;
 	margin-top: .2em;
 	letter-spacing: .5px;
 	line-height: 2em;
+	text-decoration: none;
+}
+
+.button.danger {
+	background-color: rgba(255, 0, 0, 1);
+	color: white;
 }
