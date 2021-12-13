@@ -11,7 +11,7 @@ session_start();
 $messageID = intval($_GET['id']);
 $destination = '../read.php';
 
-if (MailManager\MailModule::userHas($_SESSION['id'], $messageID)) {
+if (Mamazu\Schulverwaltung\Modules\Mail\MailModule::userHas($_SESSION['id'], $messageID)) {
 	$stmt = $database->prepare("UPDATE user__messages SET deleted = NOW() WHERE id = ?");
 	$stmt->bind_param('i', $messageID);
 	if ($stmt->execute()) {

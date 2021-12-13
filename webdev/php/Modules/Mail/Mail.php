@@ -1,10 +1,9 @@
 <?php
 
-namespace MailManager;
+namespace Mamazu\Schulverwaltung\Modules\Mail;
 
 class Mail
 {
-
 	private $sender, $subject, $content, $sendDate, $read, $deleted;
 
 	public function __construct($sender = null, $subject = null, $content = null, $read = false, $sendDate = null, $deleteDate = null)
@@ -16,6 +15,14 @@ class Mail
 		$this->sendDate = strtotime($sendDate);
 		$this->deleted = ($deleteDate == null) ? null : strtotime($deleteDate);
 	}
+
+    public function getMessageAge(): string {
+        if ($this->getDeleteDate()) {
+            return $this->isRead() ? getTimePassed($this->getSendDate(), true) : '*';
+        }
+
+        return getTimePassed($this->getDeleteDate(), true);
+    }
 
 	public function load($id)
 	{

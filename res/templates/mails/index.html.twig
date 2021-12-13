@@ -1,0 +1,48 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+{% if  trash %}
+    <a href="index.php">
+        <button>Back to inbox</button>
+    </a>
+{% else %}
+    <a href="write.php">
+        <button>Create a new message</button>
+    </a>
+    <a href="index.php?trash" id="trashCan">
+        <button>Go to Trash</button>
+    </a>
+{% endif %}
+<h2>{% if trash %}Trash{% else %}Inbox{% endif %}</h2>
+
+{% import 'master.html.twig' as self %}
+<table id="mailTable">
+    <thead>
+        {{ self.generateTableRow(tableHeader) }}
+    </thead>
+    <tbody>
+        {% if mails.total == 0 %}
+            <tr><td colspan="4" id="emptyInbox">You have no mail{% if trash %} in your trash {% endif %}.</td></tr>
+        {% else %}
+            {% for id, message in mails.getMessages() %}
+                <tr {% if not message.isRead() %}class="unread"{% endif %}>
+                    <td><span class="new"> {{ message.messageAge }}</span></td>
+                    <td class="subject"><a href="read.php?id={{ id }}">{{ message.subject}}</a></td>
+                    <td> {{ resolveName.call(message, message.sender) }}</td>
+                    {% if trash %}
+                        {% if oneOff %}
+                            {% set oneOff = false %}
+                            {% set rotate = (messages.total > 1) ? 'class="rotate"' : '' %}
+                            <td rowspan="{{ overview.total }}" {{ rotate }}>
+                                <a href="functionality/emptyTrash.php" class="delete">Empty</a>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td><a href="functionality/delete.php?id={{ id }}" class="delete">x</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

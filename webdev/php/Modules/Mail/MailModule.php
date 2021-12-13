@@ -1,13 +1,11 @@
 <?php
 
-namespace MailManager;
+namespace Mamazu\Schulverwaltung\Modules\Mail;
 
 require_once __DIR__ . '/../../Classes/ClassPerson.php';
-require_once __DIR__ . '/Mail.php';
 
 class MailModule
 {
-
 	private $mailList = [];
 	private $trashed = false;
 
@@ -98,10 +96,7 @@ class MailModule
 	 */
 	public function getUnread()
 	{
-		$binaryArray = array_map(function ($mail) {
-			/**
-			 * @var Mail $mail
-			 */
+		$binaryArray = array_map(function (Mail $mail) {
 			return $mail->isRead();
 		}, array_values($this->mailList));
 		return array_sum($binaryArray);
@@ -119,4 +114,3 @@ class MailModule
 	}
 
 }
-

@@ -1,0 +1,43 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>New Mail</h1>
+    <a href="index.php">Go back</a>
+    <form action="functionality/send.php" method="POST" onsubmit="return checkMail();" id="mailForm">
+        <fieldset>
+            <legend>General information</legend>
+            <label>
+                <span>Subject</span>
+                <input type="text" name="subject" maxlength="100" placeholder="Subject of the message"/>
+            </label>
+            <br/>
+            <label>
+                <span>Recipients</span>
+                {% if userCanSendBulk %}
+                    <label>
+                        <input type="checkbox" value="writeBulk" name="writeAll" onchange="allReceive(this)"/>
+                        Write a message to all users
+                    </label>
+                {% endif %}
+                <select name="receiver[]" title="Name of the receiver" multiple="multiple">
+                    {% for row in receivers %}
+                        {% set selected = (row.id == selectId) ? 'selected="selected"' : '' %}
+                        <option value="{{ row.id }}" {{ selected }}>[{{ row.status }}] {{ row.name }}
+                            - {{ row.username }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Message</legend>
+            <label>
+                <textarea cols="50" rows="10" name="message">Enter your message here.</textarea>
+            </label>
+        </fieldset>
+        <fieldset id="sendDiscard">
+            <legend>Send or discard</legend>
+            <button type="reset">Reset</button>
+            <button type="submit">Send</button>
+        </fieldset>
+    </form>
+{% endblock %}
