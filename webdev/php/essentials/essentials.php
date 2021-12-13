@@ -23,7 +23,7 @@ function isIn($search, $string)
  *   Default value that should be returned if the key is not found
  *   (defaults to zero)
  */
-function array_get_value($array, $key, $default = null)
+function array_get_value(array $array, $key, $default = null)
 {
     if (array_key_exists($key, $array)) {
         return $array[$key];

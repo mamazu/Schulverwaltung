@@ -120,7 +120,8 @@ class Section
 		}
 		$queryResult = $database->query("SELECT id FROM $databaseName WHERE parent = $this->id;");
 		while ($row = $queryResult->fetch_row()) {
-			array_push($result, $row[0]);
+			$class = $this->type === 'forum' ? Section::class : Post::class;
+			$result[] = new $class($row[0]);
 		}
 		return $result;
 	}
@@ -170,5 +171,4 @@ class Section
 		$result = $database->query("INSERT INTO forum__post VALUES(NULL, $this->id, '$postContent', NOW(), NULL,  $id);");
 		return (bool)$result;
 	}
-
 }

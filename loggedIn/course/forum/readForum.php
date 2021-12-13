@@ -24,6 +24,10 @@ $type = $object->getType();
 $subType = ($type == 'forum') ? 'topic' : 'post';
 $subList = $object->getSubList();
 
+$resolveName = function (string $userId): string {
+	return ClassPerson::staticGetName((int) $userId, $_SESSION['ui']['nickName']);
+};
+
 // Rendering the template
 $HTML->render('course/forum/readForum.html.twig', [
 	'htmlGenerator' => $HTML,
@@ -31,4 +35,5 @@ $HTML->render('course/forum/readForum.html.twig', [
 	'subType' => $subType,
 	'intId' => $intId,
 	'object' => $object,
+	'resolveName' => $resolveName,
 ]);

@@ -7,7 +7,7 @@ require_once '../../../vendor/autoload.php';
 $HTML = new HTMLGenerator\Page('Topic', ['form.css', 'forum.css'], null, null, 1);
 $HTML->outputHeader();
 
-$id = array_get_value($GET, 'id', -1);
+$id = array_get_value($_GET, 'id', -1);
 $topicId = array_get_value($_GET, 'topicId', 0);
 $destination = 'readForum.php?topicId=' . $topicId;
 if ($id === 0 || $id === -1) {

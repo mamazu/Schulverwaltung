@@ -27,12 +27,13 @@ if (!isset($_POST['postMessage'])) {
 }
 
 //Gathering data
-$posterId = $_SESSION['id'];
-$messageContent = escapeStr($_POST['postMessage']);
+$posterId = (int) $_SESSION['id'];
+$messageContent = $_POST['postMessage'];
 
 //Querrying the database
-$querry = $database->query("INSERT INTO forum__post(parent, post, poster) VALUES($topicId, '$messageContent', $posterId);");
-echo $database->error;
+$stmt = $database->prepare("INSERT INTO forum__post(parent, post, poster) VALUES(? , ?, ?);");
+$stmt->bind_param('isi', $topicId, $messageContent, $posterId);
+$querry = $stmt->execute();
 
 //Evaluate querry
 if ($querry) {
@@ -40,4 +41,3 @@ if ($querry) {
 } else {
 	Message::castMessage('Could not post the message.', false, $topicPath);
 }
-?>

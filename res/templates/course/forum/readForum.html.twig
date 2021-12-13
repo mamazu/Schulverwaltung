@@ -6,11 +6,10 @@
     <p id="forumDescription">
         {{ object.getDescription() }}
         <br/>
-        <a href="settings.php?{{ type }}d={{ intId }}" class="rightAlign">Settings</a>
+        <a href="settings.php?{{ type }}Id={{ intId }}" class="rightAlign">Settings</a>
     </p>
     <hr/>
     <br/>
-
 
     <!-- Outputting the topics-->
     <div id="topicArea">
@@ -24,24 +23,20 @@
             {% else %}
                 {% for subElement in subList %}
                     {% if object.getType() == 'forum' %}
-                        $subItem = new Section($subList[$i], 'topic');
-                        $heading = '<a href="readForum.php?topicId={{ subElement->getId() }} "> {{ subElement.getName() }}</a>
+                        {% set heading = '<a href="readForum.php?topicId=' ~ subElement.getId() ~ '">' ~ subElement.getName() ~ '</a>' %}
                         {% set message = subElement.getDescription()|slice(0, 50) %}
                     {% else %}
-                        $subItem = new Post($subList[$i]);
-                        $postId = $subItem->getId();
-                        $heading = ClassPerson::staticGetName((int)$subItem->getCreator(), $_SESSION['ui']['nickName']) . ' says: ';
+                        {% set postId = subElement.getId() %}
+                        {% set heading = resolveName.call(subElement, subElement.getCreator()) ~ ' says: ' %}
                         {% set message = subElement.getMessage() %}
                     {% endif %}
                     <li>
-                        <h3><?php echo $heading; ?></h3>
+                        <h3>{{ heading|raw }}</h3>
                         <p>{{ message }}</p>
                         <br/>
-                        <?php
-					{% if postId is defined %}
-						echo '<a href="editPost.html.twig?id={{ postId }}&topicId={{ intId }}">Edit this post</a>
+                        {% if postId is defined %}
+                            <a href="editPost.php?id={{ postId }}&topicId={{ intId }}">Edit this post</a>
                         {% endif %}
-                        ?>
                     </li>
                 {% endfor %}
             {% endif %}
