@@ -43,12 +43,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('admin/course/list.html.twig', [
+$HTML->render('admin/course/list.html.twig', [
     'htmlGenerator' => $HTML,
     'courseType' => $_GET['courseType'],
     'grade' => $_GET['grade'],

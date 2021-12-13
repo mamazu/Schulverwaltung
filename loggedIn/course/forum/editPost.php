@@ -16,17 +16,10 @@ if ($id === 0 || $id === -1) {
 //todo: Check if user has the permission to do that
 $post = new Post((int)$id);
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-
-echo $twig->render('course/overview.html.twig', [
+$HTML->render('course/forum/editPost.html.twig', [
     'htmlGenerator' => $HTML,
     'id' => $id,
     'topicId' => $topicId,
     'postToEdit' => ClassPerson::staticGetName($post->getCreator()),
     'post' => $post
 ]);
-

@@ -8,12 +8,7 @@ $HTML = new HTMLGenerator\Page('Calendar', ['form.css'], ['calendar/checkEvent.j
 $startDate = isset($_GET['date']) ? intval($_GET['date']) : time();
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-
-echo $twig->render('calendar/create.html.twig', [
+$HTML->render('calendar/create.html.twig', [
     'htmlGenerator' => $HTML,
     'start' =>timeSelector('start'),
     'end' => timeSelector('end'),

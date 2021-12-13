@@ -40,11 +40,7 @@ foreach($result as $key => &$value) {
 }
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('admin/users/create.html.twig', [
+$HTML->render('admin/users/create.html.twig', [
     'htmlGenerator' => $HTML,
     'baseInformation' => $result,
 ]);

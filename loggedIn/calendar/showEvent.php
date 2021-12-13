@@ -34,13 +34,7 @@ $eventList = array_map(
     $result
 );
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-
-echo $twig->render('calendar/show_event.html.twig', [
+$HTML->render('calendar/show_event.html.twig', [
     'htmlGenerator' => $HTML,
     'dateStamp' => $datestamp,
     'eventList' => $eventList,

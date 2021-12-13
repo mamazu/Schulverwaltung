@@ -24,13 +24,7 @@ $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
 $courseList = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-
-echo $twig->render('course/overview.html.twig', [
+$HTML->render('course/overview.html.twig', [
     'htmlGenerator' => $HTML,
     'courseList' => $courseList
 ]);

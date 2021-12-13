@@ -36,13 +36,7 @@ $stmt->bind_param('ii', $_SESSION['id'], $cID);
 $stmt->execute();
 $homeworkList = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-
-echo $twig->render('course/class.html.twig', [
+$HTML->render('course/class.html.twig', [
     'htmlGenerator' => $HTML,
     'lessons' => $lessons,
     'homeworkList' => $homeworkList,

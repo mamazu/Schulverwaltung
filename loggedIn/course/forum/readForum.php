@@ -25,14 +25,10 @@ $subType = ($type == 'forum') ? 'topic' : 'post';
 $subList = $object->getSubList();
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
+$HTML->render('course/forum/readForum.html.twig', [
+	'htmlGenerator' => $HTML,
+	'type' => $type,
+	'subType' => $subType,
+	'intId' => $intId,
+	'object' => $object,
 ]);
-echo $twig->render('course/forum/readForum.html.twig', [
-    'htmlGenerator' => $HTML,
-    'type' => $type,
-    'intId' => $intId,
-    'object' => $object
-]);
-?>

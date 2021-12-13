@@ -37,11 +37,7 @@ $result = $database
     ->fetch_all(MYSQLI_ASSOC);
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('admin/users/list.html.twig', [
+$HTML->render('admin/users/list.html.twig', [
     'htmlGenerator' => $HTML,
     'possibleSorters' => $possibleSorters,
     'sortOrder' => $sortOrder,

@@ -45,11 +45,6 @@ if (isset($_GET['username'])) {
 	}
 }
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-echo $twig->render('admin/create_user.html.twig', [
+$HTML->render('admin/create_user.html.twig', [
     'htmlGenerator' => $HTML,
 ]);

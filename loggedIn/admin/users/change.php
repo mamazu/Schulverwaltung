@@ -25,11 +25,7 @@ foreach ($permResult->fetch_assoc() as $key => $value) {
 
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('admin/users/change.html.twig', [
+$HTML->render('admin/users/change.html.twig', [
     'htmlGenerator' => $HTML,
     'SESSION' => $_SESSION,
     'userId' => $id,

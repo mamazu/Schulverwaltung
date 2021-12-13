@@ -2,6 +2,8 @@
 
 namespace HTMLGenerator;
 
+use Twig\Extension\DebugExtension;
+
 require_once __DIR__ . '/Header.php';
 
 class Page extends Header
@@ -106,6 +108,18 @@ class Page extends Header
 		</body></html>';
 	}
 
+	public function render(string $templateFile, array $templateVariables = []) {
+		$resourcesDirectory = __DIR__.'/../../../../res/';
+		$loader = new \Twig\Loader\FilesystemLoader($resourcesDirectory . 'templates');
+		$twig = new \Twig\Environment($loader, [
+			$resourcesDirectory . 'template_c',
+			'debug' => true,
+			'strict_variables' => true
+		]);
+		$twig->addExtension(new DebugExtension());
+		echo $twig->render($templateFile, $templateVariables);
+	}
+
 	public function generateBreadcrumb(): array 
 	{
 		if ($this->subdir == -1) {
@@ -141,5 +155,3 @@ class Page extends Header
 	}
 
 }
-
-?>

@@ -22,12 +22,7 @@ $monthNames = array_map(
 );
 
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-echo $twig->render('calendar/index.html.twig', [
+$HTML->render('calendar/index.html.twig', [
     'htmlGenerator' => $HTML,
     'calendar' => $calendar,
     'monthNames' => $monthNames,

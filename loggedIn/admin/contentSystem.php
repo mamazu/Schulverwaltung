@@ -12,12 +12,7 @@ $chat = $settings->getChat();
 $system = $settings->getUnitSystem();
 $profilePic = $settings->getProfilePic();
 
-// Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../res/template_c',
-]);
-echo $twig->render('admin/content_system.html.twig', [
+$HTML->render('admin/content_system.html.twig', [
     'htmlGenerator' => $HTML,
     'chat' => $chat,
     'system' => $system,

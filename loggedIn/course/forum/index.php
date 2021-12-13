@@ -19,11 +19,7 @@ $stmt->execute();
 $spaces = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('course/forum/index.html.twig', [
+$HTML->render('course/forum/index.html.twig', [
     'htmlGenerator' => $HTML,
     'spaces' => $spaces,
 ]);

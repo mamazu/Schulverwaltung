@@ -13,11 +13,7 @@ $id = (int)$_GET['forumId'];
 $forum = new Section($id);
 
 // Rendering the template
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../../res/templates');
-$twig = new \Twig\Environment($loader, [
-    __DIR__ . '/../../../res/template_c',
-]);
-echo $twig->render('course/forum/newTopic.html.twig', [
+$HTML->render('course/forum/newTopic.html.twig', [
     'htmlGenerator' => $HTML,
     'id' => $id,
     'name' => $forum->getName(),
